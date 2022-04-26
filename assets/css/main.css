@@ -1,0 +1,18 @@
+/* main {
+    margin-top: 17rem;
+} */
+
+.height-4x100 {
+
+    min-height: 220px;
+}
+
+@media(min-width: 768px) {
+/*     main {
+        margin-top: 12.5rem;
+    }
+ */
+    .height-4x100 {
+        height: 400px;
+    }
+}
