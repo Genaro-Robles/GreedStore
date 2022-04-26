@@ -18,6 +18,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="<?= URL_MAIN ?>assets/css/header.css" rel="stylesheet" />
     <link href="<?= URL_MAIN ?>assets/css/main.css" rel="stylesheet" />
+    <link href="<?= URL_MAIN ?>assets/css/footer.css" rel="stylesheet" />
     <link href="<?= URL_MAIN ?>assets/css/normalize.css" rel="stylesheet" />
 </head>
 
@@ -26,13 +27,18 @@
     <!-- Navigation-->
     <header class="">
         <div class="alert alert-dark alert-dismissible fade show text-center" role="alert">
-            <div class="d-flex justify-content-around">
-                Aprovecha nuestras ofertas del Cyber Wow!.
+            <div class="d-flex justify-content-evenly">
+                <div class="fw-bolder alert-title">
+                    Aprovecha nuestras ofertas del #Cyber Wow!
+                </div>
+                <div class="fw-bolder alert-title">
+                    Envíos gratuitos a partir de $50.00
+                </div>
                 <button type="button" class="btn-closed" data-bs-dismiss="alert" aria-label="Close"><i class="uil uil-multiply"></i></button>
             </div>
         </div>
-        <nav class="container-xxl navbar navbar-expand-lg navbar-light bg-white border">
-            <div class="container px-4 px-xxl-5">
+        <nav class="container-fluid navbar navbar-expand-lg navbar-light bg-white border">
+            <div class="container-xxl px-4 px-xxl-5">
                 <a class="navbar-brand" href="<?= URL_MAIN ?>">
                     <img src="<?= URL_MAIN ?>assets/img/logo-bg-max.png" class="logo-max" alt="">
                     <img src="<?= URL_MAIN ?>assets/img/logo-bg-min.png" class="logo-min" alt="">
@@ -83,20 +89,37 @@
                 <div class="title--cart">Mi carrito</div>
                 <span class="close--cart"><i class="uil uil-multiply"></i></span>
             </div>
-            <div class="aside-body p-3 border-bottom">
-                <div class="pay-product">
-                    <div class="img-product d-flex">
-                        <img src="https://thumb.pccomponentes.com/w-85-85/articles/83/837263/1416-forgeon-adaptador-para-ventilador-de-cpu-socket-lga-1700.jpg" alt="">
-                        <div class="content-product d-flex flex-column ms-3">
-                            <p class="name-product mb-1">Adaptador para ventilador de CPU Socket LGA-1700</p>
-                            <span class="units-product">Unidades: 1</span>
-                            <span class="price-product"><strong>$1.000</strong></span>
+            <a href="" class="text-decoration-none text-dark">
+                <div class="aside-body p-3 border-bottom">
+                    <div class="pay-product">
+                        <div class="img-product d-flex">
+                            <img src="https://thumb.pccomponentes.com/w-85-85/articles/83/837263/1416-forgeon-adaptador-para-ventilador-de-cpu-socket-lga-1700.jpg" alt="">
+                            <div class="content-product d-flex flex-column ms-3">
+                                <p class="name-product mb-1">Adaptador para ventilador de CPU Socket LGA-1700</p>
+                                <span class="units-product">Unidades: 1</span>
+                                <span class="price-product"><strong>$1.000</strong></span>
+                            </div>
+                            <i class="uil uil-multiply" id="btn-delete-product-cart"></i>
                         </div>
-                        <i class="uil uil-multiply"></i>
                     </div>
                 </div>
-            </div>
-            <div class="aside-footer p-4 mt-2">
+            </a>
+            <a href="" class="text-decoration-none text-dark">
+                <div class="aside-body p-3 border-bottom">
+                    <div class="pay-product">
+                        <div class="img-product d-flex">
+                            <img src="https://thumb.pccomponentes.com/w-85-85/articles/83/837263/1416-forgeon-adaptador-para-ventilador-de-cpu-socket-lga-1700.jpg" alt="">
+                            <div class="content-product d-flex flex-column ms-3">
+                                <p class="name-product mb-1">Adaptador para ventilador de CPU Socket LGA-1700</p>
+                                <span class="units-product">Unidades: 1</span>
+                                <span class="price-product"><strong>$1.000</strong></span>
+                            </div>
+                            <i class="uil uil-multiply" id="btn-delete-product-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <div class="aside-footer p-3 mt-2">
                 <div class="pay-title flex-wrap flex-column">
                     <div class="d-flex justify-content-between pay-units-text mb-2">
                         <span class="pay-title-text-title">Unidades</span>
@@ -114,20 +137,22 @@
                 </div>
             </div>
         </aside>
-        <ul class="bg-white container-xxl d-flex flex-row justify-content-sm-around justify-content-md-around navbar-nav fsize-13 flex-wrap-reverse">
-            <li class="d-flex align-items-center fw-bold"><a href="" id="btn-category" class="fw-bold btn d-flex align-items-center fsize-13"><i class="bi bi-list icon-header"></i> Categorias</a></li>
-            <div class="categories">
-                <ul class="navbar-nav">
-                    <li><a class="dropdown-item" href="<?= URL_MAIN ?>">Todas las categorias</a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <?php
-                    foreach ($ListCat as $key => $value) : ?>
-                        <li><a class="dropdown-item" href="<?= URL_MAIN ?><?= str_replace(' ', '-', $value['nombre_categoria']) ?>"><?= $value['nombre_categoria'] ?></a></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-            <li class="d-flex align-items-center"><a href="" class="btn fsize-13">Tu <strong>tienda online experta en tecnología</strong> con un servicio 5 estrellas</a></li>
+        <ul class="bg-white container-xxl px-md-5 d-flex flex-row justify-content-sm-between navbar-nav fsize-13 flex-wrap-reverse">
+            <li class="fw-bold"><a href="" id="btn-category" class="fw-bold btn d-flex align-items-center fsize-13">
+                    <i class="bi bi-list icon-header"></i> Categorias</a>
+                <div class="categories">
+                    <ul class="navbar-nav">
+                        <li><a class="dropdown-item" href="<?= URL_MAIN ?>">Todas las categorias</a></li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <?php
+                        foreach ($ListCat as $key => $value) : ?>
+                            <li><a class="dropdown-item" href="<?= URL_MAIN ?><?= str_replace(' ', '-', $value['nombre_categoria']) ?>"><?= $value['nombre_categoria'] ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </li>
+            <li class="d-flex align-items-center"><a href="" class="btn fsize-13">Tu <strong style="color: #ff6000;">tienda online experta en tecnología</strong> con un servicio 5 estrellas</a></li>
         </ul>
     </header>

@@ -8,11 +8,44 @@
 }
 
 @media(min-width: 768px) {
-/*     main {
+
+    /*     main {
         margin-top: 12.5rem;
     }
  */
     .height-4x100 {
         height: 400px;
     }
+}
+
+main .img-product {
+    transition: 0.5s ease all;
+    width: 130px;
+    height: 100px;
+}
+
+.card {
+    transition: 0.2s ease all;
+}
+
+.lista-productos:hover .img-product {
+
+    transform: scale(1.1);
+}
+
+.card:hover {
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+    ;
+}
+
+.card {
+    padding: 1rem 0;
+}
+main .btn-add-card{
+    background-color: #ff6000;
+    color: #fff;
+}
+main .btn-add-card:hover{
+    background-color: #cc4d00;
+    color: #fff;
 }
