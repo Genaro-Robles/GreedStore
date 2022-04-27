@@ -58,11 +58,8 @@ if (isset($cat)) {
               </div>
               <!-- Product actions-->
               <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-<!--                 <div class="text-center pb-2"><a class="btn btn-outline-dark mt-auto" href="item.php?idp=<?php echo $fila['idproducto']; 
-                                                                                                          ?>&idcat=<?php echo $fila['idcategoria']; 
-                                                                                                                    ?>">Detalles</a></div> -->
-                <div class="text-center"><a id="btnid" class="btn-add-card btn mt-auto agregar-carrito" data-id="<?php //echo $fila['idproducto']; 
-                                                                                                                      ?>" href="#">Añadir al Carrito</a></div>
+                <div class="text-center"><a id="btnid" class="btn-add-card btn mt-auto agregar-carrito" 
+                data-id="<?= $value['idproducto']; ?>" href="#">Añadir al Carrito</a></div>
               </div>
             </div>
           </div>

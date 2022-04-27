@@ -35,7 +35,7 @@ $relacionados = CtrProductos::ctrListarRelacionados($idp, $producto['categoria']
         $catD = rtrim($categoria['descripcion_categoria'], '/');
         $catD = filter_var($catD, FILTER_SANITIZE_URL);
         $catD = explode('/', $catD);
-        for($i=1;$i<sizeof($catD);$i++){  ?>
+        for($i=0;$i<sizeof($catD);$i++){  ?>
             <dt class="col-sm-3"><?= $catD[$i] ?>:</dt>
             <dd class="col-sm-9"><?= $prodD[$i] ?></dd>
         <?php } ?> 
