@@ -15,28 +15,31 @@ if (isset($_GET['view'])) {
     $url = rtrim($get, '/');
     $url = filter_var($url, FILTER_SANITIZE_URL);
     $url2 = explode('/', $url);
-    
-    include 'templates/includes/header.php';
+    $excluidos = array('login', 'admin');
+
+    if (!in_array($url2[0], $excluidos)) {
+        include 'templates/includes/header.php';
+    }
 
     if (sizeof($url2) == 1) {
-        $url2[0]=str_replace('-',' ',$url2[0]);
-        if(CtrCategorias::ctrListar($url2[0])){
+        $url2[0] = str_replace('-', ' ', $url2[0]);
+        if (CtrCategorias::ctrListar($url2[0])) {
             $file = "templates/views/main.php";
             $cat = $url2[0];
-        }else{
+        } else {
             $file = "templates/views/" . $url2[0] . ".php";
         }
         if (file_exists($file)) {
-            
+
             include $file;
         } else {
             echo 'error no existe 1';
         }
     } else if (sizeof($url2) == 2) {
-        if(is_numeric($url2[1])){
+        if (is_numeric($url2[1])) {
             $file = "templates/views/" . $url2[0] . ".php";
             $idp = $url2[1];
-        }else{
+        } else {
             $file = "templates/views/" . $url2[0] . "/" . $url2[1] . ".php";
         }
         if (file_exists($file)) {
@@ -61,7 +64,9 @@ if (isset($_GET['view'])) {
     } else {
         echo 'error';
     }
-    include 'templates/includes/footer.php';
+    if (!in_array($url2[0], $excluidos)) {
+        include 'templates/includes/footer.php';
+    }
 } else if (isset($_GET['ruta'])) {
 } else {
     include 'templates/includes/header.php';
