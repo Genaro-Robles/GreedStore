@@ -57,9 +57,9 @@
 
                     <!-- Nav Item - User Information -->
                     <ul class="navbar-nav me-0 mb-2 mb-lg-0 ms-lg-1">
-                        <li class="d-flex justify-content-evenly"><a class="btn btn-header"><i class="bi bi-person icon-header"></i><span>Mi cuenta</span></a></li>
+                        <li class="d-flex justify-content-evenly"><a class="btn btn-header" href="<?=URL_MAIN?>login/iniciar-session"><i class="bi bi-person icon-header"></i><span>Mi cuenta</span></a></li>
                         <li class="d-flex justify-content-evenly">
-                            <a class="btn btn-header" id="btn-cart" href="<?= URL_MAIN ?>login">
+                            <a class="btn btn-header" id="btn-cart" href="#">
                                 <i class="bi bi-basket icon-header"></i>
                                 <span>Mi Carrito</span>
                                 <span class="c-units js-units">0</span>
