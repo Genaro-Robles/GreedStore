@@ -89,7 +89,7 @@
                 <div class="title--cart">Mi carrito</div>
                 <span class="close--cart"><i class="uil uil-multiply"></i></span>
             </div>
-            <table id="lista-carrito" class="table">
+            <table id="lista-carrito" class="">
                 <tbody><!--
                     <a href="" class="text-decoration-none text-dark">
                         <div class="aside-body p-3 border-bottom">
@@ -119,7 +119,10 @@
                         <span class="pay-title-text-price">$0.00</span>
                     </div>
                 </div>
-                <div class="pay-button my-4">
+                <div class="pay-button my-4 d-flex gap-2 flex-column">
+                    <a class="btn btn-trash" href="<?= URL_MAIN ?>login">
+                        Vaciar carrito
+                    </a>
                     <a class="btn btn-pay" href="<?= URL_MAIN ?>login">
                         Realizar pedido
                     </a>
