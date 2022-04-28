@@ -119,7 +119,10 @@
                         <span class="pay-title-text-price">$0.00</span>
                     </div>
                 </div>
-                <div class="pay-button my-4">
+                <div class="pay-button my-4 d-flex gap-2 flex-column">
+                    <a class="btn btn-trash" href="<?= URL_MAIN ?>login">
+                        Vaciar carrito
+                    </a>
                     <a class="btn btn-pay" href="<?= URL_MAIN ?>login">
                         Realizar pedido
                     </a>

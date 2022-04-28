@@ -13,7 +13,7 @@ body {
 }
 
 .alert-dark {
-    background-color: #333333;
+    background-color: #000;
     color: #fff;
 }
 
@@ -21,7 +21,7 @@ body {
 
     z-index: 2;
 
-    background-color: #333333;
+    background-color: #000;
     border: none;
 }
 
@@ -203,6 +203,18 @@ aside .btn-pay:hover {
     background-color: #cc4d00;
     color: #fff;
 }
+aside .btn-trash {
+    display: block;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    font-weight: 800;
+}
+
+aside .btn-trash:hover {
+    background-color: #1d1d1c;
+    color: #fff;
+}
 
 aside .pay-title-text span {
     font-weight: 800;
@@ -252,5 +264,5 @@ aside .aside-body i.uil.uil-multiply {
 }
 
 .bg-dark{
-    background-color: #333333!important;
+    background-color: #000!important;
 }
