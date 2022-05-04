@@ -61,7 +61,7 @@
                             <a class="btn btn-header" id="btn-cart" href="#">
                                 <i class="bi bi-basket icon-header"></i>
                                 <span>Mi Carrito</span>
-                                <span class="c-units js-units">0</span>
+                                <span class="c-units js-units carrito-unidades">0</span>
                             </a>
                         </li>
                         <li class="d-flex justify-content-evenly"><a class="btn btn-header" href="<?=URL_MAIN?>login/iniciar-session"><i class="bi bi-person icon-header"></i><span>Mi cuenta</span></a></li>
@@ -89,7 +89,7 @@
                 <div class="title--cart">Mi carrito</div>
                 <span class="close--cart"><i class="uil uil-multiply"></i></span>
             </div>
-            <table id="lista-carrito" class="">
+            <table id="lista-carrito">
                 <tbody><!--
                     <a href="" class="text-decoration-none text-dark">
                         <div class="aside-body p-3 border-bottom">
@@ -112,7 +112,7 @@
                 <div class="pay-title flex-wrap flex-column">
                     <div class="d-flex justify-content-between pay-units-text mb-2">
                         <span class="pay-title-text-title">Unidades</span>
-                        <span class="pay-title-text-units">0</span>
+                        <span class="pay-title-text-units carrito-unidades">0</span>
                     </div>
                     <div class="d-flex justify-content-between pay-title-text">
                         <span class="pay-title-text-title">Total a pagar</span>

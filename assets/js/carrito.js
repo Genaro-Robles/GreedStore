@@ -10,6 +10,9 @@ class Carrito {
             //Enviamos el producto seleccionado para tomar sus datos
             this.leerDatosProducto(producto);
             //console.log(producto);
+            var nFilas = $("#lista-carrito tr").length;
+            localStorage.setItem('cantP', nFilas);
+            $('.carrito-unidades').html("" + nFilas);
 
         }
     }
@@ -23,16 +26,16 @@ class Carrito {
             precio: producto.querySelector('#Precio span').textContent,
             id: producto.querySelector('#btnid').getAttribute('data-id'),
             cantidad: 1
-        }/*
+        }
         let productosLS;
         productosLS = this.obtenerProductosLocalStorage();
-        productosLS.forEach(function (productoLS){
-            if(productoLS.id === infoProducto.id){
+        productosLS.forEach(function (productoLS) {
+            if (productoLS.id === infoProducto.id) {
                 productosLS = productoLS.id;
             }
         });
 
-        if(productosLS === infoProducto.id){
+        if (productosLS === infoProducto.id) {
             Swal.fire({
                 icon: 'info',
                 title: 'Oops...',
@@ -41,10 +44,10 @@ class Carrito {
                 timer: 1000
             })
         }
-        else {*/
-        this.insertarCarrito(infoProducto);
-        //console.log(infoProducto);
-        //}
+        else {
+            this.insertarCarrito(infoProducto);
+            //console.log(infoProducto);
+        }
 
     }
 
@@ -78,12 +81,20 @@ class Carrito {
         e.preventDefault();
         let producto, productoID;
         if ($(e.target).hasClass('borrar-producto')) {
-            e.target.parentElement.parentElement.parentElement.parentElement.remove();
+            e.target.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
             producto = e.target.parentElement.parentElement;
             productoID = producto.querySelector('i').getAttribute('data-id');
+            
+            this.eliminarProductoLocalStorage(productoID);
+
+            var nFilas = $("#lista-carrito tr").length;
+            nFilas = nFilas <= 0 ? 0 : nFilas -= 1;
+            localStorage.setItem('cantP', nFilas);
+            $('.carrito-unidades').html("" + nFilas);
         }
-        this.eliminarProductoLocalStorage(productoID);
+        
         //this.calcularTotal();
+
 
     }
     /*
