@@ -15,11 +15,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="<?= URL_MAIN ?>assets/css/normalize.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="<?= URL_MAIN ?>assets/css/header.css" rel="stylesheet" />
     <link href="<?= URL_MAIN ?>assets/css/main.css" rel="stylesheet" />
     <link href="<?= URL_MAIN ?>assets/css/footer.css" rel="stylesheet" />
-    <link href="<?= URL_MAIN ?>assets/css/normalize.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -57,7 +57,6 @@
 
                     <!-- Nav Item - User Information -->
                     <ul class="navbar-nav me-0 mb-2 mb-lg-0 ms-lg-1">
-                        <li class="d-flex justify-content-evenly"><a class="btn btn-header" href="<?=URL_MAIN?>login/iniciar-session"><i class="bi bi-person icon-header"></i><span>Mi cuenta</span></a></li>
                         <li class="d-flex justify-content-evenly">
                             <a class="btn btn-header" id="btn-cart" href="#">
                                 <i class="bi bi-basket icon-header"></i>
@@ -65,6 +64,7 @@
                                 <span class="c-units js-units">0</span>
                             </a>
                         </li>
+                        <li class="d-flex justify-content-evenly"><a class="btn btn-header" href="<?=URL_MAIN?>login/iniciar-session"><i class="bi bi-person icon-header"></i><span>Mi cuenta</span></a></li>
                         <?php /* if($estado) { ?>
                             <li class="nav-item dropdown" id="drop-menu2">
                                 <a class="nav-link dropdown-toggle active" id="navbarDropdown2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $user ?></a>

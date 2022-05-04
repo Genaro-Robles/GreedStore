@@ -154,7 +154,7 @@ class Carrito {
             const row = document.createElement('tr');
             row.innerHTML = `
             <a href="#" class="text-decoration-none text-dark">
-                        <div class="aside-body p-3 border-bottom">
+                        <div class="aside-body p-3 border-bottom item-from-cart">
                             <div class="pay-product">
                                 <div class="img-product d-flex">
                                     <img src="${producto.imagen}" alt="">
