@@ -1,3 +1,20 @@
+<?php
+
+require_once 'app/models/mdlUsuarios.php';
+$user = new mdlUsuarios();
+if ($user::auth()) {
+    header('Location: ../');
+}
+?>
+
+<?php
+
+require_once 'app/models/mdlUsuarios.php';
+$user = new mdlUsuarios();
+if (!$user::auth() || !$user::isAdmin()) {
+    header('Location: ../');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,76 +39,80 @@
 </head>
 
 <body>
-    <!-- form login -->
-    <div class="form-container">
-        <div class="login-container">
-            <h2>Sign In</h2>
-            <form action="" id="form-login">
-                <p class="my-4">
-                <div class="input-group my-2">
-                    <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
-                        <span class="mdc-notched-outline">
-                            <span class="mdc-notched-outline__leading"></span>
-                            <span class="mdc-notched-outline__notch">
-                                <span class="mdc-floating-label" id="my-label-id">Tu correo electronico</span>
+    <main class="content-body">
+        <!-- form login -->
+        <div class="form-container">
+            <div class="login-container">
+                <h2>Sign In</h2>
+                <form action="" id="form-login">
+                    <p class="my-4">
+                    <div class="input-group my-2">
+                        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
+                            <span class="mdc-notched-outline">
+                                <span class="mdc-notched-outline__leading"></span>
+                                <span class="mdc-notched-outline__notch">
+                                    <span class="mdc-floating-label" id="my-label-id">Tu correo electronico</span>
+                                </span>
+                                <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <span class="mdc-notched-outline__trailing"></span>
-                        </span>
-                        <input class="mdc-text-field__input p-0" type="text" name="email" aria-labelledby="my-label-id" id="email">
-                        <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
-                            mail
-                        </span>
-                    </label>
-                    <p class="message_error-custom email m-0 p-0">El email no es valido</p>
-                </div>
-                </p>
-                <p class="my-4">
-                <div class="input-group my-2">
-                    <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
-                        <span class="mdc-notched-outline">
-                            <span class="mdc-notched-outline__leading"></span>
-                            <span class="mdc-notched-outline__notch">
-                                <span class="mdc-floating-label" id="my-label-id">Tu contraseña</span>
+                            <input class="mdc-text-field__input p-0" type="text" name="email" aria-labelledby="my-label-id" id="email">
+                            <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
+                                mail
                             </span>
-                            <span class="mdc-notched-outline__trailing"></span>
-                        </span>
-                        <input class="mdc-text-field__input p-0" type="password" name="password" aria-labelledby="my-label-id" id="pass">
-                        <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing visibility-password" style="user-select: none;" tabindex="0" role="button">
-                            visibility_off
-                        </span>
-                    </label>
-                    <p class="message_error-custom password m-0 p-0">La contraseña debe tener entre 8 y 16 caracteres</p>
-                </div>
-                </p>
-                <div class="options my-2">
-                    <div class="">
+                        </label>
+                        <p class="message_error-custom email m-0 p-0">El email no es valido</p>
+                    </div>
+                    </p>
+                    <p class="my-4">
+                    <div class="input-group my-2">
+                        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
+                            <span class="mdc-notched-outline">
+                                <span class="mdc-notched-outline__leading"></span>
+                                <span class="mdc-notched-outline__notch">
+                                    <span class="mdc-floating-label" id="my-label-id">Tu contraseña</span>
+                                </span>
+                                <span class="mdc-notched-outline__trailing"></span>
+                            </span>
+                            <input class="mdc-text-field__input p-0" type="password" name="password" aria-labelledby="my-label-id" id="pass">
+                            <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing visibility-password" style="user-select: none;" tabindex="0" role="button">
+                                visibility_off
+                            </span>
+                        </label>
+                        <p class="message_error-custom password m-0 p-0">La contraseña debe tener entre 8 y 16 caracteres</p>
+                    </div>
+                    </p>
+                    <div class="options my-2">
+                        <div class="">
 
+                        </div>
+                        <div class="">
+                            <a href="">Olvidaste tu contraseña?</a>
+                        </div>
                     </div>
-                    <div class="">
-                        <a href="">Olvidaste tu contraseña?</a>
+                    <p class="my-0">
+                        <button type="submit" class="btn btn-login">Login</button>
+                    </p>
+                    <div class="providers my-4">
+                        <span>Otros métodos de autentificación</span>
+                        <button class="btn btn-google d-flex justify-content-center gap-4"><i class="bi bi-google"></i> Google</button>
+                        <button class="btn btn-facebook d-flex justify-content-center gap-4"><i class="bi bi-facebook"></i> Facebook</button>
+                        <button class="btn btn-github d-flex justify-content-center gap-4"><i class="bi bi-github"></i> Github</button>
                     </div>
-                </div>
-                <p class="my-0">
-                    <button type="submit" class="btn btn-login">Login</button>
-                </p>
-                <div class="providers my-4">
-                    <span>Otros métodos de autentificación</span>
-                    <button class="btn btn-google d-flex justify-content-center gap-4"><i class="bi bi-google"></i> Google</button>
-                    <button class="btn btn-facebook d-flex justify-content-center gap-4"><i class="bi bi-facebook"></i> Facebook</button>
-                    <button class="btn btn-github d-flex justify-content-center gap-4"><i class="bi bi-github"></i> Github</button>
-                </div>
-                <p class="m-0">
-                    <a href="<?= URL_MAIN ?>login/register" class="btn">No tienes cuenta? Registrate</a>
-                </p>
-            </form>
+                    <p class="m-0">
+                        <a href="<?= URL_MAIN ?>login/register" class="btn">No tienes cuenta? Registrate</a>
+                    </p>
+                </form>
+            </div>
         </div>
-    </div>
+    </main>
     <!-- Required Material Web JavaScript library -->
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <!-- Instantiate single textfield component rendered in the document -->
     <script src="<?= URL_MAIN ?>assets/js/material-desing.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- sweetalert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- jQuery validate-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <!-- form validation -->
