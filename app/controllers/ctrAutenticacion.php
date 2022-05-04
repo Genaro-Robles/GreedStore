@@ -1,13 +1,14 @@
 <?php
 require_once '../models/mdlAutenticacion.php';
+require_once '../models/mdlUsuarios.php';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    switch($_GET['action']){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    switch ($_GET['action']) {
         case 'register':
-            $respuesta = MdlAutenticacion::mdlUsuarioExiste($_POST['correo']);
-            if(is_array($respuesta) == true && count($respuesta) > 0){
+            $respuesta = MdlAutenticacion::mdlCorreoExiste($_POST['correo']);
+            if (is_array($respuesta) == true && count($respuesta) > 0) {
                 echo '0';
-            }else{
+            } else {
                 if (isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']) && isset($_POST['edad']) && isset($_POST['pass'])) {
                     if ($_POST['nombre'] != "" && $_POST['correo'] != "" && $_POST['celular'] != "" && $_POST['edad'] != "" && $_POST['pass'] != "") {
                         $datos = array(
@@ -32,6 +33,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     $respuesta = "error no existe";
                     echo $respuesta;
                 }
+            }
+            break;
+        case 'login':
+            $respuesta = MdlAutenticacion::mdlCorreoExiste($_POST['correo']);
+            if (is_array($respuesta) == true && count($respuesta) > 0) {
+                if(password_verify($_POST['pass'], $respuesta['pass'])){
+                    $user = new mdlUsuarios();
+                    $user::setSessionUser($respuesta['correo'], $respuesta['nombre_apellido'], $respuesta['id_rol'], true);
+                    echo "1";
+                }else{
+                    echo "0";
+                }
+            } else {
+                echo "0";
             }
             break;
     }

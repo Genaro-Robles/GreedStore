@@ -6,11 +6,11 @@ class MdlAutenticacion
                 LISTAR
         ************************ */
 
-    public static function mdlUsuarioExiste($correo)
+    public static function mdlCorreoExiste($correo)
     {
         require_once "conexion.php";
         $correo = filter_var($correo, FILTER_SANITIZE_EMAIL);
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM usuarios where correo = :correo");
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM usuarios where correo = :correo and estado = 1");
         $stmt->bindParam(":correo", $correo, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -36,4 +36,5 @@ class MdlAutenticacion
 
         $stmt = null;
     }
+
 }

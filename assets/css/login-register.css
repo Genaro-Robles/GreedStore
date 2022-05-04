@@ -2,7 +2,7 @@
 
 
 
-body {
+.content-body {
     font-size: 80%;
     font-family: 'Ubuntu', sans-serif;
     display: flex;

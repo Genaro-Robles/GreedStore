@@ -273,3 +273,8 @@ aside .aside-body i.uil.uil-multiply {
 aside .item-from-cart:hover {
     background: #f3eeee;
 }
+
+
+ul.dropdown-menu.shadow.text-small.show{
+    padding: 1rem!important;
+}

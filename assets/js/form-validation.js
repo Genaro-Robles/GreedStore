@@ -73,6 +73,32 @@ if (form_login) {
 
     form_login.addEventListener('submit', function (e) {
         e.preventDefault();
+
+        if (fields.password && fields.email) {
+
+            let correo = $("[name=email]").val();
+            let pass = $("[name=password]").val();
+
+            $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacion.php?action=login", { correo, pass }, function (data) {
+
+                if (data == 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Verifique sus credenciales'
+                    })
+                } else {
+
+                    window.location.href = "http://localhost/GreedStore";
+                }
+            })
+
+            //form_register.reset();
+
+        } else {
+            alert("Por favor completa todos los campos");
+        }
+
     });
 } else {
     inputsRegister.forEach(input => {
@@ -82,7 +108,7 @@ if (form_login) {
 
     form_register.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (fields.name && fields.email && fields.name && fields.phone && fields.age) {
+        if (fields.name && fields.email && fields.password && fields.phone && fields.age) {
 
             let nombre = $("[name=name]").val();
             let correo = $("[name=email]").val();
@@ -91,13 +117,22 @@ if (form_login) {
             let edad = $("[name=age]").val();
 
 
-            $.post("http://localhost/GreedStore/app/controllers/ctrRegister.php?action=register", { nombre, correo, pass, celular, edad }, function (data) {
+            $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacion.php?action=register", { nombre, correo, pass, celular, edad }, function (data) {
 
                 if (data == 0) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'El correo ya se encuentra registrado'
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Registro exitoso',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        window.location.href = "http://localhost/GreedStore/login/iniciar-session";
                     })
                 }
             })
