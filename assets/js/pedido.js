@@ -19,16 +19,7 @@ function cargarEventos() {
 	}
 	//Se ejecuta cuando se presionar agregar carrito
 	$('.lista-productos').click(function (e) {
-		e.preventDefault();
 		carro.comprarProducto(e);
-
-		$(".aside-cart").addClass("aside-cart--active");
-		setTimeout(function () {
-			$(".aside-cart").removeClass("aside-cart--active");
-		}, 3000);
-		//var nFilas = $("#lista-carrito tr").length - 1;
-		//localStorage.setItem('cantP', nFilas);
-		//$('#carrito-cant').html("" + nFilas);
 
 	});
 

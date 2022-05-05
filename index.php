@@ -1,13 +1,15 @@
 <?php
-
-//configuracion::configuracion_inicial();
-
 const URL_MAIN = "http://localhost/GreedStore/";
+?>
+<script>const urlLocation= 'http://localhost/GreedStore/';</script>
+<?php
+require_once "app/config/config.php";
 require_once "app/models/mdlProductos.php";
 require_once "app/controllers/ctrProductos.php";
 require_once "app/models/mdlCategorias.php";
 require_once "app/controllers/ctrCategorias.php";
 $ListCat = CtrCategorias::ctrListar('');
+configuracion::configuracion_inicial();
 
 if (isset($_GET['view'])) {
 
@@ -19,6 +21,11 @@ if (isset($_GET['view'])) {
 
     if (!in_array($url2[0], $excluidos)) {
         include 'templates/includes/header.php';
+    } else {
+        $header = "templates/includes/header" . $url2[0] . ".php";
+        if (file_exists($header)) {
+            include $header;
+        }
     }
 
     if (sizeof($url2) == 1) {
@@ -66,7 +73,12 @@ if (isset($_GET['view'])) {
     }
     if (!in_array($url2[0], $excluidos)) {
         include 'templates/includes/footer.php';
-    }
+    }else{
+        $footer = "templates/includes/footer" . $url2[0] . ".php";
+        if(file_exists($footer)){
+            include $footer;
+            }
+        }
 } else if (isset($_GET['ruta'])) {
 } else {
     include 'templates/includes/header.php';

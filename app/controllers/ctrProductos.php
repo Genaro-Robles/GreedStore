@@ -19,26 +19,44 @@ class CtrProductos
             LISTAR POR ID
         ************************ */
 
-        public static function ctrListarItem($id)
-        {
-    
-            $respuesta = MdlProductos::mdlListarItem($id);
-    
-            return $respuesta;
-        }
+    public static function ctrListarItem($id)
+    {
+
+        $respuesta = MdlProductos::mdlListarItem($id);
+
+        return $respuesta;
+    }
 
     /*  ************************
             LISTAR RELACIONADOS
         ************************ */
 
-        public static function ctrListarRelacionados($id,$categoria)
-        {
-    
-            $respuesta = MdlProductos::mdlListarRelacionados($id,$categoria);
-    
-            return $respuesta;
+    public static function ctrListarRelacionados($id, $categoria)
+    {
+
+        $respuesta = MdlProductos::mdlListarRelacionados($id, $categoria);
+
+        return $respuesta;
+    }
+
+    /*  ************************
+            LISTAR POR
+        ************************ */
+
+    public static function ctrListarPor()
+    {
+        if(isset($_POST['nombre']) && isset($_POST['orden'])){
+        $nombre=$_POST['nombre'];
+        $orden=$_POST['orden'];
+        }else{
+            $nombre = '';
+            $orden = '';
         }
-    
+        $respuesta = MdlProductos::mdlListarPor($nombre, $orden);
+
+        echo $respuesta;
+    }
+
 
     /*  ************************
             REGISTRAR

@@ -42,18 +42,81 @@ class MdlProductos
                 LISTAR RELACIONADOS
         ******************************* */
 
-        public static function mdlListarRelacionados($id,$categoria)
-        {
-            require_once "conexion.php";
-            $stmt = Conexion::conectar()->prepare("SELECT * FROM productos where categoria = :categoria AND idproducto != :producto");
-            $stmt->bindParam(":producto", $id, PDO::PARAM_STR);
-            $stmt->bindParam(":categoria", $categoria, PDO::PARAM_STR);
-            $stmt->execute();
-    
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-            $stmt = null;
+    public static function mdlListarRelacionados($id, $categoria)
+    {
+        require_once "conexion.php";
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM productos where categoria = :categoria AND idproducto != :producto");
+        $stmt->bindParam(":producto", $id, PDO::PARAM_STR);
+        $stmt->bindParam(":categoria", $categoria, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt = null;
+    }
+
+    /*  ************************
+                LISTAR POR
+        ************************ */
+
+    public static function mdlListarPor($nombre, $orden)
+    {
+        require_once "conexion.php";
+        $consulta = "SELECT p.*,c.nombre_categoria FROM productos p inner join categorias c on p.categoria=c.idcategoria";
+        $stmt = Conexion::conectar()->prepare($consulta);
+        if($nombre != "" && $orden != "Sin filtro"){
+            $stmt = Conexion::conectar()->prepare($consulta);
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':orden', $orden, PDO::PARAM_STR);
+        } else if ($nombre != "") {
+            $consulta .= " where p.nombre LIKE :nombre";
+            $nombre = "%" . $nombre . "%";
+            $stmt = Conexion::conectar()->prepare($consulta);
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+        } else if ($orden != "Sin filtro") {
+            $consulta .= " order by :orden";
+            $stmt = Conexion::conectar()->prepare($consulta);
+            $stmt->bindParam(':orden', $orden, PDO::PARAM_STR);
         }
+        //var_dump($consulta);
+        $stmt->execute();
+
+        $salida = "";
+        if ($stmt->rowCount() > 0) {
+            $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $salida .= "<table class='table table-hover'>
+            <thead>
+              <th>NOMBRE</th>
+              <th>IMAGEN</th>
+              <th>CATEGORIA</th>
+              <th>STOCK</th>
+              <th>PRECIO</th>
+              <th></th>
+            </thead>
+            <tbody>";
+            foreach ($productos as $key => $value) {
+                $salida .= "<tr>
+                <td>" . $value['nombre'] . "</td>
+                <td><img class='' width='203px' id='FotoP' height='136px' src='data:image/png;base64," . base64_encode($value['imagen']) . "' /></td>
+                <td>" . $value['nombre_categoria'] . "</td>
+                <td>" . $value['stock'] . "</td>
+                <td>" . $value['precio'] . "</td>
+                <td>
+                  <a href='#' class='btn btn-success'>Actualizar</a>
+                  <a href='#' class='btn btn-danger'>Eliminar</a>
+                </td>
+              </tr>";
+            }
+            $salida .= "</tbody>
+            </table>";
+        } else {
+            $salida .= "No hay datos";
+        }
+
+        return $salida;
+
+        $stmt = null;
+    }
 
 
     public static function mdlCrearUsuario($datos)
