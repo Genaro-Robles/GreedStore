@@ -203,6 +203,7 @@ aside .btn-pay:hover {
     background-color: #cc4d00;
     color: #fff;
 }
+
 aside .btn-trash {
     display: block;
     width: 100%;
@@ -248,7 +249,7 @@ aside .aside-body i.uil.uil-multiply {
     color: #fff;
 }
 
-.img-product img{
+.img-product img {
     width: 64px;
     height: 64px;
 }
@@ -257,12 +258,23 @@ aside .aside-body i.uil.uil-multiply {
     font-size: .8rem;
     color: #737373;
     font-weight: 700;
-}	
-.alert-title{
+}
+
+.alert-title {
     font-size: .8rem;
     font-weight: 700;
 }
 
-.bg-dark{
-    background-color: #000!important;
+.bg-dark {
+    background-color: #000 !important;
+}
+
+
+aside .item-from-cart:hover {
+    background: #f3eeee;
+}
+
+
+ul.dropdown-menu.shadow.text-small.show{
+    padding: 1rem!important;
 }

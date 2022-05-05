@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+
+
+.content-body {
+    font-size: 80%;
+    font-family: 'Ubuntu', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgb(208, 206, 206);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: top;
+    background-image: url(http://bit.ly/2gPLxZ4);
+    -webkit-font-smoothing: antialiased;
+}
+
+.form-container {
+    background-color: #fff;
+    width: 35%;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 95%;
+    display: flex;
+    align-items: center;
+}
+
+.form-container .login-container {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.form-container .login-container>h2 {
+    font-size: 2.2rem;
+    color: #000;
+    text-align: center;
+    margin: 0;
+}
+
+.form-container .login-container>p,
+.form-container .login-container>span {
+    text-align: center;
+    color: #555;
+}
+
+.form-container .login-container .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-container a {
+    display: block;
+    text-align: center;
+    color: #000;
+    text-transform: capitalize;
+}
+
+.form-container a:hover {
+    color: #2374e1;
+    text-decoration: underline;
+}
+
+.form-container .login-container .providers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn.btn-login {
+    background-color: #000;
+    color: #fff;
+}
+
+.btn.btn-login:hover {
+    background-color: #222;
+    color: #fff;
+}
+
+.btn.btn-facebook {
+    background-color: rgb(10, 69, 182);
+    color: #fff;
+}
+.btn.btn-github {
+    background-color: #22272e;
+    color: #fff;
+}
+
+.btn.btn-github:hover {
+    background-color: #2d333b;
+    color: #fff;
+}
+.btn.btn-facebook:hover {
+    background-color: #2374e1;
+    color: #fff;
+}
+
+.btn.btn-google {
+    background-color: white;
+    color: #000;
+    border: solid 1px #ccc;
+}
+
+.btn.btn-google:hover {
+    background-color: rgb(239, 239, 239);
+}
+
+@media(max-width: 1250px) {
+    .form-container {
+        width: 50%;
+    }
+}
+
+@media(max-width: 1040px) {
+    .form-container {
+        width: 60%;
+    }
+}
+
+@media(max-width: 850px) {
+    .form-container {
+        width: 75%;
+    }
+}
+
+@media(max-width: 740px) {
+    .form-container {
+        width: 85%;
+    }
+
+    .form-container .login-container {
+        width: 350px;
+    }
+}
+
+@media(max-width: 570px) {
+    .form-container {
+        width: 95%;
+        ;
+    }
+
+    .form-container .login-container {
+        width: 300px;
+    }
+}
+
+p.message_error-custom {
+    position: absolute;
+    top: 0;
+    top: 55px;
+    color: #b00020;
+    font-weight: 400;
+}

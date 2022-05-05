@@ -15,14 +15,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="<?= URL_MAIN ?>assets/css/normalize.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="<?= URL_MAIN ?>assets/css/header.css" rel="stylesheet" />
     <link href="<?= URL_MAIN ?>assets/css/main.css" rel="stylesheet" />
     <link href="<?= URL_MAIN ?>assets/css/footer.css" rel="stylesheet" />
-    <link href="<?= URL_MAIN ?>assets/css/normalize.css" rel="stylesheet" />
 </head>
 
 <body>
+
+    <?php
+    require_once 'app/models/mdlUsuarios.php';
+    $user = new mdlUsuarios();
+    ?>
 
     <!-- Navigation-->
     <header class="">
@@ -57,7 +62,7 @@
 
                     <!-- Nav Item - User Information -->
                     <ul class="navbar-nav me-0 mb-2 mb-lg-0 ms-lg-1">
-                        <li class="d-flex justify-content-evenly"><a class="btn btn-header" href="<?=URL_MAIN?>login/iniciar-session"><i class="bi bi-person icon-header"></i><span>Mi cuenta</span></a></li>
+
                         <li class="d-flex justify-content-evenly">
                             <a class="btn btn-header" id="btn-cart" href="#">
                                 <i class="bi bi-basket icon-header"></i>
@@ -65,6 +70,35 @@
                                 <span class="c-units js-units carrito-unidades">0</span>
                             </a>
                         </li>
+                        <?php
+                        if ($user::auth()) :
+                        ?>
+                            <li class="d-flex justify-content-evenly align-items-center">
+
+                                <div class="dropdown">
+                                    <a class="btn dropdown-toggle btn btn-header" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                                        <?php echo $user::getSessionUserName() ?>
+                                    </a>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                        <li><a class="dropdown-item" href="#">Favoritos</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="<?= URL_MAIN ?>login/logout">Cerrar sesión</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                        <?php
+                        else :
+                        ?>
+                            <li class="d-flex justify-content-evenly"><a class="btn btn-header" href="<?= URL_MAIN ?>login/iniciar-session"><i class="bi bi-person icon-header"></i><span>Mi cuenta</span></a></li>
+                        <?php
+                        endif;
+                        ?>
                         <?php /* if($estado) { ?>
                             <li class="nav-item dropdown" id="drop-menu2">
                                 <a class="nav-link dropdown-toggle active" id="navbarDropdown2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $user ?></a>
@@ -90,7 +124,8 @@
                 <span class="close--cart"><i class="uil uil-multiply"></i></span>
             </div>
             <table id="lista-carrito">
-                <tbody><!--
+                <tbody>
+                    <!--
                     <a href="" class="text-decoration-none text-dark">
                         <div class="aside-body p-3 border-bottom">
                             <div class="pay-product">
@@ -130,20 +165,23 @@
             </div>
         </aside>
         <ul class="bg-white container-xxl px-md-5 d-flex flex-row justify-content-sm-between navbar-nav fsize-13 flex-wrap-reverse">
-            <li class="fw-bold"><a href="" id="btn-category" class="fw-bold btn d-flex align-items-center fsize-13">
-                    <i class="bi bi-list icon-header"></i> Categorias</a>
-                <div class="categories">
-                    <ul class="navbar-nav">
-                        <li><a class="dropdown-item" href="<?= URL_MAIN ?>">Todas las categorias</a></li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <?php
-                        foreach ($ListCat as $key => $value) : ?>
-                            <li><a class="dropdown-item" href="<?= URL_MAIN ?><?= str_replace(' ', '-', $value['nombre_categoria']) ?>"><?= $value['nombre_categoria'] ?></a></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+            <li class="fw-bold">
+                <button id="btn-category" class="fw-bold btn d-flex align-items-center fsize-13">
+                    <i class="bi bi-list icon-header"></i>
+                    Categorias
+                </button>
+                    <div class="categories">
+                        <ul class="navbar-nav">
+                            <li><a class="dropdown-item" href="<?= URL_MAIN ?>">Todas las categorias</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <?php
+                            foreach ($ListCat as $key => $value) : ?>
+                                <li><a class="dropdown-item" href="<?= URL_MAIN ?><?= str_replace(' ', '-', $value['nombre_categoria']) ?>"><?= $value['nombre_categoria'] ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
             </li>
             <li class="d-flex align-items-center"><a href="" class="btn fsize-13">Tu <strong style="color: #ff6000;">tienda online experta en tecnología</strong> con un servicio 5 estrellas</a></li>
         </ul>
