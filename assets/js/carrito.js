@@ -10,9 +10,15 @@ class Carrito {
             //Enviamos el producto seleccionado para tomar sus datos
             this.leerDatosProducto(producto);
             //console.log(producto);
+            //Contador
             var nFilas = $("#lista-carrito tr").length;
             localStorage.setItem('cantP', nFilas);
             $('.carrito-unidades').html("" + nFilas);
+            //animacion carrito
+            $(".aside-cart").addClass("aside-cart--active");
+            setTimeout(function () {
+                $(".aside-cart").removeClass("aside-cart--active");
+            }, 3000);
 
         }
     }
@@ -84,7 +90,7 @@ class Carrito {
             e.target.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
             producto = e.target.parentElement.parentElement;
             productoID = producto.querySelector('i').getAttribute('data-id');
-            
+
             this.eliminarProductoLocalStorage(productoID);
 
             var nFilas = $("#lista-carrito tr").length;
@@ -92,7 +98,7 @@ class Carrito {
             localStorage.setItem('cantP', nFilas);
             $('.carrito-unidades').html("" + nFilas);
         }
-        
+
         //this.calcularTotal();
 
 
