@@ -7,14 +7,6 @@ if ($user::auth()) {
 }
 ?>
 
-<?php
-
-require_once 'app/models/mdlUsuarios.php';
-$user = new mdlUsuarios();
-if (!$user::auth() || !$user::isAdmin()) {
-    header('Location: ../');
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,12 +47,12 @@ if (!$user::auth() || !$user::isAdmin()) {
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input class="mdc-text-field__input p-0" type="text" name="email" aria-labelledby="my-label-id" id="email">
+                            <input class="mdc-text-field__input p-0" type="email" name="email" aria-labelledby="my-label-id" id="correo">
                             <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
                                 mail
                             </span>
                         </label>
-                        <p class="message_error-custom email m-0 p-0">El email no es valido</p>
+                        <p class="message_error-custom email m-0 p-0"></p>
                     </div>
                     </p>
                     <p class="my-4">
@@ -78,7 +70,7 @@ if (!$user::auth() || !$user::isAdmin()) {
                                 visibility_off
                             </span>
                         </label>
-                        <p class="message_error-custom password m-0 p-0">La contraseña debe tener entre 8 y 16 caracteres</p>
+                        <p class="message_error-custom password m-0 p-0"></p>
                     </div>
                     </p>
                     <div class="options my-2">
