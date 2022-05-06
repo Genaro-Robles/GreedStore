@@ -153,6 +153,12 @@ if ($user::auth()) {
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- jQuery validate-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+    
     <!-- form validation -->
     <script src="<?= URL_MAIN ?>assets/js/form-validation.js"></script>
 </body>

@@ -86,7 +86,7 @@ if ($user::auth()) {
                     </p>
                     <div class="providers my-4">
                         <span>Otros métodos de autentificación</span>
-                        <button class="btn btn-google d-flex justify-content-center gap-4"><i class="bi bi-google"></i> Google</button>
+                        <button class="btn btn-google d-flex justify-content-center gap-4" id="btn_login--gmail"><i class="bi bi-google"></i> Google</button>
                         <button class="btn btn-facebook d-flex justify-content-center gap-4"><i class="bi bi-facebook"></i> Facebook</button>
                         <button class="btn btn-github d-flex justify-content-center gap-4"><i class="bi bi-github"></i> Github</button>
                     </div>
@@ -107,6 +107,12 @@ if ($user::auth()) {
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- jQuery validate-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+
     <!-- form validation -->
     <script src="<?= URL_MAIN ?>assets/js/form-validation.js"></script>
 </body>
