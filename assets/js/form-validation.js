@@ -12,29 +12,29 @@ const expresiones = {
     name: /^[ÁÉÍÓÚA-Z][a-záéíóú]+(\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$/
 }
 const fields = {
-    password: false,
-    email: false,
-    name: false,
-    phone: false,
-    age: false
+    password: { estado: false, message: "La contraseña debe tener entre 8 y 16 caracteres" },
+    email: { estado: false, message: "El email no es valido" },
+    name: { estado: false, message: "El nombre no es valido" },
+    phone: { estado: false, message: "El número de celular no es valido" },
+    age: { estado: false, message: "Debes ser mayor de edad" }
 }
 const validateForm = (e) => {
 
     switch (e.target.name) {
         case 'password':
-            validar(expresiones.password, e.target.value, e.target, 'password', "La contraseña debe tener entre 8 y 16 caracteres");
+            validar(expresiones.password, e.target.value, e.target, e.target.name, fields[e.target.name].message);
             break;
         case 'email':
-            validar(expresiones.email, e.target.value, e.target, 'email', "El email no es valido");
+            validar(expresiones.email, e.target.value, e.target, e.target.name, fields[e.target.name].message);
             break;
         case 'name':
-            validar(expresiones.name, e.target.value, e.target, 'name', "El nombre no es valido");
+            validar(expresiones.name, e.target.value, e.target, e.target.name, fields[e.target.name].message);
             break;
         case 'phone':
-            validar(expresiones.phone, e.target.value, e.target, 'phone', "El número de celular no es valido");
+            validar(expresiones.phone, e.target.value, e.target, e.target.name, fields[e.target.name].message);
             break;
         case 'age':
-            validar(expresiones.age, e.target.value, e.target, 'age', "Debes ser mayor de edad");
+            validar(expresiones.age, e.target.value, e.target, e.target.name, fields[e.target.name].message);
             break;
     }
 }
@@ -44,25 +44,26 @@ const validar = (expresion, val, input, field, message) => {
         if (expresion.test(val)) {
             $(input.parentNode).removeClass("mdc-text-field--invalid")
             $(`p.${field}`).hide();
-            fields[field] = true;
+            fields[field].estado = true;
         } else {
             $(input.parentNode).addClass("mdc-text-field--invalid")
             $(`p.${field}`).html(message)
             $(`p.${field}`).show();
-            fields[field] = false;
+            fields[field].estado = false;
         }
     } else {
         if (val >= 18) {
             $(input.parentNode).removeClass("mdc-text-field--invalid")
             $(`p.${field}`).hide();
-            fields[field] = true;
+            fields[field].estado = true;
         } else {
             $(input.parentNode).addClass("mdc-text-field--invalid")
             $(`p.${field}`).html(message)
             $(`p.${field}`).show();
-            fields[field] = false;
+            fields[field].estado = false;
         }
     }
+
 }
 
 if (form_login) {
@@ -74,10 +75,12 @@ if (form_login) {
     form_login.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        if (fields.password && fields.email) {
+        if (fields.password.estado && fields.email.estado) {
 
-            let correo = $("[name=email]").val();
-            let pass = $("[name=password]").val();
+
+            let correo = $("[name=email]").val().trim();
+            let pass = $("[name=password]").val().trim();
+
 
             $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacion.php?action=login", { correo, pass }, function (data) {
 
@@ -85,18 +88,18 @@ if (form_login) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Verifique sus credenciales'
+                        text: 'Verifique sus datos',
                     })
                 } else {
 
-                    window.location.href = "http://localhost/GreedStore";
+                    window.location.href = "http://localhost/GreedStore/";
                 }
             })
-
-            //form_register.reset();
-
+            form_login.reset();
         } else {
-            alert("Por favor completa todos los campos");
+            inputsLogin.forEach(input => {
+                validar(expresiones[input.name], input.value, input, input.name, fields[input.name].message);
+            })
         }
 
     });
@@ -108,7 +111,7 @@ if (form_login) {
 
     form_register.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (fields.name && fields.email && fields.password && fields.phone && fields.age) {
+        if (fields.name && fields.email.estado && fields.password.estado && fields.phone && fields.age) {
 
             let nombre = $("[name=name]").val();
             let correo = $("[name=email]").val();
@@ -140,7 +143,9 @@ if (form_login) {
             form_register.reset();
 
         } else {
-            alert("Por favor completa todos los campos");
+            inputsRegister.forEach(input => {
+                validar(expresiones[input.name], input.value, input, input.name, fields[input.name].message);
+            })
         }
     });
 }

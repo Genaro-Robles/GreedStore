@@ -47,7 +47,7 @@ if ($user::auth()) {
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input class="mdc-text-field__input p-0" type="text" name="name" aria-labelledby="my-label-id" id="nombre" required>
+                            <input class="mdc-text-field__input p-0" type="text" name="name" aria-labelledby="my-label-id" id="nombre">
                             <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
                                 face
                             </span>
@@ -65,7 +65,7 @@ if ($user::auth()) {
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input class="mdc-text-field__input p-0" type="email" name="email" aria-labelledby="my-label-id" id="correo" required>
+                            <input class="mdc-text-field__input p-0" type="email" name="email" aria-labelledby="my-label-id" id="correo">
                             <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
                                 mail
                             </span>
@@ -83,7 +83,7 @@ if ($user::auth()) {
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input class="mdc-text-field__input p-0" type="tel" name="phone" aria-labelledby="my-label-id" id="celular" required>
+                            <input class="mdc-text-field__input p-0" type="tel" name="phone" aria-labelledby="my-label-id" id="celular">
                             <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
                                 phone_android
                             </span>
@@ -101,7 +101,7 @@ if ($user::auth()) {
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input class="mdc-text-field__input p-0" type="number" name="age" aria-labelledby="my-label-id" id="edad" required>
+                            <input class="mdc-text-field__input p-0" type="number" name="age" aria-labelledby="my-label-id" id="edad">
                             <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
                                 calendar_month
                             </span>
@@ -119,7 +119,7 @@ if ($user::auth()) {
                                 </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input class="mdc-text-field__input p-0" type="password" name="password" aria-labelledby="my-label-id" id="pass" required>
+                            <input class="mdc-text-field__input p-0" type="password" name="password" aria-labelledby="my-label-id" id="pass">
                             <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing visibility-password" style="user-select: none;" tabindex="0" role="button">
                                 visibility_off
                             </span>
@@ -143,7 +143,7 @@ if ($user::auth()) {
             </div>
         </div>
     </main>
-    <!-- Required Material Web JavaScript library -->
+    <!-- Material Web JavaScript library -->
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <!-- Instantiate single textfield component rendered in the document -->
     <script src="<?= URL_MAIN ?>assets/js/material-desing.js"></script>
