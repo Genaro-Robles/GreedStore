@@ -126,7 +126,7 @@
             </div>
             <table id="lista-carrito">
                 <tbody>
-                    <!--
+                    <!-- 
                     <a href="" class="text-decoration-none text-dark">
                         <div class="aside-body p-3 border-bottom">
                             <div class="pay-product">
@@ -135,13 +135,13 @@
                                     <div class="content-product d-flex flex-column ms-3">
                                         <p class="name-product mb-1">Adaptador para ventilador de CPU Socket LGA-1700</p>
                                         <span class="units-product">Unidades: 1</span>
-                                        <span class="price-product"><strong>$1.000</strong></span>
+                                        <span class="price-product">S/.<strong>1.000</strong></span>
                                     </div>
                                     <i class="uil uil-multiply" id="btn-delete-product-cart"></i>
                                 </div>
                             </div>
                         </div>
-                    </a>-->
+                    </a> -->
                 </tbody>
             </table>
             <div class="aside-footer p-3 mt-2">
@@ -152,14 +152,14 @@
                     </div>
                     <div class="d-flex justify-content-between pay-title-text">
                         <span class="pay-title-text-title">Total a pagar</span>
-                        <span class="pay-title-text-price">$0.00</span>
+                        <span class="pay-title-text-price">S/.0.00</span>
                     </div>
                 </div>
                 <div class="pay-button my-4 d-flex gap-2 flex-column">
-                    <a class="btn btn-trash" href="<?= URL_MAIN ?>login">
+                    <a class="btn btn-trash" href="#">
                         Vaciar carrito
                     </a>
-                    <a class="btn btn-pay" href="<?= URL_MAIN ?>login">
+                    <a class="btn btn-pay" href="#">
                         Realizar pedido
                     </a>
                 </div>

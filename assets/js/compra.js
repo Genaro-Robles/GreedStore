@@ -10,7 +10,8 @@ cargarEventos();
 function cargarEventos() {
 
     $(document).ready(function() {
-        compra.leerLocalStorageCompra(); 
+        compra.leerLocalStorageCompra();
+        
     });
 
     //Cuando se elimina productos del carrito

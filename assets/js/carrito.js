@@ -1,5 +1,13 @@
 class Carrito {
 
+    actualiza_precio_carrito(precio, ope){
+        if(ope=='agregar'){
+            $('.pay-title-text-price').html(nFilas);
+        }else if (ope=='eliminar'){
+            $('.pay-title-text-price').html(nFilas);
+        }
+    }
+
 
     //Añadir producto al carrito
     comprarProducto(e) {
@@ -10,10 +18,8 @@ class Carrito {
             //Enviamos el producto seleccionado para tomar sus datos
             this.leerDatosProducto(producto);
             //console.log(producto);
-            //Contador
-            var nFilas = $("#lista-carrito tr").length;
-            localStorage.setItem('cantP', nFilas);
-            $('.carrito-unidades').html("" + nFilas);
+            
+            this.calcularTotalCarrito();
             //animacion carrito
             $(".aside-cart").addClass("aside-cart--active");
             setTimeout(function () {
@@ -70,7 +76,7 @@ class Carrito {
                                     <div class="content-product d-flex flex-column ms-3">
                                         <p class="name-product mb-1">${producto.titulo}</p>
                                         <span class="units-product">Unidades: ${producto.cantidad}</span>
-                                        <span class="price-product"><strong>S/. ${producto.precio}</strong></span>
+                                        <span class="price-product">S/.<strong>${producto.precio}</strong></span>
                                     </div>
                                     <i class="uil uil-multiply borrar-producto" id="btn-delete-product-cart" data-id="${producto.id}"></i>
                                 </div>
@@ -92,11 +98,7 @@ class Carrito {
             productoID = producto.querySelector('i').getAttribute('data-id');
 
             this.eliminarProductoLocalStorage(productoID);
-
-            var nFilas = $("#lista-carrito tr").length;
-            nFilas = nFilas <= 0 ? 0 : nFilas -= 1;
-            localStorage.setItem('cantP', nFilas);
-            $('.carrito-unidades').html("" + nFilas);
+            this.calcularTotalCarrito();
         }
 
         //this.calcularTotal();
@@ -272,13 +274,12 @@ class Carrito {
         //Añadimos el arreglo actual al LS
         localStorage.setItem('productos', JSON.stringify(productosLS));
     }
-    /*
+    
         //Eliminar todos los datos del LS
         vaciarLocalStorage(){
             localStorage.clear();
-            localStorage.setItem('cantP', 0);
         }
-    
+    /*
         //Procesar pedido
         procesarPedido(e){
             e.preventDefault();
@@ -296,7 +297,7 @@ class Carrito {
                 location.href = "compra";
             }
         }
-    
+    */
         //Calcular montos
         calcularTotal(){
             let productosLS;
@@ -315,10 +316,28 @@ class Carrito {
             $('#igv').val("" + igv);
             $('#total').val("" + total.toFixed(2));
         }
+
+        //Calcular montos carritos
+        calcularTotalCarrito(){
+            let productosLS;
+            let total = 0;
+            let Cantidad = 0;
+            productosLS = this.obtenerProductosLocalStorage();
+            for(let i = 0; i < productosLS.length; i++){
+                let PreTotal = Number(productosLS[i].precio * productosLS[i].cantidad);
+                total = total + PreTotal;
+                Cantidad += Number(productosLS[i].cantidad);
+                
+            }
+    
+            $('.carrito-unidades').html("" + Cantidad);
+            $('.pay-title-text-price').html("S/." + total);
+            
+        }
     
         obtenerEvento(e){
             let id, cantidad, producto, productosLS;
-            if($(event.target).hasClass('cantidad')){
+            if($(e.target).hasClass('cantidad')){
                 producto = e.target.parentElement.parentElement;
                 id = producto.querySelector('a').getAttribute('data-id');
                 cantidad = producto.querySelector('input').value;
@@ -336,5 +355,5 @@ class Carrito {
             else {
                 console.log("click afuera");
             }
-        }*/
+        }
 }

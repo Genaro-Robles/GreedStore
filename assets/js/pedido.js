@@ -8,15 +8,6 @@ cargarEventos();
 
 function cargarEventos() {
 
-	let CantP;
-	//Comprobar si hay algo en LS
-	if (localStorage.getItem('cantP') == null) {
-		CantP = 0;
-	}
-	else {
-		CantP = localStorage.getItem('cantP');
-		$('.carrito-unidades').html("" + CantP);
-	}
 	//Se ejecuta cuando se presionar agregar carrito
 	$('.lista-productos').click(function (e) {
 		carro.comprarProducto(e);
@@ -29,14 +20,15 @@ function cargarEventos() {
 	});
 
 	//Al vaciar carrito
-	$('#vaciar-carrito').click(function (e) {
+	$('#btn-trash').click(function (e) {
 		carro.vaciarCarrito(e);
-		$('.carrito-unidades').html("" + 0);
+		carro.calcularTotalCarrito();
 	});
 
 	//Al cargar documento se muestra lo almacenado en LS
 	$(document).ready(function () {
 		carro.leerLocalStorage();
+		carro.calcularTotalCarrito();
 		//fetchProductos();
 	});
 
