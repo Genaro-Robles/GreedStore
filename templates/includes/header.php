@@ -27,6 +27,7 @@
     <?php
     require_once 'app/models/mdlUsuarios.php';
     $user = new mdlUsuarios();
+    $perfil = $user::getSessionUser();
     ?>
 
     <!-- Navigation-->
@@ -77,8 +78,8 @@
 
                                 <div class="dropdown">
                                     <a class="btn dropdown-toggle btn btn-header" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                                        <?php echo $user::getSessionUserName() ?>
+                                        <img src="<?php echo ($perfil["perfil"] == "") ? "https://github.com/mdo.png" : $perfil["perfil"]  ?>" alt="mdo" width="32" height="32" class="rounded-circle">
+                                        <?php echo $perfil["nombre"] ?>
                                     </a>
 
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">

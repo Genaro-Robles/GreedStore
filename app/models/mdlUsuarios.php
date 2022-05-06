@@ -8,11 +8,12 @@ class mdlUsuarios{
         if(session_status() !== PHP_SESSION_ACTIVE) session_start();
     }
 
-    public static function setSessionUser($correo, $nombre, $rol, $login = false){
+    public static function setSessionUser($correo, $nombre, $rol, $perfil, $login = false){
         $_SESSION['correo'] = $correo;
         $_SESSION['nombre'] = $nombre;
-        $_SESSION['rol'] = $rol;
+        $_SESSION['rol'] = $rol ?? 1;
         $_SESSION['login'] = $login;
+        $_SESSION['perfil'] = $perfil ?? "";
     }
     public static function getSessionUser(){
         return $_SESSION;
