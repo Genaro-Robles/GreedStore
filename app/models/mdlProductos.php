@@ -10,7 +10,7 @@ class MdlProductos
     {
         require_once "conexion.php";
         if ($categoria != "") {
-            $stmt = Conexion::conectar()->prepare("SELECT p.* FROM productos p inner join categorias c on p.categoria=c.idcategoria where c.nombre_categoria=:categoria and estado = 1  order by idproducto desc LIMIT 8");
+            $stmt = Conexion::conectar()->prepare("SELECT p.* FROM productos p inner join categorias c on p.categoria=c.idcategoria where c.nombre_categoria=:categoria and p.estado = 1  order by idproducto desc LIMIT 8");
             $stmt->bindParam(":categoria", $categoria, PDO::PARAM_STR);
         } else {
             $stmt = Conexion::conectar()->prepare("SELECT * FROM productos where estado = 1 order by idproducto desc LIMIT 8");
@@ -29,7 +29,7 @@ class MdlProductos
     public static function mdlListarItem($id)
     {
         require_once "conexion.php";
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM productos where idproducto = :producto");
+        $stmt = Conexion::conectar()->prepare("SELECT idproducto, nombre, descripcion, categoria, stock, precio, estado, foto_producto FROM productos where idproducto = :producto");
         $stmt->bindParam(":producto", $id, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -64,7 +64,7 @@ class MdlProductos
         require_once "conexion.php";
         $consulta = "SELECT p.*,c.nombre_categoria FROM productos p inner join categorias c on p.categoria=c.idcategoria";
         $stmt = Conexion::conectar()->prepare($consulta);
-        if($nombre != "" && $orden != "Sin filtro"){
+        if ($nombre != "" && $orden != "Sin filtro") {
             $stmt = Conexion::conectar()->prepare($consulta);
             $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
             $stmt->bindParam(':orden', $orden, PDO::PARAM_STR);
@@ -84,26 +84,34 @@ class MdlProductos
         $salida = "";
         if ($stmt->rowCount() > 0) {
             $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $salida .= "<table class='table table-hover'>
-            <thead>
+            $salida .= "<table class='table table-bordered border-dark'>
+            <thead class='table-dark'>
               <th>NOMBRE</th>
               <th>IMAGEN</th>
               <th>CATEGORIA</th>
               <th>STOCK</th>
               <th>PRECIO</th>
-              <th></th>
+              <th>ESTADO</th>
+              <th>ACCIONES</th>
             </thead>
             <tbody>";
             foreach ($productos as $key => $value) {
                 $salida .= "<tr>
                 <td>" . $value['nombre'] . "</td>
-                <td><img class='' width='203px' id='FotoP' height='136px' src='data:image/png;base64," . base64_encode($value['imagen']) . "' /></td>
+                <td><a href='" . URL_MAIN . UPLOADS . $value['foto_producto'] . "' data-fancybox='gallery'><img class='' width='190px' id='FotoP' height='116px' src='" . URL_MAIN . UPLOADS . $value['foto_producto'] . "' /></a></td>
                 <td>" . $value['nombre_categoria'] . "</td>
                 <td>" . $value['stock'] . "</td>
                 <td>" . $value['precio'] . "</td>
                 <td>
-                  <a href='#' class='btn btn-success'>Actualizar</a>
-                  <a href='#' class='btn btn-danger'>Eliminar</a>
+                    <div class='badge text-wrap " . ($value['estado'] == 1 ? "bg-primary" : "bg-danger") . "' style='width: 6rem;' id='estado'>
+                        " . ($value['estado'] == 1 ? "Activo" : "Inactivo") . "
+                    </div>
+                </td>
+                <td>
+                    <div class='d-flex flex-column gap-2'>
+                        <button class='btn btn-success btn-view-producto' data-idpro=" . $value['idproducto'] . ">Actualizar</button>
+                        <button class='btn btn-danger btn-delete-producto " . ($value['estado'] == 1 ? "" : "disabled") . "' data-idpro=" . $value['idproducto'] . ">Eliminar</button>
+                    </div>
                 </td>
               </tr>";
             }
@@ -189,5 +197,17 @@ class MdlProductos
         }
 
         $stmt = null;
+    }
+    public static function mdlAgregarProducto($array = [])
+    {
+        return insert_new('productos', $array);
+    }
+    public static function mdlActualizarProducto($key = [], $array = [])
+    {
+        return update_record('productos', $key, $array);
+    }
+    public static function mdlEliminarProducto($key = [], $array = [])
+    {
+        return update_record('productos', $key, $array);
     }
 }

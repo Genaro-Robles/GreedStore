@@ -41,7 +41,7 @@ $(document).ready(function () {
 
                     console.log(correo, perfil, nombre, metodo);
                     debugger;
-                    $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacion.php?action=loginSocialMedia", { correo, perfil, nombre, metodo }, function (response) {
+                    $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacionAJAX.php?action=loginSocialMedia", { correo, perfil, nombre, metodo }, function (response) {
 
                         debugger;
                         let data = JSON.parse(response);
@@ -145,7 +145,7 @@ $(document).ready(function () {
                 let pass = $("[name=password]").val().trim();
 
 
-                $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacion.php?action=login", { correo, pass }, function (data) {
+                $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacionAJAX.php?action=login", { correo, pass }, function (data) {
 
                     if (data == 0) {
                         Swal.fire({
@@ -183,7 +183,7 @@ $(document).ready(function () {
                 let edad = $("[name=age]").val();
 
 
-                $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacion.php?action=register", { nombre, correo, pass, celular, edad }, function (data) {
+                $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacionAJAX.php?action=register", { nombre, correo, pass, celular, edad }, function (data) {
 
                     if (data == 0) {
                         Swal.fire({

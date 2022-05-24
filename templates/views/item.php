@@ -2,13 +2,12 @@
 $producto = CtrProductos::ctrListarItem($idp);
 $categoria = CtrCategorias::ctrListar($producto['categoria']);
 $relacionados = CtrProductos::ctrListarRelacionados($idp, $producto['categoria']);
-
 ?>
 <!-- Product section-->
 <section class="pt-5">
     <div class="container px-4 px-lg-5 my-5 lista-productos">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img id="FotoP" class="card-img-top mb-5 mb-md-0" width="408px" height="350px" src="data:image/png;base64,<?php echo base64_encode($producto['imagen']); ?>"></div>
+            <div class="col-md-6"><img id="FotoP" class="card-img-top mb-5 mb-md-0" width="408px" height="350px" src="<?php echo URL_MAIN.UPLOADS.$producto['foto_producto']; ?>"></div>
             <div class="col-md-6">
                 <div class="small mb-1">SKU: BST-498</div>
                 <h1 class="display-5 fw-bolder" id="Titulo"><?php echo $producto['nombre']; ?></h1>
@@ -51,7 +50,7 @@ $relacionados = CtrProductos::ctrListarRelacionados($idp, $producto['categoria']
                     <div class="card h-100">
                         <!-- Product image-->
                         <a href="<?=URL_MAIN?>item/<?= $value['idproducto']; ?>">
-                            <img class="card-img-top" width="254px" height="170px" src="data:image/png;base64,<?php echo base64_encode($value['imagen']); ?>" />
+                            <img class="card-img-top" width="254px" height="170px" src="<?php echo URL_MAIN.UPLOADS.$value['foto_producto'];  ?>" />
                         </a>
                         <!-- Product details-->
                         <div class="card-body p-4">

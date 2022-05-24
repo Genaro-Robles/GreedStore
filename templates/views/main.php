@@ -42,7 +42,7 @@ if (isset($cat)) {
             <div class="card h-100">
               <!-- Product image-->
               <a href="<?= URL_MAIN ?>item/<?= $value['idproducto']; ?>" class="text-center">
-                <img class="card-img-top img-product" width="254px" id="FotoP" height="170px" src="data:image/png;base64,<?php echo base64_encode($value['imagen']); ?>" />
+                <img class="card-img-top img-product" width="254px" id="FotoP" height="170px" src="<?php echo URL_MAIN.UPLOADS.$value['foto_producto'] ?>" />
               </a>
               <!-- Product details-->
               <div class="card-body p-4">

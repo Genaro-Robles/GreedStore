@@ -1,7 +1,7 @@
 <?php
 const URL_MAIN = "http://localhost/GreedStore/";
+const UPLOADS = "assets/uploads/";
 ?>
-<script>const urlLocation= 'http://localhost/GreedStore/';</script>
 <?php
 require_once "app/config/config.php";
 require_once "app/models/mdlProductos.php";

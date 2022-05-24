@@ -167,22 +167,22 @@
         </aside>
         <ul class="bg-white container-xxl px-md-5 d-flex flex-row justify-content-sm-between navbar-nav fsize-13 flex-wrap-reverse">
             <li class="fw-bold">
-                <button id="btn-category" class="fw-bold btn d-flex align-items-center fsize-13">
+                <a id="btn-category" class="fw-bold btn d-flex align-items-center fsize-13">
                     <i class="bi bi-list icon-header"></i>
                     Categorias
-                </button>
-                    <div class="categories">
-                        <ul class="navbar-nav">
-                            <li><a class="dropdown-item" href="<?= URL_MAIN ?>">Todas las categorias</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <?php
-                            foreach ($ListCat as $key => $value) : ?>
-                                <li><a class="dropdown-item" href="<?= URL_MAIN ?><?= str_replace(' ', '-', $value['nombre_categoria']) ?>"><?= $value['nombre_categoria'] ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+                </a>
+                <div class="categories">
+                    <ul class="navbar-nav">
+                        <li><a class="dropdown-item" href="<?= URL_MAIN ?>">Todas las categorias</a></li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <?php
+                        foreach ($ListCat as $key => $value) : ?>
+                            <li><a class="dropdown-item" href="<?= URL_MAIN ?><?= str_replace(' ', '-', $value['nombre_categoria']) ?>"><?= $value['nombre_categoria'] ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </li>
             <li class="d-flex align-items-center"><a href="" class="btn fsize-13">Tu <strong style="color: #ff6000;">tienda online experta en tecnología</strong> con un servicio 5 estrellas</a></li>
         </ul>

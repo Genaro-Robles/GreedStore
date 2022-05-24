@@ -84,7 +84,7 @@ nav span {
 .categories {
     position: absolute;
     background-color: #fefefe;
-    z-index: 19;
+    z-index: 2;
     transform: translateY(-40px);
     width: 230px;
     padding: 1rem;
