@@ -17,9 +17,10 @@
                             <label for="disabledTextInput" class="form-label">Nombre Categoria</label>
                             <input type="text" id="nombre" name="nombre" class="form-control" placeholder="">
                         </div>
-                        <div class="mb-3">
-                            <label for="disabledTextInput" class="form-label">Descripción</label>
-                            <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="">
+                        <div class="mb-3" id="detalleCat">
+                            <label for="disabledTextInput" class="form-label">Descripción</label><br>
+                            <button class="btn btn-primary" id="btnAgregarDet">Agregar Detalle</button>
+                            <button class="btn btn-danger" id="btnEliminarUltDet">Eliminar Ultimo Detalle</button>
                         </div>
                         <div class="mb-3">
                             <label for="formFileSm" class="form-label">Foto</label>
@@ -29,7 +30,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger btncloseCat" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="add-categoria">Agregar</button>
                 <button type="button" class="btn btn-primary" id="update-categoria">Actualizar</button>
             </div>

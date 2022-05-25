@@ -6,7 +6,10 @@ $(document).ready(function () {
 
     let add_categoria = document.querySelector('#add-categoria');
     let update_categoria = document.querySelector('#update-categoria');
-
+    let detalleCat = document.getElementById('detalleCat');
+    let btnAgregarDetalle = document.getElementById('btnAgregarDet');
+    let btnEliminarUltDet = document.getElementById('btnEliminarUltDet');
+    let btncloseCat = document.querySelector('.btncloseCat');
     let abrir_categoria_modal = document.querySelector('#abrir_categoria_modal');
 
     if (abrir_categoria_modal) {
@@ -15,6 +18,31 @@ $(document).ready(function () {
             $('#exampleModal').modal('show')
             $("#update-categoria").hide();
             $("#add-categoria").show();
+        })
+    }
+    
+    if (btnEliminarUltDet) {
+        btnEliminarUltDet.addEventListener('click', e => {
+            e.preventDefault();
+            detalleCat.removeChild(detalleCat.lastChild);
+        })
+    }
+
+    if (btnAgregarDetalle) {
+        btnAgregarDetalle.addEventListener('click', e => {
+            e.preventDefault();
+            let input = document.createElement('input');
+            input.type = "text";
+            input.className = "form-control";
+            detalleCat.appendChild(input);
+        })
+    }
+
+    if (btncloseCat) {
+        btncloseCat.addEventListener('click', e => {
+            e.preventDefault();
+            detalleCat.innerHTML = '<label for="disabledTextInput" class="form-label">Descripción</label><br><button class="btn btn-primary" id="btnAgregarDet">Agregar Detalle</button><button class="btn btn-danger" id="btnEliminarUltDet">Eliminar Ultimo Detalle</button>';
+            
         })
     }
 

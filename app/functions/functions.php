@@ -1,9 +1,10 @@
 <?php
 
-require_once "./app/models/conexion.php";
+
 
 function insert_new($table, $params = [])
 {
+    require_once "./app/models/conexion.php";
     // STATEMENT
     $stmt = 'INSERT INTO ' . $table . ' 
     ' . get_column_names($params) . '
@@ -96,6 +97,7 @@ function generate_filename($lng = 8, $span = 2)
 
 function update_record($table, $keys = [], $params = [])
 {
+    require_once "./app/models/conexion.php";
     // UPDATE tabla SET columna=:placeholder, columna=:placeholder WHERE id=:id;
     $placeholders = '';
     $cols = '';
@@ -123,7 +125,7 @@ function update_record($table, $keys = [], $params = [])
 
 function delete_record($table, $keys = [])
 {
-
+    require_once "./app/models/conexion.php";
     // Si hay keys pues vamos a agregarlas al query o statement
     if (empty($keys)) {
         return false;
@@ -143,6 +145,7 @@ function delete_record($table, $keys = [])
 
 function get_by_id($table, $keys = [])
 {
+    require_once "./app/models/conexion.php";
     // Si hay keys pues vamos a agregarlas al query o statement
     if (empty($keys)) {
         return false;

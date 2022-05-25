@@ -295,12 +295,10 @@ async function cargarDetalles(option) {
 }
 
 $("#filtroProd").change(function (e) {
-    buscar_productos();
-    //alert ($("#filtroProd option:selected").text());
+    init_search_product();
 });
 $("#busquedaProd").keyup(function (e) {
-    buscar_productos();
-    //alert($("#busquedaProd").val());
+    init_search_product();
 });
 
 async function buscar_productos() {

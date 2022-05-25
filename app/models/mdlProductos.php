@@ -126,7 +126,7 @@ class MdlProductos
         $stmt = null;
     }
 
-
+/*
     public static function mdlCrearUsuario($datos)
     {
         require_once "conexion.php";
@@ -152,7 +152,7 @@ class MdlProductos
     /*  ************************
             MODIFICAR USUARIO
         ************************ */
-
+/*
     public static function mdlModificarUsuario($datos)
     {
         require_once "conexion.php";
@@ -198,6 +198,7 @@ class MdlProductos
 
         $stmt = null;
     }
+    */
     public static function mdlAgregarProducto($array = [])
     {
         return insert_new('productos', $array);

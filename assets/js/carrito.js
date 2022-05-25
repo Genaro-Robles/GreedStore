@@ -105,7 +105,7 @@ class Carrito {
 
 
     }
-    /*
+    
         //Elimina todos los productos
         vaciarCarrito(e){
             e.preventDefault();
@@ -129,6 +129,7 @@ class Carrito {
     
             return false;
         }
+        /*
         // Eliminar productos de manera superficial
         vaciarCarrito2(e){
             e.preventDefault();

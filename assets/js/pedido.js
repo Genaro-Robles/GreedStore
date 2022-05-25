@@ -20,7 +20,7 @@ function cargarEventos() {
 	});
 
 	//Al vaciar carrito
-	$('#btn-trash').click(function (e) {
+	$('.btn-trash').click(function (e) {
 		carro.vaciarCarrito(e);
 		carro.calcularTotalCarrito();
 	});
