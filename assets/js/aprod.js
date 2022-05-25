@@ -39,7 +39,7 @@ $(document).ready(function () {
             campos.forEach(function (campo) {
                 cadena += campo.value + "/";
             })
-            let detallesProductos = cadena.substring(0, cadena.length - 1);
+            let detallesProducto = cadena.substring(0, cadena.length - 1);
 
             if ($("#form-producto #nombre").val().trim().length == 0 || $("#form-producto #stock").val().trim().length == 0 || $("#form-producto #precio").val().trim().length == 0 || $("#form-producto #foto")[0].files.length == 0 || select.selectedIndex == 0) {
                 Swal.fire({
@@ -51,7 +51,7 @@ $(document).ready(function () {
                 })
             } else {
                 const data = new FormData($("#form-producto").get(0));
-                data.append('detalles', detallesProductos);
+                data.append('detalles', detallesProducto);
                 $.ajax({
                     type: "POST",
                     url: urlLocation + "?ruta=Productos/AgregarProducto",
@@ -101,7 +101,7 @@ $(document).ready(function () {
             campos.forEach(function (campo) {
                 cadena += campo.value + "/";
             })
-            let detallesProductos = cadena.substring(0, cadena.length - 1);
+            let detallesProducto = cadena.substring(0, cadena.length - 1);
 
             if ($("#form-producto #nombre").val().trim().length == 0 || $("#form-producto #idproducto").val().trim().length == 0 || $("#form-producto #stock").val().trim().length == 0 || $("#form-producto #precio").val().trim().length == 0 || select.selectedIndex == 0 || $("#form-producto #foto_anterior").val().trim().length == 0) {
                 Swal.fire({
@@ -113,7 +113,7 @@ $(document).ready(function () {
                 })
             } else {
                 const data = new FormData($("#form-producto").get(0));
-                data.append('detalles', detallesProductos);
+                data.append('detalles', detallesProducto);
                 $.ajax({
                     type: "POST",
                     url: urlLocation + "?ruta=Productos/EditarProducto",
