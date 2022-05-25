@@ -34,7 +34,7 @@ class CtrCategorias
     }
     public static function ctrAgregarCategoria()
     {
-        if (!isset($_POST['nombre'], $_POST['descripcion'])) {
+        if (!isset($_POST['nombre'], $_POST['detalles'])) {
             json_output(400, 'Completa el formulario por favor e intenta de nuevo');
         }
 
@@ -42,7 +42,7 @@ class CtrCategorias
         $new_categoria =
             [
                 'nombre_categoria'    => clean_string($_POST['nombre']),
-                'descripcion_categoria'        => clean_string($_POST['descripcion']),
+                'descripcion_categoria'        => clean_string($_POST['detalles']),
             ];
 
         // Si el usuario subió una imagen, procesarla
@@ -71,7 +71,7 @@ class CtrCategorias
     }
     public static function ctrActualizarCategoria()
     {
-        if (!isset($_POST['nombre'], $_POST['descripcion'], $_POST['idcategoria'])) {
+        if (!isset($_POST['nombre'], $_POST['detalles'], $_POST['idcategoria'])) {
             json_output(400, 'Completa el formulario por favor e intenta de nuevo');
         }
         $id = (int) $_POST['idcategoria'];
@@ -79,7 +79,7 @@ class CtrCategorias
         $categoria =
             [
                 'nombre_categoria'    => clean_string($_POST['nombre']),
-                'descripcion_categoria'        => clean_string($_POST['descripcion']),
+                'descripcion_categoria'        => clean_string($_POST['detalles']),
             ];
 
         // Si el usuario subió una imagen, procesarla

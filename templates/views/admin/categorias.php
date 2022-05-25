@@ -1,5 +1,18 @@
+<style>
+    .form-check-input:checked {
+        background-color: #fd0d0d;
+        border-color: #fd0d0d;
+    }
+
+    .form-check-input:focus {
+        border-color: #fe8686;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgb(253 13 13 / 25%);
+    }
+</style>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Agregar Categoria</h5>
