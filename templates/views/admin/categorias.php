@@ -30,10 +30,24 @@
                             <label for="disabledTextInput" class="form-label">Nombre Categoria</label>
                             <input type="text" id="nombre" name="nombre" class="form-control" placeholder="">
                         </div>
-                        <div class="mb-3" id="detalleCat">
-                            <label for="disabledTextInput" class="form-label">Descripción</label><br>
-                            <button class="btn btn-primary" id="btnAgregarDet">Agregar Detalle</button>
-                            <button class="btn btn-danger" id="btnEliminarUltDet">Eliminar Ultimo Detalle</button>
+                        <!-- <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Descripción</label>
+                            <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="">
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label">Detalles Categoria</label>
+                            <div class="d-grid gap-2 d-md-block text-center mb-3">
+                                <button class="btn btn-primary" type="button" id="add-detalle-categoria">Agregar Detalle</button>
+                                <button class="btn btn-danger" type="button" id="delete-detalle-categoria">Eliminar Detalle(s)</button>
+                            </div>
+                            <div id="detalles-categoria" class="mb-3">
+                                <!-- <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Text input with checkbox">
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                                    </div>
+                                </div> -->
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="formFileSm" class="form-label">Foto</label>

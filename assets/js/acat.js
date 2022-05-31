@@ -6,15 +6,8 @@ $(document).ready(function () {
 
     let add_categoria = document.querySelector('#add-categoria');
     let update_categoria = document.querySelector('#update-categoria');
-<<<<<<< HEAD
-    let detalleCat = document.getElementById('detalleCat');
-    let btnAgregarDetalle = document.getElementById('btnAgregarDet');
-    let btnEliminarUltDet = document.getElementById('btnEliminarUltDet');
-    let btncloseCat = document.querySelector('.btncloseCat');
-=======
     let add_detalle_categoria = document.querySelector('#add-detalle-categoria');
     let delete_detalle_categotia = document.querySelector('#delete-detalle-categoria');
->>>>>>> 0ab2aa8d4f3154f757c799814f53a2d448cd7024
     let abrir_categoria_modal = document.querySelector('#abrir_categoria_modal');
 
 
@@ -29,33 +22,6 @@ $(document).ready(function () {
             $("#add-categoria").show();
         })
     }
-<<<<<<< HEAD
-    
-    if (btnEliminarUltDet) {
-        btnEliminarUltDet.addEventListener('click', e => {
-            e.preventDefault();
-            detalleCat.removeChild(detalleCat.lastChild);
-        })
-    }
-
-    if (btnAgregarDetalle) {
-        btnAgregarDetalle.addEventListener('click', e => {
-            e.preventDefault();
-            let input = document.createElement('input');
-            input.type = "text";
-            input.className = "form-control";
-            detalleCat.appendChild(input);
-        })
-    }
-
-    if (btncloseCat) {
-        btncloseCat.addEventListener('click', e => {
-            e.preventDefault();
-            detalleCat.innerHTML = '<label for="disabledTextInput" class="form-label">Descripción</label><br><button class="btn btn-primary" id="btnAgregarDet">Agregar Detalle</button><button class="btn btn-danger" id="btnEliminarUltDet">Eliminar Ultimo Detalle</button>';
-            
-        })
-    }
-=======
     if (delete_detalle_categotia) {
         delete_detalle_categotia.addEventListener('click', () => {
             delete_detalles();
@@ -64,7 +30,6 @@ $(document).ready(function () {
     if (add_detalle_categoria) {
         add_detalle_categoria.addEventListener('click', e => {
             e.preventDefault();
->>>>>>> 0ab2aa8d4f3154f757c799814f53a2d448cd7024
 
             let detalles_categoria = document.querySelector('#detalles-categoria');
 

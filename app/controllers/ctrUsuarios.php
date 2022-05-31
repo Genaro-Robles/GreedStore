@@ -2,14 +2,16 @@
 
 class CtrUsuarios
 {
+    public static function VerificarSession(){
+        $user = new mdlUsuarios();
+        return $user::auth();
+    }
 
-    /*  ************************
-            LISTAR CATEGORIAS
-        ************************ */
-
-    public static function ctrUsu()
-    {
-        echo "hola";
+    public static function ObtenerSession(){
+        $user = new mdlUsuarios();
+        return $user::getSessionUser();
     }
 
 }
+
+?>

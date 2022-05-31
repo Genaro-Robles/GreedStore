@@ -25,9 +25,8 @@
 <body>
 
     <?php
-    require_once 'app/models/mdlUsuarios.php';
-    $user = new mdlUsuarios();
-    $perfil = $user::getSessionUser();
+    
+    $perfil = CtrUsuarios::ObtenerSession();
     ?>
 
     <!-- Navigation-->
@@ -72,7 +71,7 @@
                             </a>
                         </li>
                         <?php
-                        if ($user::auth()) :
+                        if (CtrUsuarios::VerificarSession()) :
                         ?>
                             <li class="d-flex justify-content-evenly align-items-center">
 
@@ -159,7 +158,7 @@
                     <a class="btn btn-trash" href="#">
                         Vaciar carrito
                     </a>
-                    <a class="btn btn-pay" href="#">
+                    <a class="btn btn-pay" href="<?=URL_MAIN?>pedido">
                         Realizar pedido
                     </a>
                 </div>

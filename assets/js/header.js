@@ -10,6 +10,7 @@ const aside_cart = document.querySelector('.aside-cart');
 const close_cart = document.querySelector('.close--cart');
 const btn_cart = document.querySelector('#btn-cart');
 const btn_delete_product_cart = document.querySelectorAll('#btn-delete-product-cart');
+const urlLocation = "http://localhost/GreedStore/";
 
 btn_delete_product_cart.forEach( btn =>{
     btn.addEventListener('click', (e) =>{

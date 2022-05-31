@@ -5,12 +5,14 @@ const listaCompra = document.querySelector("#lista-compra tbody");
 //const carrito = document.getElementById('carrito');
 //const procesarCompraBtn = document.getElementById('procesar-compra');
 
-cargarEventos();
+cargarEventosCompra();
 
-function cargarEventos() {
+function cargarEventosCompra() {
 
     $(document).ready(function() {
+        if(window.location.href == urlLocation+"pedido"){
         compra.leerLocalStorageCompra();
+        }
         
     });
 
@@ -32,11 +34,17 @@ function cargarEventos() {
     //cuando se selecciona procesar Compra
 
     $("#carrito-tabla").keyup(function(e) {
-      compra.obtenerEvento(e);
+      
+        compra.obtenerEvento(e);
+        compra.calcularTotal();
+        compra.calcularTotalCarrito();
     });
 
     $("#carrito-tabla").change(function(e) {
+      
       compra.obtenerEvento(e);
+      compra.calcularTotal();
+      compra.calcularTotalCarrito();
     });
 }
 
@@ -52,7 +60,7 @@ function procesarCompra(e) {
             showConfirmButton: false,
             timer: 2000
         }).then(function () {
-            window.location = "index";
+            window.location.href = urlLocation;
         })
     }
     else if ($('#cliente').val() === '' || $('#correo').val() === '') {

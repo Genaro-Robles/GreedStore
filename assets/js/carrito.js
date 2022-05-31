@@ -1,14 +1,5 @@
 class Carrito {
 
-    actualiza_precio_carrito(precio, ope){
-        if(ope=='agregar'){
-            $('.pay-title-text-price').html(nFilas);
-        }else if (ope=='eliminar'){
-            $('.pay-title-text-price').html(nFilas);
-        }
-    }
-
-
     //Añadir producto al carrito
     comprarProducto(e) {
 
@@ -18,7 +9,7 @@ class Carrito {
             //Enviamos el producto seleccionado para tomar sus datos
             this.leerDatosProducto(producto);
             //console.log(producto);
-            
+
             this.calcularTotalCarrito();
             //animacion carrito
             $(".aside-cart").addClass("aside-cart--active");
@@ -78,7 +69,7 @@ class Carrito {
                                         <span class="units-product">Unidades: ${producto.cantidad}</span>
                                         <span class="price-product">S/.<strong>${producto.precio}</strong></span>
                                     </div>
-                                    <i class="uil uil-multiply borrar-producto" id="btn-delete-product-cart" data-id="${producto.id}"></i>
+                                    <i class="uil uil-multiply borrar-producto-carrito" id="btn-delete-product-cart" data-id="${producto.id}"></i>
                                 </div>
                             </div>
                         </div>
@@ -92,54 +83,71 @@ class Carrito {
     eliminarProducto(e) {
         e.preventDefault();
         let producto, productoID;
-        if ($(e.target).hasClass('borrar-producto')) {
+        if ($(e.target).hasClass('borrar-producto-carrito')) {
             e.target.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
             producto = e.target.parentElement.parentElement;
             productoID = producto.querySelector('i').getAttribute('data-id');
 
             this.eliminarProductoLocalStorage(productoID);
-            this.calcularTotalCarrito();
-        }
 
-        //this.calcularTotal();
+        } else if ($(e.target).hasClass('borrar-producto-pedido')) {
+            e.target.parentElement.parentElement.remove();
+            producto = e.target.parentElement.parentElement;
+            productoID = producto.querySelector('a').getAttribute('data-id');
+
+            this.eliminarProductoLocalStorage(productoID);
+        }
+        this.calcularTotalCarrito();
+        this.calcularTotal();
 
 
     }
-    
-        //Elimina todos los productos
-        vaciarCarrito(e){
-            e.preventDefault();
-    
-            if(this.obtenerProductosLocalStorage().length === 0){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'El carrito ya se encuentra vacío',
-                    showConfirmButton: false,
-                    timer: 2000
-                })
-            }
-            else {
-                while(listaProductos.firstChild){
-                listaProductos.removeChild(listaProductos.firstChild);
-                }
-                this.vaciarLocalStorage();
-            }
-            
-    
-            return false;
+
+    //Elimina todos los productos
+    vaciarCarrito(e) {
+        e.preventDefault();
+
+        if (this.obtenerProductosLocalStorage().length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'El carrito ya se encuentra vacío',
+                showConfirmButton: false,
+                timer: 2000
+            })
         }
-        /*
-        // Eliminar productos de manera superficial
-        vaciarCarrito2(e){
-            e.preventDefault();
-    
-                while(listaProductos.firstChild){
+        else {
+            while (listaProductos.firstChild) {
                 listaProductos.removeChild(listaProductos.firstChild);
-                }
-            return false;
+            }
+            this.vaciarLocalStorage();
         }
-    */
+
+
+        return false;
+    }
+
+    // Eliminar productos de manera superficial
+    vaciarCarrito2(e) {
+        e.preventDefault();
+
+        while (listaProductos.firstChild) {
+            listaProductos.removeChild(listaProductos.firstChild);
+        }
+        return false;
+    }
+
+    // Eliminar productos de manera superficial compra
+    vaciarCompra2(e) {
+        e.preventDefault();
+        if (listaCompra) {
+            while (listaCompra.firstChild) {
+                listaCompra.removeChild(listaCompra.firstChild);
+            }
+        }
+        return false;
+    }
+
     //Almacenar en el LS
     guardarProductosLocalStorage(producto) {
         let productos;
@@ -167,12 +175,13 @@ class Carrito {
 
     //Mostrar los productos guardados en el LS
     leerLocalStorage() {
-        let productosLS;
-        productosLS = this.obtenerProductosLocalStorage();
-        productosLS.forEach(function (producto) {
-            //Construir plantilla
-            const row = document.createElement('tr');
-            row.innerHTML = `
+        if (listaProductos) {
+            let productosLS;
+            productosLS = this.obtenerProductosLocalStorage();
+            productosLS.forEach(function (producto) {
+                //Construir plantilla
+                const row = document.createElement('tr');
+                row.innerHTML = `
             <a href="#" class="text-decoration-none text-dark">
                         <div class="aside-body p-3 border-bottom item-from-cart">
                             <div class="pay-product">
@@ -183,21 +192,23 @@ class Carrito {
                                         <span class="units-product">Unidades: ${producto.cantidad}</span>
                                         <span class="price-product"><strong>S/. ${producto.precio}</strong></span>
                                     </div>
-                                    <i class="uil uil-multiply borrar-producto" id="btn-delete-product-cart" data-id="${producto.id}"></i>
+                                    <i class="uil uil-multiply borrar-producto-carrito" id="btn-delete-product-cart" data-id="${producto.id}"></i>
                                 </div>
                             </div>
                         </div>
                     </a>
             `;
-            listaProductos.appendChild(row);
-        });
+                listaProductos.appendChild(row);
+            });
+        }
     }
-    /*
-        //Mostrar los productos guardados en el LS en compra.html
-        leerLocalStorageCompra(){
+
+    //Mostrar los productos guardados en el LS en compra.html
+    leerLocalStorageCompra() {
+        if (listaCompra) {
             let productosLS;
             productosLS = this.obtenerProductosLocalStorage();
-            productosLS.forEach(function (producto){    
+            productosLS.forEach(function (producto) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>
@@ -210,56 +221,57 @@ class Carrito {
                     </td>
                     <td id='subtotales'>${producto.precio * producto.cantidad}</td>
                     <td>
-                        <a href="#" class="borrar-producto fas fa-times-circle" style="font-size:30px" data-id="${producto.id}"></a>
+                        <a href="#" class="borrar-producto-pedido fas fa-times-circle" style="font-size:30px" data-id="${producto.id}"></a>
                     </td>
                 `;
                 listaCompra.appendChild(row);
             });
         }
-    
-        //Enviar los productos a la base de datos en php
-        
-        EnviarLocalStorageCompra(){
-            var formdatos = $('#procesar-pago').serialize();
-    
-            $.ajax({
-                  url: 'IngresarPedido.php',
-                  type: 'POST',
-                  data: formdatos,
-                  success:function(r){
-                    if(r==1){
-                        //alert("Agregado con exito");
-                    }
-                  }
-              });
-            
-            let productosLS2;
-            productosLS2 = this.obtenerProductosLocalStorage();
-            productosLS2.forEach(function (producto){    
-            
-              var id = producto.id
-              var precio = producto.precio
-              var cantidad = producto.cantidad
-              var importe = (precio * cantidad)
-              
-    
-              var datos = {"id":id,"precio":precio,"importe":importe,"cantidad":cantidad};
-              //var datos = "id="+id+"&precio="+precio+"&importe="+importe+"&cantidad="+cantidad;
-              
-              //alert("id: "+id+", precio: "+precio);
-              $.ajax({
-                  url: 'Dpedido.php',
-                  type: 'POST',
-                  data: datos,
-                  success:function(r){
-                    if(r==1){
-                        //alert("Agregado con exito");
-                    }
+    }
+
+    //Enviar los productos a la base de datos en php
+/*   
+    EnviarLocalStorageCompra(){
+        var formdatos = $('#procesar-pago').serialize();
+ 
+        $.ajax({
+              url: 'IngresarPedido.php',
+              type: 'POST',
+              data: formdatos,
+              success:function(r){
+                if(r==1){
+                    //alert("Agregado con exito");
                 }
-            });
-            });
-        }
-    */
+              }
+          });
+        
+        let productosLS2;
+        productosLS2 = this.obtenerProductosLocalStorage();
+        productosLS2.forEach(function (producto){    
+        
+          var id = producto.id
+          var precio = producto.precio
+          var cantidad = producto.cantidad
+          var importe = (precio * cantidad)
+          
+ 
+          var datos = {"id":id,"precio":precio,"importe":importe,"cantidad":cantidad};
+          //var datos = "id="+id+"&precio="+precio+"&importe="+importe+"&cantidad="+cantidad;
+          
+          //alert("id: "+id+", precio: "+precio);
+          $.ajax({
+              url: 'Dpedido.php',
+              type: 'POST',
+              data: datos,
+              success:function(r){
+                if(r==1){
+                    //alert("Agregado con exito");
+                }
+            }
+        });
+        });
+    }
+*/
     //Eliminar producto por ID del LS
     eliminarProductoLocalStorage(productoID) {
         let productosLS;
@@ -275,86 +287,86 @@ class Carrito {
         //Añadimos el arreglo actual al LS
         localStorage.setItem('productos', JSON.stringify(productosLS));
     }
-    
-        //Eliminar todos los datos del LS
-        vaciarLocalStorage(){
-            localStorage.clear();
+
+    //Eliminar todos los datos del LS
+    vaciarLocalStorage() {
+        localStorage.clear();
+    }
+
+    //Procesar pedido
+    procesarPedido(e) {
+        e.preventDefault();
+
+        if (this.obtenerProductosLocalStorage().length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'El carrito está vacío, agrega algún producto',
+                showConfirmButton: false,
+                timer: 2000
+            })
         }
-    /*
-        //Procesar pedido
-        procesarPedido(e){
-            e.preventDefault();
-    
-            if(this.obtenerProductosLocalStorage().length === 0){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'El carrito está vacío, agrega algún producto',
-                    showConfirmButton: false,
-                    timer: 2000
-                })
-            }
-            else {
-                location.href = "compra";
-            }
+        else {
+            window.location.href = urlLocation + "pedido";
         }
-    */
-        //Calcular montos
-        calcularTotal(){
-            let productosLS;
-            let total = 0, igv = 0, subtotal = 0;
-            productosLS = this.obtenerProductosLocalStorage();
-            for(let i = 0; i < productosLS.length; i++){
-                let element = Number(productosLS[i].precio * productosLS[i].cantidad);
-                total = total + element;
-                
-            }
-            
-            igv = parseFloat(total * 0.18).toFixed(2);
-            subtotal = parseFloat(total-igv).toFixed(2);
-    
-            $('#subtotal').val("" + subtotal);
-            $('#igv').val("" + igv);
-            $('#total').val("" + total.toFixed(2));
+    }
+
+    //Calcular montos
+    calcularTotal() {
+        let productosLS;
+        let total = 0, igv = 0, subtotal = 0;
+        productosLS = this.obtenerProductosLocalStorage();
+        for (let i = 0; i < productosLS.length; i++) {
+            let element = Number(productosLS[i].precio * productosLS[i].cantidad);
+            total = total + element;
+
         }
 
-        //Calcular montos carritos
-        calcularTotalCarrito(){
-            let productosLS;
-            let total = 0;
-            let Cantidad = 0;
+        igv = parseFloat(total * 0.18).toFixed(2);
+        subtotal = parseFloat(total - igv).toFixed(2);
+
+        $('#subtotal').val("" + subtotal);
+        $('#igv').val("" + igv);
+        $('#total').val("" + total.toFixed(2));
+    }
+
+    //Calcular montos carritos
+    calcularTotalCarrito() {
+        let productosLS;
+        let total = 0;
+        let Cantidad = 0;
+        productosLS = this.obtenerProductosLocalStorage();
+        for (let i = 0; i < productosLS.length; i++) {
+            let PreTotal = Number(productosLS[i].precio * productosLS[i].cantidad);
+            total = total + PreTotal;
+            Cantidad += Number(productosLS[i].cantidad);
+
+        }
+
+        $('.carrito-unidades').html("" + Cantidad);
+        $('.pay-title-text-price').html("S/." + total.toFixed(2));
+
+    }
+
+    obtenerEvento(e) {
+        let id, cantidad, producto, productosLS;
+        if ($(e.target).hasClass('cantidad')) {
+            producto = e.target.parentElement.parentElement;
+            id = producto.querySelector('a').getAttribute('data-id');
+            cantidad = producto.querySelector('input').value;
+            let actualizarMontos = document.querySelectorAll('#subtotales');
             productosLS = this.obtenerProductosLocalStorage();
-            for(let i = 0; i < productosLS.length; i++){
-                let PreTotal = Number(productosLS[i].precio * productosLS[i].cantidad);
-                total = total + PreTotal;
-                Cantidad += Number(productosLS[i].cantidad);
-                
-            }
-    
-            $('.carrito-unidades').html("" + Cantidad);
-            $('.pay-title-text-price').html("S/." + total);
-            
+            productosLS.forEach(function (productoLS, index) {
+                if (productoLS.id === id) {
+                    productoLS.cantidad = cantidad;
+                    actualizarMontos[index].innerHTML = Number(cantidad * productosLS[index].precio).toFixed(2);
+                }
+            });
+            localStorage.setItem('productos', JSON.stringify(productosLS));
+
         }
-    
-        obtenerEvento(e){
-            let id, cantidad, producto, productosLS;
-            if($(e.target).hasClass('cantidad')){
-                producto = e.target.parentElement.parentElement;
-                id = producto.querySelector('a').getAttribute('data-id');
-                cantidad = producto.querySelector('input').value;
-                let actualizarMontos = document.querySelectorAll('#subtotales');
-                productosLS = this.obtenerProductosLocalStorage();
-                productosLS.forEach(function (productoLS, index) {
-                    if (productoLS.id === id) {
-                        productoLS.cantidad = cantidad;                    
-                        actualizarMontos[index].innerHTML = Number(cantidad * productosLS[index].precio).toFixed(2);
-                    }    
-                });
-                localStorage.setItem('productos', JSON.stringify(productosLS));
-                
-            }
-            else {
-                console.log("click afuera");
-            }
+        else {
+            console.log("click afuera");
         }
+    }
 }

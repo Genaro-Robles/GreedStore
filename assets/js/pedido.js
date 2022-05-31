@@ -17,6 +17,8 @@ function cargarEventos() {
 	//Cuando se elimina productos del carrito
 	$('#carrito').click(function (e) {
 		carro.eliminarProducto(e);
+		carro.vaciarCompra2(e);
+		carro.leerLocalStorageCompra();
 	});
 
 	//Al vaciar carrito
@@ -33,7 +35,7 @@ function cargarEventos() {
 	});
 
 	//Enviar pedido a otra pagina
-	$('#procesar-pedido').click(function (e) {
+	$('.btn-pay').click(function (e) {
 		carro.procesarPedido(e);
 	});
 }
