@@ -8,6 +8,9 @@ require_once "app/models/mdlProductos.php";
 require_once "app/controllers/ctrProductos.php";
 require_once "app/models/mdlCategorias.php";
 require_once "app/controllers/ctrCategorias.php";
+require_once "app/controllers/ctrUsuarios.php";
+require_once "app/models/mdlUsuarios.php";
+
 $ListCat = CtrCategorias::ctrListar('');
 configuracion::configuracion_inicial();
 

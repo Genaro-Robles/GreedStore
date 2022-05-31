@@ -25,7 +25,7 @@ if ($user::auth()) {
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link href="<?= URL_MAIN ?>assets/css/normalize.css" rel="stylesheet" />
     <link href="<?= URL_MAIN ?>assets/css/login-register.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="<?= URL_MAIN ?>assets/css/waitme.css">
     <!-- MATERIAL ICONS FULL -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
 </head>
@@ -38,7 +38,7 @@ if ($user::auth()) {
                 <h2>Sign In</h2>
                 <form action="" id="form-login">
                     <p class="my-4">
-                    <div class="input-group my-2">
+                    <div class="input-group my-5">
                         <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
                             <span class="mdc-notched-outline">
                                 <span class="mdc-notched-outline__leading"></span>
@@ -56,7 +56,7 @@ if ($user::auth()) {
                     </div>
                     </p>
                     <p class="my-4">
-                    <div class="input-group my-2">
+                    <div class="input-group mb-3">
                         <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
                             <span class="mdc-notched-outline">
                                 <span class="mdc-notched-outline__leading"></span>
@@ -73,7 +73,7 @@ if ($user::auth()) {
                         <p class="message_error-custom password m-0 p-0"></p>
                     </div>
                     </p>
-                    <div class="options my-2">
+                    <div class="options my-3">
                         <div class="">
 
                         </div>
@@ -88,8 +88,8 @@ if ($user::auth()) {
                         <span>Otros métodos de autentificación</span>
                         <button class="btn btn-google d-flex justify-content-center gap-4" id="btn_login--gmail"><i class="bi bi-google"></i> Google</button>
                         <button class="btn btn-facebook d-flex justify-content-center gap-4"><i class="bi bi-facebook"></i> Facebook</button>
-                        <button class="btn btn-github d-flex justify-content-center gap-4"><i class="bi bi-github"></i> Github</button>
-                    </div>
+<!--                         <button class="btn btn-github d-flex justify-content-center gap-4"><i class="bi bi-github"></i> Github</button>
+ -->                    </div>
                     <p class="m-0">
                         <a href="<?= URL_MAIN ?>login/register" class="btn">No tienes cuenta? Registrate</a>
                     </p>
@@ -114,6 +114,7 @@ if ($user::auth()) {
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
 
     <!-- form validation -->
+    <script type="text/javascript" src="<?= URL_MAIN ?>assets/js/waitme.js"></script>
     <script src="<?= URL_MAIN ?>assets/js/form-validation.js"></script>
 </body>
 

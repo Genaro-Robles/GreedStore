@@ -16,7 +16,7 @@ class MdlAutenticacion
         return $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt = null;
     }
-    public static function mdlCorreoExisteSocialMedia($correo, $metodo){
+/*     public static function mdlCorreoExisteSocialMedia($correo, $metodo){
         require_once "conexion.php";
         $correo = filter_var($correo, FILTER_SANITIZE_EMAIL);
         $stmt = Conexion::conectar()->prepare("SELECT * FROM usuarios where correo = :correo and metodo = :metodo and estado = 1");
@@ -25,7 +25,7 @@ class MdlAutenticacion
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt = null;
-    }
+    } */
     public static function mdlRegistrarUsuario($datos)
     {
         require_once "conexion.php";
@@ -45,7 +45,7 @@ class MdlAutenticacion
 
         $stmt = null;
     }
-    public static function mdlRegistrarUsuarioSocialMedia($datos)
+/*     public static function mdlRegistrarUsuarioSocialMedia($datos)
     {
         require_once "conexion.php";
         $stmt = Conexion::conectar()->prepare("INSERT INTO usuarios(nombre_apellido, correo, perfil, metodo) VALUES 
@@ -63,5 +63,5 @@ class MdlAutenticacion
 
         $stmt = null;
     }
-
+ */
 }

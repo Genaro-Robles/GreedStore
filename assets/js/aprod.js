@@ -18,7 +18,7 @@ $(document).ready(function () {
         abrir_producto_modal.addEventListener('click', () => {
             $("#form-producto")[0].reset();
             $(".modal-title").text("Agregar Producto")
-            $('#exampleModal').modal('show')
+            $('#modaldemo3').modal('show')
             $("#update-producto").hide();
             $("#add-producto").show();
             cargarDetalles(0);
@@ -42,13 +42,11 @@ $(document).ready(function () {
             let detallesProducto = cadena.substring(0, cadena.length - 1);
 
             if ($("#form-producto #nombre").val().trim().length == 0 || $("#form-producto #stock").val().trim().length == 0 || $("#form-producto #precio").val().trim().length == 0 || $("#form-producto #foto")[0].files.length == 0 || select.selectedIndex == 0) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'warning',
-                    title: 'Complete los campos',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
+                Swal.fire(
+                    'Algo salio mal!',
+                    'Comprueba que todos los campos esten rellenos',
+                    'warning'
+                )
             } else {
                 const data = new FormData($("#form-producto").get(0));
                 data.append('detalles', detallesProducto);
@@ -65,24 +63,20 @@ $(document).ready(function () {
                     }
                 }).done(function (res) {
                     if (res.status == "201") {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: res.msg,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        Swal.fire(
+                            'Agregado!',
+                            res.msg,
+                            'success'
+                        )
                     } else if (res.status == "400") {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: res.msg,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        Swal.fire(
+                            'Algo salio mal!',
+                            res.msg,
+                            'error'
+                        )
                     }
                     $("#form-producto")[0].reset();
-                    $('#exampleModal').modal('hide');
+                    $('#modaldemo3').modal('hide');
                 }).fail(function (err) {
 
                 }).always(function () {
@@ -104,13 +98,11 @@ $(document).ready(function () {
             let detallesProducto = cadena.substring(0, cadena.length - 1);
 
             if ($("#form-producto #nombre").val().trim().length == 0 || $("#form-producto #idproducto").val().trim().length == 0 || $("#form-producto #stock").val().trim().length == 0 || $("#form-producto #precio").val().trim().length == 0 || select.selectedIndex == 0 || $("#form-producto #foto_anterior").val().trim().length == 0) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'warning',
-                    title: 'Complete los campos',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
+                Swal.fire(
+                    'Algo salio mal!',
+                    'Comprueba que todos los campos esten rellenos',
+                    'error'
+                )
             } else {
                 const data = new FormData($("#form-producto").get(0));
                 data.append('detalles', detallesProducto);
@@ -127,24 +119,20 @@ $(document).ready(function () {
                     }
                 }).done(function (res) {
                     if (res.status == "200") {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: res.msg,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        Swal.fire(
+                            'Actualizado!',
+                            res.msg,
+                            'success'
+                        )
                     } else if (res.status == "400") {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: res.msg,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        Swal.fire(
+                            'Algo salio mal!',
+                            res.msg,
+                            'error'
+                        )
                     }
                     $("#form-producto")[0].reset();
-                    $('#exampleModal').modal('hide');
+                    $('#modaldemo3').modal('hide');
                 }).fail(function (err) {
 
                 }).always(function () {
@@ -164,13 +152,14 @@ async function init_search_product() {
     await buscar_productos();
 
     let btn_view_producto = document.querySelectorAll('.btn-view-producto');
-    let btn_delete_producto = document.querySelectorAll('.btn-delete-producto');
+    let btn_action_producto = document.querySelectorAll('.btn-action-producto');
 
     btn_view_producto.forEach(function (btn) {
 
         btn.addEventListener('click', function (e) {
 
             e.preventDefault();
+
             $(".modal-title").text("Editar Categoria");
 
             let producto = Number(e.target.dataset.idpro);
@@ -185,6 +174,7 @@ async function init_search_product() {
 
                 }
             }).done(function (res) {
+                $("#form-producto")[0].reset();
                 (async function () {
                     await cargarDetalles(res.categoria);
 
@@ -208,9 +198,7 @@ async function init_search_product() {
                         campo.value = detalles[index];
                     });
 
-                    $("#form-producto").waitMe('hide');
-
-                    $('#exampleModal').modal('show')
+                    $('#modaldemo3').modal('show')
 
                     $("#update-producto").show();
 
@@ -219,20 +207,22 @@ async function init_search_product() {
                 })();
             }).fail(function (err) {
             }).always(function () {
+                $("#form-producto").waitMe('hide');
             });
 
         });
     });
-    btn_delete_producto.forEach(function (btn) {
+    btn_action_producto.forEach(function (btn) {
 
         btn.addEventListener('click', function (e) {
 
             e.preventDefault();
 
-            let producto = Number(e.target.dataset.idpro);
-            console.log(producto);
+            let action = $(btn).data('action');
+            let producto = $(btn).data('idpro');
 
-            if (producto != null) {
+            if (producto != null || producto != undefined ) {
+
                 Swal.fire({
                     title: 'Estas seguro?',
                     text: "No podrás revertir esto!",
@@ -240,23 +230,24 @@ async function init_search_product() {
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sí, bórralo!'
+                    confirmButtonText: 'Sí, cambia el estado!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "POST",
-                            url: urlLocation + "?ruta=Productos/EliminarProducto",
-                            data: { idproducto: producto },
+                            dataType: "JSON",
+                            url: urlLocation + "?ruta=Productos/EstadoProducto",
+                            data: { idproducto: producto, action },
                         }).done(function (res) {
-                            if (res.status == "200") {
+                            if (res.status == "201") {
                                 Swal.fire(
-                                    'Eliminado!',
+                                    res.data.action,
                                     res.msg,
                                     'success'
                                 )
                             } else if (res.status == "400") {
                                 Swal.fire(
-                                    'Error!',
+                                    res.data.action,
                                     res.msg,
                                     'error'
                                 )
@@ -300,6 +291,7 @@ $("#filtroProd").change(function (e) {
 });
 $("#busquedaProd").keyup(function (e) {
     buscar_productos();
+    init_search_product();
     //alert($("#busquedaProd").val());
 });
 

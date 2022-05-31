@@ -229,4 +229,30 @@ class CtrProductos
         // Debemos borrar del servidor la imagen anterior
         json_output(200, 'Producto eliminado con éxito');
     }
+    public static function ctrEstadoProducto()
+    {
+        if (!isset($_POST['idproducto'], $_POST['action'])) {
+            json_output(400, 'Completa el formulario por favor e intenta de nuevo');
+        }
+        $producto = [];
+
+        $action_msg = $_POST['action'] == 'eliminar' ? 'Eliminado' : 'Restaurado';
+
+        $id = (int) $_POST['idproducto'];
+
+        if ($_POST['action'] == 'eliminar') {
+            $producto = [
+                'estado'    => '0',
+            ];
+        } else {
+            $producto = [
+                'estado'    => '1',
+            ];
+        }
+
+        if (!MdlProductos::mdlActualizarProducto(['idproducto' => $id], $producto)) {
+            json_output(400, 'Hubo un problema, intenta de nuevo');
+        }
+        json_output(201, 'Se ha ' . $action_msg . ' correctamente', ['action' => $action_msg . '!']);
+    }
 }

@@ -101,7 +101,7 @@ class CtrCategorias
 
             $categoria['foto_categoria'] = $new_name;
         }
-        
+
         // Guardar en la base de datos
         if (!MdlCategorias::mdlActualizarCategoria(['idcategoria' => $id], $categoria)) {
             json_output(400, 'Hubo un problema, intenta de nuevo');
@@ -132,16 +132,43 @@ class CtrCategorias
         // Debemos borrar del servidor la imagen anterior
         json_output(200, 'Categoria eliminada con éxito');
     }
-    public static function ctrListarCategoriaTabla(){
+    public static function ctrListarCategoriaTabla()
+    {
 
         if (!isset($_POST['idcategoria'])) {
             json_output(400, 'Hubo un problema, intenta de nuevo');
         }
-        
+
         $id = (int) $_POST['idcategoria'];
 
         $respuesta = MdlCategorias::mdlListarCategoriaTabla(['idcategoria' => $id]);
-        
+
         echo $respuesta;
+    }
+    public static function ctrEstadoCategoria()
+    {
+        if (!isset($_POST['idcategoria'], $_POST['action'])) {
+            json_output(400, 'Completa el formulario por favor e intenta de nuevo');
+        }
+        $categoria = [];
+
+        $action_msg = $_POST['action'] == 'eliminar' ? 'Eliminado' : 'Restaurado';
+
+        $id = (int) $_POST['idcategoria'];
+
+        if ($_POST['action'] == 'eliminar') {
+            $categoria = [
+                'estado'    => '0',
+            ];
+        } else {
+            $categoria = [
+                'estado'    => '1',
+            ];
+        }
+
+        if (!MdlCategorias::mdlActualizarCategoria(['idcategoria' => $id], $categoria)) {
+            json_output(400, 'Hubo un problema, intenta de nuevo');
+        }
+        json_output(201, 'Se ha ' . $action_msg . ' correctamente', ['action' => $action_msg . '!']);
     }
 }

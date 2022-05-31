@@ -10,8 +10,8 @@ function cargarEventos() {
 
 	//Se ejecuta cuando se presionar agregar carrito
 	$('.lista-productos').click(function (e) {
+		
 		carro.comprarProducto(e);
-
 	});
 
 	//Cuando se elimina productos del carrito

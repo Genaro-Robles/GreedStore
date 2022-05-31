@@ -77,7 +77,7 @@
     font-weight: 500;
     border: none;
     border-radius: 5px;
-    padding: 10px 0;
+    padding: 8px 0;
     cursor: pointer;
     text-transform: uppercase;
 }
@@ -96,6 +96,7 @@
     background-color: rgb(10, 69, 182);
     color: #fff;
 }
+
 .btn.btn-github {
     background-color: #22272e;
     color: #fff;
@@ -105,6 +106,7 @@
     background-color: #2d333b;
     color: #fff;
 }
+
 .btn.btn-facebook:hover {
     background-color: #2374e1;
     color: #fff;
@@ -130,12 +132,23 @@
     .form-container {
         width: 60%;
     }
+    .form-container.register {
+        width: 60%!important;
+    }
+    .form-container.register .login-container {
+        width: 400px!important;
+    }
+    .form-container.register .fields-register {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 @media(max-width: 850px) {
     .form-container {
-        width: 75%;
+        width: 65%;
     }
+
 }
 
 @media(max-width: 740px) {
@@ -144,25 +157,66 @@
     }
 
     .form-container .login-container {
-        width: 350px;
+        width: 300px;
+    }
+    .form-container.register {
+        width: 80%!important;
+    }
+    .form-container.register .login-container {
+        width: 300px!important;
+    }
+    .form-container.register .fields-register {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
     }
 }
 
 @media(max-width: 570px) {
+    .form-container.register {
+        width: 95%!important;
+    }
+}
+@media(max-width: 570px) {
     .form-container {
         width: 95%;
-        ;
-    }
-
-    .form-container .login-container {
-        width: 300px;
     }
 }
 
 p.message_error-custom {
     position: absolute;
     top: 0;
-    top: 55px;
+    top: 40px;
     color: #b00020;
     font-weight: 400;
+}
+
+.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3),
+.input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 40px;
+}
+
+.my-5 {
+    margin-top: 2.2rem !important;
+    margin-bottom: 2.2rem !important;
+}
+
+.container-input>p {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.form-container.register {
+    width: 70%;
+}
+
+.form-container.register .login-container {
+    width: 700px;
+}
+
+.fields-register {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 1rem;
 }

@@ -140,6 +140,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Core theme JS-->
+<script type="text/javascript" src="<?= URL_MAIN ?>assets/js/waitme.js"></script>
 <script type="text/javascript" src="<?= URL_MAIN ?>assets/js/header.js"></script>
 <script type="text/javascript" src="<?= URL_MAIN ?>assets/js/carrito.js"></script>
 <script type="text/javascript" src="<?= URL_MAIN ?>assets/js/pedido.js"></script>

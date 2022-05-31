@@ -25,7 +25,7 @@ if ($user::auth()) {
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link href="<?= URL_MAIN ?>assets/css/normalize.css" rel="stylesheet" />
     <link href="<?= URL_MAIN ?>assets/css/login-register.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="<?= URL_MAIN ?>assets/css/waitme.css">
     <!-- MATERIAL ICONS FULL -->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
 </head>
@@ -33,109 +33,90 @@ if ($user::auth()) {
 <body>
     <main class="content-body">
         <!-- form login -->
-        <div class="form-container">
+        <div class="form-container register">
             <div class="login-container">
                 <h2>Register</h2>
                 <form action="" id="form-register">
-                    <p class="my-4">
-                    <div class="input-group my-2">
-                        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
-                            <span class="mdc-notched-outline">
-                                <span class="mdc-notched-outline__leading"></span>
-                                <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="my-label-id">Tu nombre</span>
+                    <div class="fields-register">
+                        <div class="input-group my-3">
+                            <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
+                                <span class="mdc-notched-outline">
+                                    <span class="mdc-notched-outline__leading"></span>
+                                    <span class="mdc-notched-outline__notch">
+                                        <span class="mdc-floating-label" id="my-label-id">Tu nombre</span>
+                                    </span>
+                                    <span class="mdc-notched-outline__trailing"></span>
                                 </span>
-                                <span class="mdc-notched-outline__trailing"></span>
-                            </span>
-                            <input class="mdc-text-field__input p-0" type="text" name="name" aria-labelledby="my-label-id" id="nombre">
-                            <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
-                                face
-                            </span>
-                        </label>
-                        <p class="message_error-custom name m-0 p-0"></p>
-                    </div>
-                    </p>
-                    <p class="my-4">
-                    <div class="input-group my-2">
-                        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
-                            <span class="mdc-notched-outline">
-                                <span class="mdc-notched-outline__leading"></span>
-                                <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="my-label-id">Tu correo electronico</span>
+                                <input class="mdc-text-field__input p-0" type="text" name="name" aria-labelledby="my-label-id" id="nombre">
+                                <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
+                                    face
                                 </span>
-                                <span class="mdc-notched-outline__trailing"></span>
-                            </span>
-                            <input class="mdc-text-field__input p-0" type="email" name="email" aria-labelledby="my-label-id" id="correo">
-                            <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
-                                mail
-                            </span>
-                        </label>
-                        <p class="message_error-custom email m-0 p-0"></p>
-                    </div>
-                    </p>
-                    <p class="my-4">
-                    <div class="input-group my-2">
-                        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
-                            <span class="mdc-notched-outline">
-                                <span class="mdc-notched-outline__leading"></span>
-                                <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="my-label-id">Tu celular</span>
+                            </label>
+                            <p class="message_error-custom name m-0 p-0"></p>
+                        </div>
+
+
+                        <div class="input-group my-3">
+                            <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
+                                <span class="mdc-notched-outline">
+                                    <span class="mdc-notched-outline__leading"></span>
+                                    <span class="mdc-notched-outline__notch">
+                                        <span class="mdc-floating-label" id="my-label-id">Tu correo electronico</span>
+                                    </span>
+                                    <span class="mdc-notched-outline__trailing"></span>
                                 </span>
-                                <span class="mdc-notched-outline__trailing"></span>
-                            </span>
-                            <input class="mdc-text-field__input p-0" type="tel" name="phone" aria-labelledby="my-label-id" id="celular">
-                            <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
-                                phone_android
-                            </span>
-                        </label>
-                        <p class="message_error-custom phone m-0 p-0"></p>
-                    </div>
-                    </p>
-                    <p class="my-4">
-                    <div class="input-group my-2">
-                        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
-                            <span class="mdc-notched-outline">
-                                <span class="mdc-notched-outline__leading"></span>
-                                <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="my-label-id">Tu edad</span>
+                                <input class="mdc-text-field__input p-0" type="email" name="email" aria-labelledby="my-label-id" id="correo">
+                                <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
+                                    mail
                                 </span>
-                                <span class="mdc-notched-outline__trailing"></span>
-                            </span>
-                            <input class="mdc-text-field__input p-0" type="number" name="age" aria-labelledby="my-label-id" id="edad">
-                            <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
-                                calendar_month
-                            </span>
-                        </label>
-                        <p class="message_error-custom age m-0 p-0"></p>
-                    </div>
-                    </p>
-                    <p class="my-4">
-                    <div class="input-group my-2">
-                        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
-                            <span class="mdc-notched-outline">
-                                <span class="mdc-notched-outline__leading"></span>
-                                <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="my-label-id">Tu contraseña</span>
+                            </label>
+                            <p class="message_error-custom email m-0 p-0"></p>
+                        </div>
+
+
+                        <div class="input-group my-3">
+                            <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
+                                <span class="mdc-notched-outline">
+                                    <span class="mdc-notched-outline__leading"></span>
+                                    <span class="mdc-notched-outline__notch">
+                                        <span class="mdc-floating-label" id="my-label-id">Tu celular</span>
+                                    </span>
+                                    <span class="mdc-notched-outline__trailing"></span>
                                 </span>
-                                <span class="mdc-notched-outline__trailing"></span>
-                            </span>
-                            <input class="mdc-text-field__input p-0" type="password" name="password" aria-labelledby="my-label-id" id="pass">
-                            <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing visibility-password" style="user-select: none;" tabindex="0" role="button">
-                                visibility_off
-                            </span>
-                        </label>
-                        <p class="message_error-custom password m-0 p-0"></p>
+                                <input class="mdc-text-field__input p-0" type="tel" name="phone" aria-labelledby="my-label-id" id="celular">
+                                <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing">
+                                    phone_android
+                                </span>
+                            </label>
+                            <p class="message_error-custom phone m-0 p-0"></p>
+                        </div>
+                        <div class="input-group my-3">
+                            <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon w-100">
+                                <span class="mdc-notched-outline">
+                                    <span class="mdc-notched-outline__leading"></span>
+                                    <span class="mdc-notched-outline__notch">
+                                        <span class="mdc-floating-label" id="my-label-id">Tu contraseña</span>
+                                    </span>
+                                    <span class="mdc-notched-outline__trailing"></span>
+                                </span>
+                                <input class="mdc-text-field__input p-0" type="password" name="password" aria-labelledby="my-label-id" id="pass">
+                                <span class="material-icons-outlined mdc-text-field__icon mdc-text-field__icon--trailing visibility-password" style="user-select: none;" tabindex="0" role="button">
+                                    visibility
+                                </span>
+                            </label>
+                            <p class="message_error-custom password m-0 p-0"></p>
+                        </div>
+
                     </div>
-                    </p>
                     <p class="mt-4">
                         <button type="submit" class="btn btn-login">Register</button>
                     </p>
-                    <!--  <div class="providers my-4">
-                    <span>Otros métodos de autentificación</span>
-                    <button class="btn btn-google d-flex justify-content-center gap-4"><i class="bi bi-google"></i> Google</button>
-                    <button class="btn btn-facebook d-flex justify-content-center gap-4"><i class="bi bi-facebook"></i> Facebook</button>
-                    <button class="btn btn-github d-flex justify-content-center gap-4"><i class="bi bi-github"></i> Github</button>
-                </div> -->
+                    <div class="providers my-4">
+                        <span>Otros métodos de autentificación</span>
+                        <button class="btn btn-google d-flex justify-content-center gap-4" id="btn_register--gmail"><i class="bi bi-google"></i> Google</button>
+                        <button class="btn btn-facebook d-flex justify-content-center gap-4"><i class="bi bi-facebook"></i> Facebook</button>
+<!--                         <button class="btn btn-github d-flex justify-content-center gap-4"><i class="bi bi-github"></i> Github</button>
+ -->                    </div>
                     <p class="m-0">
                         <a href="<?= URL_MAIN ?>login/iniciar-session" class="btn">Ya tienes cuenta? Ingresa</a>
                     </p>
@@ -158,8 +139,9 @@ if ($user::auth()) {
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
-    
+
     <!-- form validation -->
+    <script type="text/javascript" src="<?= URL_MAIN ?>assets/js/waitme.js"></script>
     <script src="<?= URL_MAIN ?>assets/js/form-validation.js"></script>
 </body>
 

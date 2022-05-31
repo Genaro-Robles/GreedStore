@@ -84,8 +84,8 @@ class MdlProductos
         $salida = "";
         if ($stmt->rowCount() > 0) {
             $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $salida .= "<table class='table table-bordered border-dark'>
-            <thead class='table-dark'>
+            $salida .= "<table class='table table-responsive table-bordered border-dark'>
+            <thead class='thead-colored thead-dark'>
               <th>NOMBRE</th>
               <th>IMAGEN</th>
               <th>CATEGORIA</th>
@@ -103,14 +103,14 @@ class MdlProductos
                 <td>" . $value['stock'] . "</td>
                 <td>" . $value['precio'] . "</td>
                 <td>
-                    <div class='badge text-wrap " . ($value['estado'] == 1 ? "bg-primary" : "bg-danger") . "' style='width: 6rem;' id='estado'>
+                    <div class='badge text-wrap " . ($value['estado'] == 1 ? "bg-success" : "bg-danger") . "' style='width: 6rem;' id='estado'>
                         " . ($value['estado'] == 1 ? "Activo" : "Inactivo") . "
                     </div>
                 </td>
                 <td>
                     <div class='d-flex flex-column gap-2'>
-                        <button class='btn btn-success btn-view-producto' data-idpro=" . $value['idproducto'] . ">Actualizar</button>
-                        <button class='btn btn-danger btn-delete-producto " . ($value['estado'] == 1 ? "" : "disabled") . "' data-idpro=" . $value['idproducto'] . ">Eliminar</button>
+                        <button class='btn  btn-teal btn-view-producto mg-b-10' data-idpro='" . $value['idproducto'] . "'><i class='fa fa-refresh'></i> Actualizar</button>
+                        <button class='btn  btn-danger btn-action-producto' data-action='" . ($value['estado'] == 1 ? "eliminar" : "restaurar") . "' data-idpro='" . $value['idproducto'] . "'><i class='icon ion-trash-a'></i> " . ($value['estado'] == 1 ? "Eliminar" : "Restaurar") . "</button>
                     </div>
                 </td>
               </tr>";

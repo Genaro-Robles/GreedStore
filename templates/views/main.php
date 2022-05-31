@@ -7,7 +7,7 @@ if (isset($cat)) {
 ?>
 <!-- MAIN-->
 <main class="py-1">
-  <div class="bg-dark slider-container">
+  <div class="bg-light slider-container">
     <div class="container-xxl">
       <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
