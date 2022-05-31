@@ -191,28 +191,26 @@ aside::-webkit-scrollbar-thumb {
     cursor: pointer;
 }
 
-aside .btn-pay {
+.btn-pay {
     display: block;
-    width: 100%;
     background-color: #ff6000;
     color: #fff;
     font-weight: 800;
 }
 
-aside .btn-pay:hover {
+.btn-pay:hover {
     background-color: #cc4d00;
     color: #fff;
 }
 
-aside .btn-trash {
+.btn-trash {
     display: block;
-    width: 100%;
     background-color: #000;
     color: #fff;
     font-weight: 800;
 }
 
-aside .btn-trash:hover {
+.btn-trash:hover {
     background-color: #1d1d1c;
     color: #fff;
 }

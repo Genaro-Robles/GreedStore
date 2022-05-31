@@ -49,3 +49,26 @@ main .btn-add-card:hover{
     background-color: #cc4d00;
     color: #fff;
 }
+
+.btn-black{
+    display: block;
+    background-color: #000;
+    color: #fff;
+    font-weight: 800;
+}
+.btn-black:hover {
+    background-color: #1d1d1c;
+    color: #fff;
+}
+
+.btn-orange{
+    display: block;
+    background-color: #ff6000;
+    color: #fff;
+    font-weight: 800;
+}
+
+.btn-orange:hover {
+    background-color: #cc4d00;
+    color: #fff;
+}

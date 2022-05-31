@@ -26,7 +26,7 @@
 <body>
 
     <?php
-    
+
     $perfil = CtrUsuarios::ObtenerSession();
     ?>
 
@@ -92,9 +92,9 @@
 
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <li><a class="dropdown-item" href="<?= URL_MAIN ?>">Perfil</a></li>
-                                        <?php if($perfil['rol'] >= 2): ?>
+                                        <?php if ($perfil['rol'] >= 2) : ?>
                                             <li><a class="dropdown-item" href="<?= URL_MAIN ?>admin/dashboard">Admin</a></li>
-                                        <?php endif;?>
+                                        <?php endif; ?>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
@@ -169,7 +169,7 @@
                     <a class="btn btn-trash" href="#">
                         Vaciar carrito
                     </a>
-                    <a class="btn btn-pay" href="<?=URL_MAIN?>pedido">
+                    <a class="btn btn-pay" href="<?= URL_MAIN ?>pedido">
                         Realizar pedido
                     </a>
                 </div>

@@ -51,6 +51,7 @@ function cargarEventosCompra() {
 
 
 function procesarCompra(e) {
+    e.preventDefault();
     if (compra.obtenerProductosLocalStorage().length === 0) {
         e.preventDefault();
         Swal.fire({
