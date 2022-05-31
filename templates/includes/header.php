@@ -20,6 +20,7 @@
     <link href="<?= URL_MAIN ?>assets/css/header.css" rel="stylesheet" />
     <link href="<?= URL_MAIN ?>assets/css/main.css" rel="stylesheet" />
     <link href="<?= URL_MAIN ?>assets/css/footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= URL_MAIN ?>assets/css/waitme.css">
 </head>
 
 <body>
@@ -72,18 +73,28 @@
                         </li>
                         <?php
                         if (CtrUsuarios::VerificarSession()) :
+
+                            $src = "";
+                            if ($perfil['perfil'] == "") :
+                                $src = URL_MAIN . UPLOADS . 'default-profile.jpg';
+                            else :
+                                $src = parse_url($perfil['perfil'])['scheme'] === 'https' ? $perfil['perfil'] : UPLOADS . $perfil['perfil'];
+                            endif;
+
                         ?>
                             <li class="d-flex justify-content-evenly align-items-center">
 
                                 <div class="dropdown">
                                     <a class="btn dropdown-toggle btn btn-header" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="<?php echo ($perfil["perfil"] == "") ? "https://github.com/mdo.png" : $perfil["perfil"]  ?>" alt="mdo" width="32" height="32" class="rounded-circle">
+                                        <img src="<?= $src ?>" alt="mdo" width="32" height="32" class="rounded-circle">
                                         <?php echo $perfil["nombre"] ?>
                                     </a>
 
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <li><a class="dropdown-item" href="#">Perfil</a></li>
-                                        <li><a class="dropdown-item" href="#">Favoritos</a></li>
+                                        <li><a class="dropdown-item" href="<?= URL_MAIN ?>">Perfil</a></li>
+                                        <?php if($perfil['rol'] >= 2): ?>
+                                            <li><a class="dropdown-item" href="<?= URL_MAIN ?>admin/dashboard">Admin</a></li>
+                                        <?php endif;?>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>

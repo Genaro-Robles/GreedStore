@@ -13,9 +13,13 @@ class Carrito {
             this.calcularTotalCarrito();
             //animacion carrito
             $(".aside-cart").addClass("aside-cart--active");
+            $(".aside-cart").waitMe();
             setTimeout(function () {
                 $(".aside-cart").removeClass("aside-cart--active");
-            }, 3000);
+            }, 4000);
+            setTimeout(function () {
+                $(".aside-cart").waitMe('hide');
+            }, 2000);
 
         }
     }

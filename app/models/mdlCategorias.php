@@ -49,8 +49,8 @@ class MdlCategorias
         $salida = "";
         if ($stmt->rowCount() > 0) {
             $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $salida .= "<table class='table table-bordered border-dark'>
-            <thead class='table-dark'>
+            $salida .= "<table class='table table-responsive table-bordered border-dark'>
+            <thead class='thead-colored thead-dark'>
               <th>ID</th>
               <th>NOMBRE</th>
               <th>IMAGEN</th>
@@ -66,14 +66,14 @@ class MdlCategorias
                 <td><a href='" . URL_MAIN . UPLOADS . $value['foto_categoria'] . "' data-fancybox='gallery'><img class='' width='190px' id='FotoP' height='116px' src='" . URL_MAIN . UPLOADS . $value['foto_categoria'] . "' /></a></td>
                 <td>" . $value['descripcion_categoria'] . "</td>
                 <td>
-                    <div class='badge text-wrap " . ($value['estado'] == 1 ? "bg-primary" : "bg-danger") . "' style='width: 6rem;' id='estado'>
+                    <div class='badge text-wrap " . ($value['estado'] == 1 ? "bg-success" : "bg-danger") . "' style='width: 6rem;' id='estado'>
                         " . ($value['estado'] == 1 ? "Activo" : "Inactivo") . "
                     </div>
                 </td>
                 <td>
                     <div class='d-flex flex-column gap-2'>
-                        <button class='btn btn-success btn-view-categoria' data-idcate=" . $value['idcategoria'] . ">Actualizar</button>
-                        <button class='btn btn-danger btn-delete-categoria " . ($value['estado'] == 1 ? "" : "disabled") . "' data-idcate=" . $value['idcategoria'] . ">Eliminar</button>
+                        <button class='btn btn-teal btn-view-categoria mg-b-10' data-idcate='" . $value['idcategoria'] . "'><i class='fa fa-refresh'></i> Actualizar</button>
+                        <button class='btn  btn-danger btn-action-categoria' data-action='" . ($value['estado'] == 1 ? "eliminar" : "restaurar") . "' data-idcate='" . $value['idcategoria'] . "'><i class='icon ion-trash-a'></i> " . ($value['estado'] == 1 ? "Eliminar" : "Restaurar") . "</button>
                     </div>
                 </td>
               </tr>";

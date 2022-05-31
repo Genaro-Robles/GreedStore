@@ -17,7 +17,7 @@ $(document).ready(function () {
 
             $("#form-categoria")[0].reset();
             $(".modal-title").text("Agregar Categoria")
-            $('#exampleModal').modal('show')
+            $('#modaldemo3').modal('show')
             $("#update-categoria").hide();
             $("#add-categoria").show();
         })
@@ -34,20 +34,34 @@ $(document).ready(function () {
             let detalles_categoria = document.querySelector('#detalles-categoria');
 
             let div_detalle = document.createElement('DIV');
-            div_detalle.className = "input-group mb-3";
+            div_detalle.className = "input-group mg-b-10";
             let input_detalle = document.createElement('INPUT');
             input_detalle.className = "form-control detalle-categoria-text";
             input_detalle.type = "text";
-            let div_checkbox = document.createElement('DIV');
-            div_checkbox.className = "input-group-text";
+
+            let span_checkbox = document.createElement('SPAN');
+            span_checkbox.className = "input-group-addon bg-transparent";
+
+            let label_checkbox = document.createElement('LABEL');
+            label_checkbox.className = "ckbox wd-16 ckbox-danger";
+
+
+
             let input_checkbox_detalle = document.createElement('INPUT');
-            input_checkbox_detalle.className = "form-check-input mt-0";
             input_checkbox_detalle.type = "checkbox";
+            let span = document.createElement('SPAN');
+
 
             detalles_categoria.appendChild(div_detalle);
             div_detalle.appendChild(input_detalle);
-            div_detalle.appendChild(div_checkbox);
-            div_checkbox.appendChild(input_checkbox_detalle);
+            div_detalle.appendChild(span_checkbox);
+            span_checkbox.appendChild(label_checkbox);
+            label_checkbox.appendChild(input_checkbox_detalle);
+            label_checkbox.appendChild(span);
+
+
+            /* div_detalle.appendChild(div_checkbox);
+            div_checkbox.appendChild(input_checkbox_detalle); */
         })
     }
     if (add_categoria) {
@@ -65,13 +79,11 @@ $(document).ready(function () {
             let detallesCategoria = cadena.substring(0, cadena.length - 1);
 
             if (validar_campos_detalles(detalles_categoria_inputs) == false || $(".detalle-categoria-text").length == 0 || $("#form-categoria #nombre").val().trim().length == 0 || $("#form-categoria #foto")[0].files.length == 0) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'warning',
-                    title: 'Complete los campos',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
+                Swal.fire(
+                    'Algo salio mal!',
+                    'Comprueba que todos los campos esten rellenos',
+                    'warning'
+                )
             } else {
                 const data = new FormData($("#form-categoria").get(0));
                 data.append('detalles', detallesCategoria);
@@ -88,24 +100,20 @@ $(document).ready(function () {
                     }
                 }).done(function (res) {
                     if (res.status == "201") {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: res.msg,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        Swal.fire(
+                            'Agregado!',
+                            res.msg,
+                            'success'
+                        )
                     } else if (res.status == "400") {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: res.msg,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        Swal.fire(
+                            'Algo salio mal!',
+                            res.msg,
+                            'error'
+                        )
                     }
                     $("#form-categoria")[0].reset();
-                    $('#exampleModal').modal('hide');
+                    $('#modaldemo3').modal('hide');
                 }).fail(function (err) {
 
                 }).always(function () {
@@ -131,13 +139,11 @@ $(document).ready(function () {
             let detallesCategoria = cadena.substring(0, cadena.length - 1);
 
             if (validar_campos_detalles(detalles_categoria_inputs) == false || $(".detalle-categoria-text").length == 0 || $("#form-categoria #nombre").val().trim().length == 0 || $("#form-categoria #idcategoria").val().trim().length == 0 || $("#form-categoria #foto_anterior").val().trim().length == 0) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'warning',
-                    title: 'Complete los campos',
-                    showConfirmButton: false,
-                    timer: 2500
-                })
+                Swal.fire(
+                    'Algo salio mal!',
+                    'Comprueba que todos los campos esten rellenos',
+                    'warning'
+                )
             } else {
                 const data = new FormData($("#form-categoria").get(0));
                 data.append('detalles', detallesCategoria);
@@ -154,24 +160,20 @@ $(document).ready(function () {
                     }
                 }).done(function (res) {
                     if (res.status == "200") {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: res.msg,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        Swal.fire(
+                            'Actualizado!',
+                            res.msg,
+                            'success'
+                        )
                     } else if (res.status == "400") {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: res.msg,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        Swal.fire(
+                            'Algo salio mal!',
+                            res.msg,
+                            'Error'
+                        )
                     }
                     $("#form-categoria")[0].reset();
-                    $('#exampleModal').modal('hide');
+                    $('#modaldemo3').modal('hide');
                 }).fail(function (err) {
 
                 }).always(function () {
@@ -189,7 +191,7 @@ async function init_search_categoria() {
     await buscar_categorias();
 
     let btn_view_categoria = document.querySelectorAll('.btn-view-categoria');
-    let btn_delete = document.querySelectorAll('.btn-delete-categoria');
+    let btn_action_categoria = document.querySelectorAll('.btn-action-categoria');
 
     btn_view_categoria.forEach(function (btn) {
 
@@ -227,24 +229,34 @@ async function init_search_categoria() {
                 detalles.forEach(function (detalle) {
 
                     let div_detalle = document.createElement('DIV');
-                    div_detalle.className = "input-group mb-3";
+                    div_detalle.className = "input-group mg-b-10";
                     let input_detalle = document.createElement('INPUT');
                     input_detalle.className = "form-control detalle-categoria-text";
                     input_detalle.type = "text";
-                    let div_checkbox = document.createElement('DIV');
-                    div_checkbox.className = "input-group-text";
+
+                    let span_checkbox = document.createElement('SPAN');
+                    span_checkbox.className = "input-group-addon bg-transparent";
+
+                    let label_checkbox = document.createElement('LABEL');
+                    label_checkbox.className = "ckbox wd-16 ckbox-danger";
+
+
+
                     let input_checkbox_detalle = document.createElement('INPUT');
-                    input_checkbox_detalle.className = "form-check-input mt-0";
                     input_checkbox_detalle.type = "checkbox";
+                    let span = document.createElement('SPAN');
+
 
                     detalles_categoria.appendChild(div_detalle);
                     div_detalle.appendChild(input_detalle);
-                    div_detalle.appendChild(div_checkbox);
-                    div_checkbox.appendChild(input_checkbox_detalle);
+                    div_detalle.appendChild(span_checkbox);
+                    span_checkbox.appendChild(label_checkbox);
+                    label_checkbox.appendChild(input_checkbox_detalle);
+                    label_checkbox.appendChild(span);
                     input_detalle.value = detalle;
                 });
 
-                $('#exampleModal').modal('show')
+                $('#modaldemo3').modal('show')
 
                 $("#update-categoria").show();
 
@@ -257,14 +269,14 @@ async function init_search_categoria() {
         });
 
     });
-    btn_delete.forEach(function (btn) {
+    btn_action_categoria.forEach(function (btn) {
 
         btn.addEventListener('click', function (e) {
 
             e.preventDefault();
 
-            let categoria = Number(e.target.dataset.idcate);
-            console.log(categoria);
+            let action = $(btn).data('action');
+            let categoria = $(btn).data('idcate');
 
             if (categoria != null) {
                 Swal.fire({
@@ -274,23 +286,27 @@ async function init_search_categoria() {
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sí, bórralo!'
+                    confirmButtonText: 'Sí, cambia el estado!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "POST",
-                            url: urlLocation + "?ruta=Categorias/EliminarCategoria",
-                            data: { idcategoria: categoria },
+                            dataType: "JSON",
+                            url: urlLocation + "?ruta=Categorias/EstadoCategoria",
+                            data: { idcategoria: categoria, action: action },
+                            beforeSend: function () {
+                                $("#form-categoria").waitMe();
+                            }
                         }).done(function (res) {
-                            if (res.status == "200") {
+                            if (res.status == "201") {
                                 Swal.fire(
-                                    'Eliminado!',
+                                    res.data.action,
                                     res.msg,
                                     'success'
                                 )
                             } else if (res.status == "400") {
                                 Swal.fire(
-                                    'Error!',
+                                    res.data.action,
                                     res.msg,
                                     'error'
                                 )
@@ -299,6 +315,7 @@ async function init_search_categoria() {
                         }).fail(function (err) {
 
                         }).always(function () {
+                            $("#form-categoria").waitMe('hide');
                             init_search_categoria();
                         });
                     }
@@ -314,24 +331,21 @@ async function init_search_categoria() {
 function delete_detalles() {
     let checkboxes = document.querySelectorAll('#detalles-categoria input[type=checkbox]');
     if (checkboxes.length <= 0) {
-        Swal.fire({
-            position: 'center',
-            icon: 'warning',
-            title: 'No hay campos a eliminar',
-            showConfirmButton: false,
-            timer: 2500
-        })
+        Swal.fire(
+            'Algo salio mal!',
+            'No hay detalles para eliminar',
+            'error'
+        )
     }
     checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
-            let div_padre = checkbox.parentNode.parentNode;
+            let div_padre = checkbox.parentNode.parentNode.parentNode;
             div_padre.parentNode.removeChild(div_padre);
         }
     });
 }
 
 async function buscar_categorias() {
-    nom = $("#busquedaProd").val();
     await $.ajax({
         type: "POST",
         url: urlLocation + "?ruta=Categorias/ListarCategoriasTabla",

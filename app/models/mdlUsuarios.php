@@ -10,12 +10,12 @@ class MdlUsuarios
         if (session_status() !== PHP_SESSION_ACTIVE) session_start();
     }
 
-    public static function setSessionUser($correo, $nombre, $rol, $perfil, $login = false)
+    public static function setSessionUser($correo, $nombre, $perfil, $rol = 1)
     {
         $_SESSION['correo'] = $correo;
         $_SESSION['nombre'] = $nombre;
-        $_SESSION['rol'] = $rol ?? 1;
-        $_SESSION['login'] = $login;
+        $_SESSION['rol'] = $rol;
+        $_SESSION['login'] = true;
         $_SESSION['perfil'] = $perfil ?? "";
     }
     public static function getSessionUser()
@@ -50,28 +50,43 @@ class MdlUsuarios
         $salida = "";
         if ($stmt->rowCount() > 0) {
             $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $salida .= "<table class='table table-hover'>
-            <thead>
+            $salida .= "<table class='table table-responsive table-bordered border-dark'>
+            <thead class='thead-colored thead-dark'>
               <th>ID</th>
               <th>NOMBRE</th>
               <th>IMAGEN</th>
               <th>CORREO</th>
               <th>ROL</th>
               <th>METODO</th>
-              <th></th>
+              <th>ESTADO</th>
+              <th>ACCIONES</th>
             </thead>
             <tbody>";
             foreach ($usuarios as $key => $value) {
+                $src="";
+                if($value['perfil'] == ""):
+                    $src = URL_MAIN.UPLOADS.'default-profile.jpg'; 
+                else:
+                    $src = parse_url($value['perfil'])['scheme'] === 'https' ? $value['perfil'] : UPLOADS.$value['perfil'];
+                endif;
+
                 $salida .= "<tr>
                 <td>" . $value['id'] . "</td>
                 <td>" . $value['nombre_apellido'] . "</td>
-                <td><img class='' width='203px' id='FotoP' height='136px' src='data:image/png;base64," . base64_encode($value['perfil']) . "' /></td>
+                <td>
+                    <a href='" . $src. "' data-fancybox='gallery'><img class='' width='190px' id='FotoP' height='116px' src='".$src. "' /></a>
+                </td>
                 <td>" . $value['correo'] . "</td>
                 <td>" . $value['rol'] . "</td>
                 <td>" . $value['metodo'] . "</td>
                 <td>
-                  <button class='btn btn-success btn-view' data-iduser=" . $value['id'] . ">Visualizar</button>
-                  <a href='#' class='btn btn-danger'>Banear</a>
+                    <div class='badge text-wrap " . ($value['estado'] == 1 ? "bg-success" : "bg-danger") . "' style='width: 6rem;' id='estado'>
+                    " . ($value['estado'] == 1 ? "Activo" : "Inactivo") . "
+                    </div>
+                </td>
+                <td>
+                  <button class='btn btn-teal btn-view' data-iduser='" . $value['id'] . "'><i class='icon ion-eye'></i> Ver</button>
+                  <button class='btn  btn-danger btn-action-user' data-action='" . ($value['estado'] == 1 ? "banear" : "desbanear") . "' data-iduser='" . $value['id'] . "'><i class='fa fa-gavel'></i> " . ($value['estado'] == 1 ? "Banear" : "Desbanear") . "</button>
                 </td>
               </tr>";
             }
@@ -96,5 +111,22 @@ class MdlUsuarios
         return $stmt->fetch(PDO::FETCH_ASSOC);
 
         $stmt = null;
+    }
+    public static function mdlRegistrarUsuario($array = [])
+    {
+        $respuesta = get_by_id('usuarios', ['correo' => $array['correo']]);
+        if (is_array($respuesta) && count($respuesta) > 0) {
+            return false;
+        }
+        return insert_new('usuarios', $array);
+    }
+    public static function mdlActualizarUsuario($key = [], $array = [])
+    {
+        return update_record('usuarios', $key, $array);
+    }
+    public static function mdlLoginUsuario($array = [])
+    {
+        $respuesta = get_by_id('usuarios', ['correo' => $array['correo']]);
+        return (is_array($respuesta) && count($respuesta) > 0) ? $respuesta : false;
     }
 }

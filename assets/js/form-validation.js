@@ -4,7 +4,10 @@ $(document).ready(function () {
     const form_register = document.getElementById('form-register');
     const inputsLogin = document.querySelectorAll('#form-login input');
     const inputsRegister = document.querySelectorAll('#form-register input');
-    const btnGmail = document.getElementById('btn_login--gmail');
+    const gmailLogin = document.getElementById('btn_login--gmail');
+    const gmailRegister = document.getElementById('btn_register--gmail');
+
+    var urlLocation = 'http://localhost/GreedStore/'
 
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -24,8 +27,8 @@ $(document).ready(function () {
 
     let auth = firebase.auth();
 
-    if (btnGmail) {
-        btnGmail.addEventListener('click', (e) => {
+    if (gmailLogin) {
+        gmailLogin.addEventListener('click', (e) => {
             e.preventDefault();
             const provider = new firebase.auth.GoogleAuthProvider();
             auth.signInWithPopup(provider)
@@ -34,28 +37,40 @@ $(document).ready(function () {
 
                     // fields to be filled
 
-                    let correo = user.email;
+                    let email = user.email;
                     let perfil = user.photoURL;
-                    let nombre = user.displayName;
+                    let name = user.displayName;
                     let metodo = user.providerId.split('.')[0];
 
-                    console.log(correo, perfil, nombre, metodo);
-                    debugger;
-                    $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacionAJAX.php?action=loginSocialMedia", { correo, perfil, nombre, metodo }, function (response) {
+                    const data = new FormData();
 
-                        debugger;
-                        let data = JSON.parse(response);
+                    data.append("email", email);
+                    data.append("perfil", perfil);
+                    data.append("name", name);
+                    data.append("metodo", metodo);
 
-                        if (data.respuesta == 'login') {
-                            window.location.href = "http://localhost/GreedStore/";
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'El correo ya se encuentra registrado'
-                            })
+                    $.ajax({
+                        type: "POST",
+                        url: urlLocation + "?ruta=Usuarios/LoginUsuario",
+                        dataType: "JSON",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        data: data,
+                        success: function (res) {
+                            if (res.status == 200) {
+                                $("#form-login").waitMe();
+                                window.location.href = "http://localhost/GreedStore";
+                            } else {
+                                Swal.fire(
+                                    'Algo salio mal!',
+                                    res.msg,
+                                    'error'
+                                )
+                            }
                         }
-                    })
+                    });
+
                 }).catch(error => {
                     console.log(error);
                 })
@@ -63,6 +78,67 @@ $(document).ready(function () {
     }
 
 
+    if (gmailRegister) {
+        gmailRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then(result => {
+                    let user = result.user.providerData[0];
+
+                    // fields to be filled
+
+                    let email = user.email;
+                    let perfil = user.photoURL;
+                    let name = user.displayName;
+                    let metodo = user.providerId.split('.')[0];
+
+                    const data = new FormData();
+
+                    data.append("email", email);
+                    data.append("perfil", perfil);
+                    data.append("name", name);
+                    data.append("metodo", metodo);
+
+                    $.ajax({
+                        type: "POST",
+                        url: urlLocation + "?ruta=Usuarios/RegistrarUsuario",
+                        dataType: "JSON",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        data: data,
+                        success: function (res) {
+                            if (res.status == 201) {
+                                $("#form-login").waitMe();
+                                Swal.fire({
+                                    title: 'Cuenta registrada exitosamente!',
+                                    text: "Ya puedes iniciar sesión",
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Iniciar sesión'
+                                }).then((result) => {
+                                    $("#form-login").waitMe('hide');
+                                    window.location.href = "http://localhost/GreedStore/login/iniciar-session";
+                                })
+                            } else {
+                                Swal.fire(
+                                    'Algo salio mal!',
+                                    res.msg,
+                                    'error'
+                                )
+                            }
+                        }
+                    });
+                    form_register.reset();
+                }).catch(error => {
+                    console.log(error);
+                })
+        })
+    }
 
 
 
@@ -79,7 +155,7 @@ $(document).ready(function () {
         email: { estado: false, message: "El email no es valido" },
         name: { estado: false, message: "El nombre no es valido" },
         phone: { estado: false, message: "El número de celular no es valido" },
-        age: { estado: false, message: "Debes ser mayor de edad" }
+        /*         age: { estado: false, message: "Debes ser mayor de edad" } */
     }
     const validateForm = (e) => {
 
@@ -96,14 +172,14 @@ $(document).ready(function () {
             case 'phone':
                 validar(expresiones.phone, e.target.value, e.target, e.target.name, fields[e.target.name].message);
                 break;
-            case 'age':
-                validar(expresiones.age, e.target.value, e.target, e.target.name, fields[e.target.name].message);
-                break;
+            /*             case 'age':
+                            validar(expresiones.age, e.target.value, e.target, e.target.name, fields[e.target.name].message);
+                            break; */
         }
     }
 
     const validar = (expresion, val, input, field, message) => {
-        if (field != "age") {
+        /* if (field != "age") {
             if (expresion.test(val)) {
                 $(input.parentNode).removeClass("mdc-text-field--invalid")
                 $(`p.${field}`).hide();
@@ -125,8 +201,17 @@ $(document).ready(function () {
                 $(`p.${field}`).show();
                 fields[field].estado = false;
             }
+        } */
+        if (expresion.test(val)) {
+            $(input.parentNode).removeClass("mdc-text-field--invalid")
+            $(`p.${field}`).hide();
+            fields[field].estado = true;
+        } else {
+            $(input.parentNode).addClass("mdc-text-field--invalid")
+            $(`p.${field}`).html(message)
+            $(`p.${field}`).show();
+            fields[field].estado = false;
         }
-
     }
 
     if (form_login) {
@@ -140,24 +225,30 @@ $(document).ready(function () {
 
             if (fields.password.estado && fields.email.estado) {
 
+                const data = new FormData($("#form-login").get(0));
 
-                let correo = $("[name=email]").val().trim();
-                let pass = $("[name=password]").val().trim();
-
-
-                $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacionAJAX.php?action=login", { correo, pass }, function (data) {
-
-                    if (data == 0) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Verifique sus datos',
-                        })
-                    } else {
-
-                        window.location.href = "http://localhost/GreedStore/";
+                $.ajax({
+                    type: "POST",
+                    url: urlLocation + "?ruta=Usuarios/LoginUsuario",
+                    dataType: "JSON",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    data: data,
+                    success: function (res) {
+                        if (res.status == 200) {
+                            $("#form-login").waitMe();
+                            window.location.href = "http://localhost/GreedStore";
+                        } else {
+                            Swal.fire(
+                                'Algo salio mal!',
+                                res.msg,
+                                'error'
+                            )
+                        }
                     }
-                })
+                });
+
                 form_login.reset();
             } else {
                 inputsLogin.forEach(input => {
@@ -174,35 +265,43 @@ $(document).ready(function () {
 
         form_register.addEventListener('submit', function (e) {
             e.preventDefault();
-            if (fields.name && fields.email.estado && fields.password.estado && fields.phone && fields.age) {
+            if (fields.name && fields.email.estado && fields.password.estado && fields.phone/*  && fields.age */) {
 
-                let nombre = $("[name=name]").val();
-                let correo = $("[name=email]").val();
-                let pass = $("[name=password]").val();
-                let celular = $("[name=phone]").val();
-                let edad = $("[name=age]").val();
+                const data = new FormData($("#form-register").get(0));
 
-
-                $.post("http://localhost/GreedStore/app/controllers/ctrAutenticacionAJAX.php?action=register", { nombre, correo, pass, celular, edad }, function (data) {
-
-                    if (data == 0) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'El correo ya se encuentra registrado'
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Registro exitoso',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then((result) => {
-                            window.location.href = "http://localhost/GreedStore/login/iniciar-session";
-                        })
+                $.ajax({
+                    type: "POST",
+                    url: urlLocation + "?ruta=Usuarios/RegistrarUsuario",
+                    dataType: "JSON",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    data: data,
+                    success: function (res) {
+                        if (res.status == 201) {
+                            $("#form-login").waitMe();
+                            Swal.fire({
+                                title: 'Cuenta registrada exitosamente!',
+                                text: "Ya puedes iniciar sesión",
+                                icon: 'success',
+                                showCancelButton: false,
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Iniciar sesión'
+                            }).then((result) => {
+                                $("#form-login").waitMe('hide');
+                                window.location.href = "http://localhost/GreedStore/login/iniciar-session";
+                            })
+                        } else {
+                            Swal.fire(
+                                'Algo salio mal!',
+                                res.msg,
+                                'error'
+                            )
+                        }
                     }
-                })
-
+                });
                 form_register.reset();
 
             } else {
@@ -218,13 +317,13 @@ $(document).ready(function () {
         if (field.type == "password") {
             field.type = "text";
             $(".visibility-password").each(function () {
-                $(this).html("visibility");
+                $(this).html("visibility_off");
                 $(this).prop('title', 'Mostrar')
             })
         } else {
             field.type = "password";
             $(".visibility-password").each(function () {
-                $(this).html("visibility_off");
+                $(this).html("visibility");
                 $(this).prop('title', 'Ocultar')
             })
         }
