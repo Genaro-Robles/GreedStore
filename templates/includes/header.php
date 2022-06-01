@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>GreedStore Homepage</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="shortcut icon" href="<?=URL_MAIN?>assets/img/logo-bg-min.png">
     <!-- iconscout-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <!-- Bootstrap icons-->

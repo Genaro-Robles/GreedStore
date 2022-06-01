@@ -234,18 +234,18 @@ class Carrito {
     }
 
     //Enviar los productos a la base de datos en php
-/*   
-    EnviarLocalStorageCompra(){
+   
+    async EnviarLocalStorageCompra(){
+        
         var formdatos = $('#procesar-pago').serialize();
  
-        $.ajax({
-              url: 'IngresarPedido.php',
+        await $.ajax({
+              url: urlLocation + "?ruta=Pedidos/AgregarPedido",
               type: 'POST',
               data: formdatos,
               success:function(r){
-                if(r==1){
-                    //alert("Agregado con exito");
-                }
+                    alert("Agregado con exito Pedido: "+r);
+                    //console.log(r);
               }
           });
         
@@ -259,23 +259,19 @@ class Carrito {
           var importe = (precio * cantidad)
           
  
-          var datos = {"id":id,"precio":precio,"importe":importe,"cantidad":cantidad};
-          //var datos = "id="+id+"&precio="+precio+"&importe="+importe+"&cantidad="+cantidad;
-          
-          //alert("id: "+id+", precio: "+precio);
+          var datos = {"idproducto":id,"precio":precio,"importe":importe,"cantidad":cantidad};
+
           $.ajax({
-              url: 'Dpedido.php',
+              url: urlLocation + "?ruta=Pedidos/AgregarDetallePedido",
               type: 'POST',
               data: datos,
               success:function(r){
-                if(r==1){
-                    //alert("Agregado con exito");
-                }
+                    alert("Agregado con exito Detalle: "+r);
             }
         });
         });
     }
-*/
+
     //Eliminar producto por ID del LS
     eliminarProductoLocalStorage(productoID) {
         let productosLS;
