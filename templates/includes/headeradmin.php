@@ -4,12 +4,7 @@ if (!$user::auth() || !$user::isAdmin()) {
   header('Location: ' . URL_MAIN);
 }
 $perfil = $user::getSessionUser();
-$src = "";
-if ($perfil['perfil'] == "") :
-  $src = URL_MAIN . UPLOADS . 'default-profile.jpg';
-else :
-  $src = parse_url($perfil['perfil'])['scheme'] === 'https' ? $perfil['perfil'] : UPLOADS . $perfil['perfil'];
-endif;
+
 ?>
 
 <head>
@@ -40,7 +35,7 @@ endif;
         <div class="dropdown">
           <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
             <span class="logged-name hidden-md-down"><?php echo $perfil["nombre"] ?></span>
-            <img src="<?= $src ?>" class="wd-32 rounded-circle" alt="foto de perfil">
+            <img src="<?= URL_MAIN.UPLOADS.$perfil["perfil"] ?>" class="wd-32 rounded-circle" alt="foto de perfil">
             <span class="square-10 bg-success"></span>
           </a>
 
@@ -56,7 +51,7 @@ endif;
       </nav>
     </div>
   </div>
-  <div class="br-logo"><a href="../UsuHome/"><span>[</span>Empresa<span>]</span></a></div>
+  <div class="br-logo"><a href="<?= URL_MAIN ?>"><span>[</span>GreedStore<span>]</span></a></div>
 
   <div class="br-sideleft overflow-y-auto">
     <label class="sidebar-label pd-x-15 mg-t-20">Menu</label>
@@ -106,10 +101,10 @@ endif;
       </a>
 
 
-      <a href="<?= URL_MAIN ?>admin/settings" class="br-menu-link">
+      <a href="<?= URL_MAIN ?>" class="br-menu-link">
         <div class="br-menu-item">
           <i class="menu-item-icon icon ion-ios-gear-outline tx-20"></i>
-          <span class="menu-item-label">Settings</span>
+          <span class="menu-item-label">ír a la página</span>
         </div>
       </a>
 

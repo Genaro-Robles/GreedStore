@@ -10,8 +10,9 @@ class MdlUsuarios
         if (session_status() !== PHP_SESSION_ACTIVE) session_start();
     }
 
-    public static function setSessionUser($correo, $nombre, $perfil, $rol = 1)
+    public static function setSessionUser($id, $correo, $nombre, $perfil, $rol = 1)
     {
+        $_SESSION['id'] = $id;
         $_SESSION['correo'] = $correo;
         $_SESSION['nombre'] = $nombre;
         $_SESSION['rol'] = $rol;
@@ -63,18 +64,12 @@ class MdlUsuarios
             </thead>
             <tbody>";
             foreach ($usuarios as $key => $value) {
-                $src="";
-                if($value['perfil'] == ""):
-                    $src = URL_MAIN.UPLOADS.'default-profile.jpg'; 
-                else:
-                    $src = parse_url($value['perfil'])['scheme'] === 'https' ? $value['perfil'] : UPLOADS.$value['perfil'];
-                endif;
 
                 $salida .= "<tr>
                 <td>" . $value['id'] . "</td>
                 <td>" . $value['nombre_apellido'] . "</td>
                 <td>
-                    <a href='" . $src. "' data-fancybox='gallery'><img class='' width='190px' id='FotoP' height='116px' src='".$src. "' /></a>
+                    <a href='" . URL_MAIN.UPLOADS.$value["perfil"]. "' data-fancybox='gallery'><img class='' width='190px' id='FotoP' height='116px' src='".URL_MAIN.UPLOADS.$value["perfil"]. "' /></a>
                 </td>
                 <td>" . $value['correo'] . "</td>
                 <td>" . $value['rol'] . "</td>
@@ -104,7 +99,7 @@ class MdlUsuarios
     public static function mdlListarUsuario($id)
     {
         require_once "conexion.php";
-        $stmt = Conexion::conectar()->prepare("SELECT id, nombre_apellido, correo , id_rol , metodo, estado FROM usuarios where id = :usuario");
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM usuarios where id = :usuario");
         $stmt->bindParam(":usuario", $id, PDO::PARAM_STR);
         $stmt->execute();
 

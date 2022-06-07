@@ -100,27 +100,6 @@ class CtrProductos
         }
     }
 
-    public static function ctrListarUsuarios()
-    {
-        require_once "./app/models/mdlUsuarios.php";
-
-        $respuesta = mdlUsuarios::mdlListarPor();
-
-        echo $respuesta;
-    }
-
-    public static function ctrListarUsuario()
-    {
-        require_once "./app/models/mdlUsuarios.php";
-        if (isset($_POST['usuario'])) {
-            $id = $_POST['usuario'];
-        } else {
-            $id = '';
-        }
-        $respuesta = mdlUsuarios::mdlListarUsuario($id);
-
-        echo json_encode($respuesta);
-    }
     public static function ctrAgregarProducto()
     {
         if (!isset($_POST['nombre'], $_POST['cbocategoria'], $_POST['stock'], $_POST['precio'], $_POST['detalles'], $_FILES["foto"])) {

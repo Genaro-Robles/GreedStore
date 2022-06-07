@@ -49,7 +49,7 @@ $resultado = CtrCategorias::ctrListarCategorias();
                   </div>
                   <div class="col-md-6">
                     <label for="formFileSm" class="form-label">Foto</label>
-                    <input class="form-control form-control-sm" name="foto" id="foto" type="file">
+                    <input class="form-control form-control-sm" name="foto" id="foto" type="file" accept="image/*">
                   </div>
                 </div>
                 <div id="detalles">

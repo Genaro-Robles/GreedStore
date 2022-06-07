@@ -1,3 +1,8 @@
+<?php
+
+$perfil = CtrUsuarios::ObtenerSession();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <meta name="user" content="<?php echo (isset($perfil['id'])) ? $perfil["id"] : "null" ?>">
     <title>GreedStore Homepage</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -24,12 +30,6 @@
 </head>
 
 <body>
-
-    <?php
-
-    $perfil = CtrUsuarios::ObtenerSession();
-    ?>
-
     <!-- Navigation-->
     <header class="">
         <div class="alert alert-dark alert-dismissible fade show text-center" role="alert">
@@ -74,24 +74,17 @@
                         <?php
                         if (CtrUsuarios::VerificarSession()) :
 
-                            $src = "";
-                            if ($perfil['perfil'] == "") :
-                                $src = URL_MAIN . UPLOADS . 'default-profile.jpg';
-                            else :
-                                $src = parse_url($perfil['perfil'])['scheme'] === 'https' ? $perfil['perfil'] : UPLOADS . $perfil['perfil'];
-                            endif;
-
                         ?>
                             <li class="d-flex justify-content-evenly align-items-center">
 
                                 <div class="dropdown">
                                     <a class="btn dropdown-toggle btn btn-header" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="<?= $src ?>" alt="mdo" width="32" height="32" class="rounded-circle">
+                                        <img src="<?= URL_MAIN . UPLOADS . $perfil["perfil"] ?>" alt="mdo" width="32" height="32" class="rounded-circle" id="img-circle">
                                         <?php echo $perfil["nombre"] ?>
                                     </a>
 
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <li><a class="dropdown-item" href="<?= URL_MAIN ?>">Perfil</a></li>
+                                        <li><a class="dropdown-item" href="<?= URL_MAIN ?>" id="modal-usuario-update">Perfil</a></li>
                                         <?php if ($perfil['rol'] >= 2) : ?>
                                             <li><a class="dropdown-item" href="<?= URL_MAIN ?>admin/dashboard">Admin</a></li>
                                         <?php endif; ?>
@@ -197,3 +190,67 @@
             <li class="d-flex align-items-center"><a href="" class="btn fsize-13">Tu <strong style="color: #ff6000;">tienda online experta en tecnología</strong> con un servicio 5 estrellas</a></li>
         </ul>
     </header>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="staticBackdropLabel">Perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 col-lg-3">
+                            <div class="p-3 border bg-light">
+                                <div class="mb-3">
+                                    <form id="form-usuario-update-perfil">
+                                        <p for="img-avatar" class="form-label text-center fw-bold">Cambiar foto de perfil</p>
+                                        <img class="img-thumbnail rounded mx-auto d-block border-0" style="cursor: pointer;" src="" alt="perfil de usuario" id="img-avatar">
+                                        <input class="form-control d-none" type="file" id="perfil" name="perfil" accept="image/*">
+                                        <input type="hidden" name="perfil_anterior" id="perfil_anterior">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12">
+                            <form id="form-usuario-update">
+                                <div class="mb-3">
+                                    <label for="nombre_apellido" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre_apellido" name="nombre_apellido" placeholder="Nombre">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="celular" class="form-label">Celular</label>
+                                    <input type="tel" class="form-control" id="celular" name="celular" placeholder="Celular">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edad" class="form-label">Edad</label>
+                                    <input type="text" class="form-control" id="edad" name="edad" placeholder="Edad">
+                                </div>
+                        </div>
+                        <div class="col-lg-5 col-12">
+                            <div class="mb-3">
+                                <label for="direccion" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección">
+                            </div>
+                            <div class="mb-3">
+                                <label for="correo" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="correo" name="correo" placeholder="Email" disabled readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="dni" class="form-label">DNI</label>
+                                <input type="number" class="form-control" id="dni" name="dni" placeholder="DNI">
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-black" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-orange" id="update-usuario-perfil">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>

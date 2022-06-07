@@ -133,7 +133,7 @@ async function init_search_usuarios() {
 
             $.ajax({
                 type: "POST",
-                url: urlLocation + "?ruta=Productos/ListarUsuario",
+                url: urlLocation + "?ruta=Usuarios/ListarUsuario",
                 data: { usuario },
                 success: function (response) {
                     let data = JSON.parse(response);
@@ -165,7 +165,7 @@ $("#busquedaProd").keyup(function (e) {
 async function buscar_usuarios() {
     await $.ajax({
         type: "POST",
-        url: urlLocation + "?ruta=Productos/ListarUsuarios",
+        url: urlLocation + "?ruta=Usuarios/ListarUsuarios",
         dataType: "html",
         success: function (response) {
             $("#tabla-usuarios").html(response);

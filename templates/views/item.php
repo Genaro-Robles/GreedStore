@@ -16,7 +16,7 @@ $relacionados = CtrProductos::ctrListarRelacionados($idp, $producto['categoria']
                 </div>
                 <p class="lead"><?php echo $producto['descripcion']; ?></p>
                 <div class="d-flex justify-content-center">
-                    <a class="agregar-carrito btn btn-outline-dark flex-shrink-0 " id="btnid" data-id="<?php echo $producto['idproducto']; ?>">
+                    <a class="agregar-carrito text-white btn btn-orange flex-shrink-0 " id="btnid" data-id="<?php echo $producto['idproducto']; ?>">
                         <i class="bi-cart-fill me-1"></i>
                         Añadir al carrito
                     </a>
@@ -26,23 +26,27 @@ $relacionados = CtrProductos::ctrListarRelacionados($idp, $producto['categoria']
         </div>
         <div class="">
             <h3 class="fw-bolder">Detalles</h3>
-            <div class="">
-                <dl class="row">
-                    <?php
-                    $prodD = rtrim($producto['descripcion'], '/');
-                    $prodD = filter_var($prodD, FILTER_SANITIZE_URL);
-                    $prodD = explode('/', $prodD);
+            <div class="container">
 
-                    $catD = rtrim($categoria['descripcion_categoria'], '/');
-                    $catD = filter_var($catD, FILTER_SANITIZE_URL);
-                    $catD = explode('/', $catD);
-                    for ($i = 0; $i < sizeof($catD); $i++) {  ?>
-                        <dt class="col-sm-3"><?= $catD[$i] ?>:</dt>
-                        <dd class="col-sm-9"><?= $prodD[$i] ?></dd>
-                    <?php } ?>
-                </dl>
+                <?php
+                $prodD = rtrim($producto['descripcion'], '/');
+                $prodD = filter_var($prodD, FILTER_SANITIZE_URL);
+                $prodD = explode('/', $prodD);
+
+                $catD = rtrim($categoria['descripcion_categoria'], '/');
+                $catD = filter_var($catD, FILTER_SANITIZE_URL);
+                $catD = explode('/', $catD);
+                for ($i = 0; $i < sizeof($catD); $i++) :  ?>
+                    <div class="d-flex flex-column">
+                        <label><?= $catD[$i] ?>:</label>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label><?= $prodD[$i] ?></label>
+                    </div>
+                <?php endfor; ?>
+
+
             </div>
-        </div>
 </section>
 <!-- Items relacionados -->
 <section class="py-1 bg-light">

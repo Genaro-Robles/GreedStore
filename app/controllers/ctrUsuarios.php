@@ -2,12 +2,14 @@
 
 class CtrUsuarios
 {
-    public static function VerificarSession(){
+    public static function VerificarSession()
+    {
         $user = new mdlUsuarios();
         return $user::auth();
     }
 
-    public static function ObtenerSession(){
+    public static function ObtenerSession()
+    {
         $user = new mdlUsuarios();
         return $user::getSessionUser();
     }
@@ -31,7 +33,7 @@ class CtrUsuarios
                 'celular'        => clean_string($_POST['phone'])
             ];
         } else {
-            if (!isset($_POST['name'], $_POST['email'], $_POST['perfil'], $_POST['metodo'])) {
+            if (!isset($_POST['name'], $_POST['email'], $_POST['metodo'])) {
                 json_output(400, 'Completa el formulario por favor e intenta de nuevo');
             }
             // Crear nuestro array de información del nuevo usuario
@@ -114,13 +116,12 @@ class CtrUsuarios
 
             $user = new mdlUsuarios();
 
-            $user::setSessionUser($respuesta['correo'], $respuesta['nombre_apellido'], $respuesta["perfil"], $respuesta['id_rol']);
+            $user::setSessionUser($respuesta['id'], $respuesta['correo'], $respuesta['nombre_apellido'], $respuesta["perfil"], $respuesta['id_rol']);
 
             json_output(200, 'Bienvenido ' . $respuesta['nombre_apellido']);
-
         } else {
 
-            if (!isset($_POST['email'], $_POST['perfil'], $_POST['metodo'], $_POST['name'])) {
+            if (!isset($_POST['email'], $_POST['metodo'], $_POST['name'])) {
                 json_output(400, 'Hubo un problema con las credenciales');
             }
             // Validar que el correo exista
@@ -136,11 +137,84 @@ class CtrUsuarios
 
             $user = new mdlUsuarios();
 
-            $user::setSessionUser($respuesta['correo'], $respuesta['nombre_apellido'], $respuesta["perfil"],$respuesta['id_rol']);
+            $user::setSessionUser($respuesta['id'], $respuesta['correo'], $respuesta['nombre_apellido'], $respuesta["perfil"], $respuesta['id_rol']);
 
             json_output(200, 'Bienvenido ' . $respuesta['nombre_apellido']);
         }
     }
-}
+    public static function ctrListarUsuarios()
+    {
+        $respuesta = mdlUsuarios::mdlListarPor();
 
-?>
+        echo $respuesta;
+    }
+
+    public static function ctrListarUsuario()
+    {
+        if (isset($_POST['usuario'])) {
+            $id = $_POST['usuario'];
+        } else {
+            $id = '';
+        }
+        $respuesta = mdlUsuarios::mdlListarUsuario($id);
+
+        echo json_encode($respuesta);
+    }
+    public static function ctrActualizarUsuarioFotoPerfil()
+    {
+        if (!isset($_POST['perfil_anterior'], $_POST['id'])) {
+            json_output(400, 'Completa el formulario por favor e intenta de nuevo');
+        }
+
+        $id = (int) $_POST['id'];
+
+        $usuario = array();
+
+        if (isset($_FILES['perfil']) && $_FILES['perfil']['error'] !== 4) {
+            // Obtener la imagen anterior si existe
+            $perfil_anterior = $_POST['perfil_anterior'];
+
+            // Primero vamos almacenarla en una variable
+            $img = $_FILES['perfil'];
+            $ext = pathinfo($img['name'], PATHINFO_EXTENSION);
+
+            // Después vamos a renombrarla
+            $new_name = generate_filename() . '.' . $ext;
+
+            // Después vamos a guardarla en nuestro SERVIDOR dentro de UPLOADS
+            if (!move_uploaded_file($img['tmp_name'], UPLOADS . $new_name)) {
+                json_output(400, 'Hubo un error al guardar la imagen, intenta de nuevo');
+            }
+            $usuario['perfil'] = $new_name;
+        }
+        if (!MdlUsuarios::mdlActualizarUsuario(['id' => $id], $usuario)) {
+            json_output(400, 'Hubo un problema, intenta de nuevo');
+        }
+
+        if (isset($new_name) && is_file(UPLOADS . $new_name)) {
+            if (is_file(UPLOADS . $perfil_anterior) && $perfil_anterior != 'default-profile.jpg') unlink(UPLOADS . $perfil_anterior);
+        }
+
+        $data = get_by_id('usuarios', ['id' => $id])[0];
+        $user = new mdlUsuarios();
+        $user::setSessionUser($data['id'], $data['correo'], $data['nombre_apellido'], $data["perfil"], $data['id_rol']);
+        json_output(200, 'Cambios guardados con éxito', $data);
+    }
+    public static function ctrActualizarUsuarioPerfil()
+    {
+        unset($_POST['correo']);
+
+        if (!isset($_POST['nombre_apellido'], $_POST['id'])) {
+            json_output(400, 'Completa el formulario por favor e intenta de nuevo');
+        }
+        $id = (int) $_POST['id'];
+
+        if (!MdlUsuarios::mdlActualizarUsuario(['id' => $id], $_POST)) {
+            json_output(400, 'Hubo un problema, intenta de nuevo');
+        }
+        $data = get_by_id('usuarios', ['id' => $id])[0];
+        $user = new mdlUsuarios();
+        $user::setSessionUser($data['id'], $data['correo'], $data['nombre_apellido'], $data["perfil"], $data['id_rol']);
+        json_output(200, 'Cambios guardados con éxito', $data);
+    }
+}

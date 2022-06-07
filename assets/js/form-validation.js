@@ -38,14 +38,13 @@ $(document).ready(function () {
                     // fields to be filled
 
                     let email = user.email;
-                    let perfil = user.photoURL;
+                
                     let name = user.displayName;
                     let metodo = user.providerId.split('.')[0];
 
                     const data = new FormData();
 
                     data.append("email", email);
-                    data.append("perfil", perfil);
                     data.append("name", name);
                     data.append("metodo", metodo);
 
@@ -89,14 +88,14 @@ $(document).ready(function () {
                     // fields to be filled
 
                     let email = user.email;
-                    let perfil = user.photoURL;
+                
                     let name = user.displayName;
                     let metodo = user.providerId.split('.')[0];
 
                     const data = new FormData();
 
                     data.append("email", email);
-                    data.append("perfil", perfil);
+
                     data.append("name", name);
                     data.append("metodo", metodo);
 
