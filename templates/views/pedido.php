@@ -16,6 +16,12 @@
                     </div>
                 </div>
                 <div class="form-group row my-3">
+                    <label for="TipoEntrega" class="col-12 col-md-2 col-form-label h2">Tipo de Entrega :</label>
+                    <div class="col-12 col-md-10">
+                        <input type="text" class="form-control" id="TipoEntrega" placeholder="Tipo de entrega" name="TipoEntrega"  value="">
+                    </div>
+                </div>
+                <div class="form-group row my-3">
                     <label for="input" class="col-12 col-md-2 col-form-label h2">Fecha de Entrega:</label>
                     <div class="col-12 col-md-10">
                         <input type="date" class="form-control" id="FechaE" name="FechaE">

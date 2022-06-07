@@ -1,11 +1,3 @@
-<style>
-    @media (min-width: 576px) {
-        .modal-dialog {
-            width: 500px;
-            margin: 30px auto;
-        }
-    }
-</style>
 <div class="br-mainpanel pd-30">
     <div id="modaldemo3" class="modal fade">
         <div class="modal-dialog modal-lg" role="document">

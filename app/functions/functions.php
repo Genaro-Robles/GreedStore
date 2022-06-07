@@ -1,7 +1,5 @@
 <?php
 
-
-
 function insert_new($table, $params = [])
 {
     require_once "./app/models/conexion.php";
@@ -13,7 +11,7 @@ function insert_new($table, $params = [])
     // Ejecutamos el query y se inserta el registro
     return ($id = conexion::query_db($stmt, $params)) ? $id : false;
 }
-// USUARIOS VIDEOJUEGOS PLATAFORMAS GENEROS 50 100
+
 // INSERT INTO tabla (COLUMNAS) VALUES (VALORES A INSERTAR);
 function get_column_names($params)
 {

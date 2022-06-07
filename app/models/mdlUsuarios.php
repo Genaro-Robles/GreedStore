@@ -23,10 +23,10 @@ class MdlUsuarios
     {
         return $_SESSION;
     }
-    public static function getSessionUserName()
-    {
-        return $_SESSION['nombre'];
-    }
+        public static function getSessionUserName()
+        {
+            return $_SESSION['nombre'];
+        }
 
     public static function auth()
     {
@@ -123,5 +123,17 @@ class MdlUsuarios
     {
         $respuesta = get_by_id('usuarios', ['correo' => $array['correo']]);
         return (is_array($respuesta) && count($respuesta) > 0) ? $respuesta : false;
+    }
+
+    public static function mdlIdUsuario($correo)
+    {
+        require_once "conexion.php";
+        $stmt = Conexion::conectar()->prepare("SELECT id FROM usuarios where correo = :correo");
+        $stmt->bindParam(":correo", $correo, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = null;
     }
 }
