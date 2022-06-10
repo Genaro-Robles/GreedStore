@@ -2,15 +2,18 @@
 
 class MdlPedidos
 {
-    public static function mdlIngresarPedido($array = []){
+    public static function mdlIngresarPedido($array = [])
+    {
         return insert_new('pedidos', $array);
     }
 
-    public static function mdlIngresarDetallePedido($array = []){
+    public static function mdlIngresarDetallePedido($array = [])
+    {
         return insert_new('detallep', $array);
     }
 
-    public static function mdlUltimoPedido(){
+    public static function mdlUltimoPedido()
+    {
         $stmt = Conexion::conectar()->prepare("SELECT idpedido FROM pedidos order by idpedido desc LIMIT 1");
         $stmt->execute();
 
@@ -18,5 +21,109 @@ class MdlPedidos
 
         $stmt = null;
     }
+    public static function mdlListarPedidosTabla()
+    {
+        require_once "conexion.php";
+        $consulta = "SELECT * FROM pedidos";
+        $stmt = Conexion::conectar()->prepare($consulta);
+        $stmt->execute();
+        $salida = "";
+        if ($stmt->rowCount() > 0) {
+            $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $salida .= "<table class='table table-responsive table-bordered border-dark'>
+            <thead class='thead-colored thead-dark'>
+                <th>ID PEDIDO</th>
+                <th>ID USUARIO</th>
+                <th>FECHA PEDIDO</th>
+                <th>FECHA ENTREGA</th>
+                <th>SUBTOTAL</th>
+                <th>IGV</th>
+                <th>TOTAL</th>
+                <th>ENTREGA</th>
+                <th>ESTADO</th>
+                <th>ACCIONES</th>
+            </thead>
+            <tbody>";
+            foreach ($categorias as $key => $value) {
+                $salida .= "<tr>
+                <td>" . $value['idpedido'] . "</td>
+                <td>" . $value['idusuario'] . "</td>
+                <td>" . $value['fechaPedido'] . "</td>
+                <td>" . $value['fechaEntrega'] . "</td>
+                <td>s/." . $value['subtotal'] . "</td>
+                <td>s/." . $value['igv'] . "</td>
+                <td>s/." . $value['total'] . "</td>
+                <td>" . $value['tipoEntrega'] . "</td>
+                <td>
+                    <div class='badge text-wrap " . ($value['estado'] == 1 ? "bg-success" : "bg-danger") . "' style='width: 6rem;' id='estado'>
+                        " . ($value['estado'] == 1 ? "En proceso" : "Concluido") . "
+                    </div>
+                </td>
+                <td>
+                    <div class='d-flex flex-column gap-2'>
+                        <button class='btn btn-teal btn-view-pedido mg-b-10' data-idped='" . $value['idpedido'] . "'><i class='icon ion-eye'></i> Ver Detalles</button>
+                        <button class='btn  btn-danger btn-action-pedido' data-action='" . ($value['estado'] == 1 ? "concluir" : "proceso") . "' data-idped='" . $value['idpedido'] . "'><i class='icon ion-trash-a'></i> " . ($value['estado'] == 1 ? "Concluir" : "Reabrir") . "</button>
+                    </div>
+                </td>
+                </tr>";
+            }
+            $salida .= "</tbody>
+            </table>";
+        } else {
+            $salida .= "No hay datos";
+        }
+
+        return $salida;
+
+        $stmt = null;
+    }
+
+    public static function mdlListarPedidoDetallesTabla($id)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT d.*, pro.nombre, c.nombre_categoria, p.estado FROM detallep d inner join pedidos p on d.idpedido=p.idpedido INNER JOIN productos pro ON pro.idproducto= d.idproducto INNER JOIN categorias c ON c.idcategoria= pro.categoria where p.idpedido=:idpedido");
+        $stmt->bindParam(":idpedido", $id, PDO::PARAM_STR);
+        $stmt->execute();
+        $salida = "";
+        if ($stmt->rowCount() > 0) {
+            $detalles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $salida .= "<table class='table table-responsive table-bordered border-dark'>
+            <thead class='thead-colored thead-dark'>
+                <th>ID DETALLE</th>
+                <th>ID PRODUCTO</th>
+                <th>PRODUCTO</th>
+                <th>CATEGORIA</th>
+                <th>PRECIO UNI</th>
+                <th>CANTIDAD</th>
+                <th>IMPORTE</th>
+                <th>ESTADO</th>
+            </thead>
+            <tbody>";
+            foreach ($detalles as $key => $value) {
+                $salida .= "<tr>
+                <td>" . $value['iddetalle'] . "</td>
+                <td>" . $value['idproducto'] . "</td>
+                <td>" . $value['nombre'] . "</td>
+                <td>" . $value['nombre_categoria'] . "</td>
+                <td>s/." . $value['precioU'] . "</td>
+                <td>" . $value['cantidad'] . "</td>
+                <td>s/." . $value['importe'] . "</td>
+                <td>
+                    <div class='badge text-wrap " . ($value['estado'] == 1 ? "bg-success" : "bg-danger") . "' style='width: 6rem;' id='estado'>
+                        " . ($value['estado'] == 1 ? "En proceso" : "Concluido") . "
+                    </div>
+                </td>
+                </tr>";
+            }
+            $salida .= "</tbody>
+            </table>";
+        } else {
+            $salida .= "No hay datos";
+        }
+        return $salida;
+        $stmt = null;
+    }
+    public static function mdlActualizarPedido($key = [], $array = [])
+    {
+        return update_record('pedidos', $key, $array);
+    }
 }
-?>

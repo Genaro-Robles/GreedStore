@@ -17,6 +17,7 @@
 <script src="<?= URL_MAIN ?>assets/js/aprod.js"></script>
 <script src="<?= URL_MAIN ?>assets/js/ausers.js"></script>
 <script src="<?= URL_MAIN ?>assets/js/acat.js"></script>
+<script src="<?= URL_MAIN ?>assets/js/aped.js"></script>
 </body>
 
 </html>
