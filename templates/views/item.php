@@ -14,7 +14,6 @@ $relacionados = CtrProductos::ctrListarRelacionados($idp, $producto['categoria']
                 <div class="fs-5 mb-5" id="Precio">
                     S/.<span><?php echo $producto['precio']; ?></span>
                 </div>
-                <p class="lead"><?php echo $producto['descripcion']; ?></p>
                 <div class="d-flex justify-content-center">
                     <a class="agregar-carrito text-white btn btn-orange flex-shrink-0 " id="btnid" data-id="<?php echo $producto['idproducto']; ?>">
                         <i class="bi-cart-fill me-1"></i>
@@ -26,7 +25,7 @@ $relacionados = CtrProductos::ctrListarRelacionados($idp, $producto['categoria']
         </div>
         <div class="">
             <h3 class="fw-bolder">Detalles</h3>
-            <div class="container">
+            <div class="col">
 
                 <?php
                 $prodD = rtrim($producto['descripcion'], '/');
@@ -37,11 +36,8 @@ $relacionados = CtrProductos::ctrListarRelacionados($idp, $producto['categoria']
                 $catD = filter_var($catD, FILTER_SANITIZE_URL);
                 $catD = explode('/', $catD);
                 for ($i = 0; $i < sizeof($catD); $i++) :  ?>
-                    <div class="d-flex flex-column">
-                        <label><?= $catD[$i] ?>:</label>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <label><?= $prodD[$i] ?></label>
+                    <div class="">
+                        <label class="pe-4"><?= $catD[$i] ?>:</label><label><?= $prodD[$i] ?></label>
                     </div>
                 <?php endfor; ?>
 

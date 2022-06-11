@@ -1,6 +1,6 @@
 <div class="br-mainpanel pd-30">
     <div id="modaldemo3" class="modal fade">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg custom" role="document">
             <div class="modal-content tx-size-sm">
                 <div class="modal-header pd-x-20">
                     <h3 class="modal-title text-primary" id="exampleModalToggleLabel">Registrar Categoria</h3>

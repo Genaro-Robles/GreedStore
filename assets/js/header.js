@@ -88,35 +88,37 @@ update_usuario_perfil.addEventListener('click', (e) => {
     }
 
 })
-modal_usuario_update.addEventListener('click', (e) => {
-    e.preventDefault();
+if (modal_usuario_update) {
+    modal_usuario_update.addEventListener('click', (e) => {
+        e.preventDefault();
 
-    $.ajax({
-        type: "POST",
-        dataType: "JSON",
-        url: urlLocation + "?ruta=Usuarios/ListarUsuario",
-        data: { usuario: user_id },
-        beforeSend: function () {
-            $("#staticBackdrop").modal('show');
-            $("#staticBackdrop").waitMe();
-        }
-    }).done(function (res) {
-        $("#nombre_apellido").val(res.nombre_apellido);
-        $("#correo").val(res.correo);
-        (res.celular == null || res.celular == "") ? $("#celular").val("") : $("#celular").val(res.celular);
-        (res.direccion == null || res.direccion == "") ? $("#direccion").val("") : $("#direccion").val(res.direccion);
-        (res.dni == null || res.dni == "") ? $("#dni").val("") : $("#dni").val(res.dni);
-        (res.edad == null || res.edad == "") ? $("#edad").val("") : $("#edad").val(res.edad);
-        $("#img-avatar").attr("src", urlLocation + uploads + res.perfil);
-        $("#perfil_anterior").val(res.perfil);
+        $.ajax({
+            type: "POST",
+            dataType: "JSON",
+            url: urlLocation + "?ruta=Usuarios/ListarUsuario",
+            data: { usuario: user_id },
+            beforeSend: function () {
+                $("#staticBackdrop").modal('show');
+                $("#staticBackdrop").waitMe();
+            }
+        }).done(function (res) {
+            $("#nombre_apellido").val(res.nombre_apellido);
+            $("#correo").val(res.correo);
+            (res.celular == null || res.celular == "") ? $("#celular").val("") : $("#celular").val(res.celular);
+            (res.direccion == null || res.direccion == "") ? $("#direccion").val("") : $("#direccion").val(res.direccion);
+            (res.dni == null || res.dni == "") ? $("#dni").val("") : $("#dni").val(res.dni);
+            (res.edad == null || res.edad == "") ? $("#edad").val("") : $("#edad").val(res.edad);
+            $("#img-avatar").attr("src", urlLocation + uploads + res.perfil);
+            $("#perfil_anterior").val(res.perfil);
 
-    }).fail(function (err) {
+        }).fail(function (err) {
 
-    }).always(function () {
-        $("#staticBackdrop").waitMe('hide');
+        }).always(function () {
+            $("#staticBackdrop").waitMe('hide');
+        });
     });
-});
 
+}
 btn_delete_product_cart.forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();

@@ -63,5 +63,47 @@ class CtrPedidos
         $idp = mdlPedidos::mdlUltimoPedido();
         return MdlPedidos::mdlGetDetallesBoleta($idp['idpedido']);
     }
+    
+    public static function ctrListarPedidoDetallesTabla()
+    {   
+        if (!isset($_POST['idpedido'])) {
+            json_output(400, 'Completa el formulario por favor e intenta de nuevo');
+        }
+        $id = (int) $_POST['idpedido'];
+
+        $respuesta = MdlPedidos::mdlListarPedidoDetallesTabla($id);
+
+        echo $respuesta;
+    }
+    public static function ctrListarPedidosTabla()
+    {
+        $respuesta = MdlPedidos::mdlListarPedidosTabla();
+        echo $respuesta;
+    }
+    public static function ctrEstadoPedido()
+    {
+        if (!isset($_POST['idpedido'], $_POST['action'])) {
+            json_output(400, 'Completa el formulario por favor e intenta de nuevo');
+        }
+        $pedido = [];
+
+        $action_msg = $_POST['action'] == 'concluir' ? 'Pedido cerrado' : 'Pedido reabierto';
+
+        $id = (int) $_POST['idpedido'];
+
+        if ($_POST['action'] == 'concluir') {
+            $pedido = [
+                'estado'    => '0',
+            ];
+        } else {
+            $pedido = [
+                'estado'    => '1',
+            ];
+        }
+
+        if (!Mdlpedidos::mdlActualizarPedido(['idpedido' => $id], $pedido)) {
+            json_output(400, 'Hubo un problema, intenta de nuevo');
+        }
+        json_output(201,  $action_msg . ' correctamente', ['action' => $action_msg . '!']);
+    }
 }
-?>
