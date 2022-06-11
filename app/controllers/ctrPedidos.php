@@ -52,9 +52,16 @@ class CtrPedidos
         json_output(201, 'Nuevo detalle agregado con éxito');
     }
 
-    public static function ctrPruebaUsuario()
+    public static function ctrGetBoleta()
     {
-              
+        $idp = mdlPedidos::mdlUltimoPedido();
+        return MdlPedidos::mdlGetPedidoBoleta($idp['idpedido']);
+    }
+
+    public static function ctrGetDetallesBoleta()
+    {
+        $idp = mdlPedidos::mdlUltimoPedido();
+        return MdlPedidos::mdlGetDetallesBoleta($idp['idpedido']);
     }
 }
 ?>

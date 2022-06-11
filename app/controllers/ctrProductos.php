@@ -25,6 +25,16 @@ class CtrProductos
 
         return $respuesta;
     }
+
+    public static function ctrNombreItem($id)
+    {
+
+        $respuesta = MdlProductos::mdlListarItem($id);
+        $nombre = $respuesta['nombre'];
+
+        return $nombre;
+    }
+
     public static function ctrListarItemAJAX()
     {
         if (isset($_POST['producto'])) {

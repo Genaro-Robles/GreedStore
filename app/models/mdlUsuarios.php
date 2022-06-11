@@ -17,7 +17,7 @@ class MdlUsuarios
         $_SESSION['nombre'] = $nombre;
         $_SESSION['rol'] = $rol;
         $_SESSION['login'] = true;
-        $_SESSION['perfil'] = $perfil ?? "";
+        $_SESSION['perfil'] = $perfil ?? "default-profile.jpg";
     }
     public static function getSessionUser()
     {

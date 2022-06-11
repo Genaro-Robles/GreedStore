@@ -83,5 +83,7 @@ class Conexion
             return false;
         }
         return true;
+        $con=null;
+        $query=null;
     }
 }

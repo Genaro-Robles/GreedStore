@@ -18,5 +18,27 @@ class MdlPedidos
 
         $stmt = null;
     }
+
+    public static function mdlGetDetallesBoleta($idp){
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM detallep where idpedido = :idpedido");
+        $stmt->bindParam(":idpedido", $idp, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt = null;
+    }
+
+    public static function mdlGetPedidoBoleta($idp){
+        
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM pedidos where idpedido = :idpedido");
+        $stmt->bindParam(":idpedido", $idp, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = null;
+    }
+    
 }
 ?>

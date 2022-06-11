@@ -11,6 +11,11 @@ require_once "app/models/mdlUsuarios.php";
 require_once "app/controllers/ctrUsuarios.php";
 require_once "app/models/mdlPedidos.php";
 require_once "app/controllers/ctrPedidos.php";
+require 'assets/libs/PHPMailer/SMTP.php';
+require 'assets/libs/PHPMailer/Exception.php';
+require 'assets/libs/PHPMailer/PHPMailer.php';
+require "assets/libs/FPDF/fpdf.php";
+
 $ListCat = CtrCategorias::ctrListar('');
 configuracion::configuracion_inicial();
 
@@ -20,7 +25,7 @@ if (isset($_GET['view'])) {
     $url = rtrim($get, '/');
     $url = filter_var($url, FILTER_SANITIZE_URL);
     $url2 = explode('/', $url);
-    $excluidos = array('login', 'admin');
+    $excluidos = array('login', 'admin','enviarboleta');
 
     if (!in_array($url2[0], $excluidos)) {
         include 'templates/includes/header.php';

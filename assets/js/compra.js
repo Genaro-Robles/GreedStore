@@ -64,7 +64,7 @@ function procesarCompra(e) {
             window.location.href = urlLocation;
         })
     }
-    else if ($('#cliente').val() === '' || $('#correo').val() === '') {
+    else if ($('#cliente').val() == '') {
         e.preventDefault();
         Swal.fire({
             icon: 'error',
@@ -74,7 +74,7 @@ function procesarCompra(e) {
             timer: 2000
         })
     }
-    else if ($('#FechaE').val() === '') {
+    else if ($('#FechaE').val() == '') {
         e.preventDefault();
         Swal.fire({
             icon: 'error',
@@ -99,12 +99,5 @@ function procesarCompra(e) {
             Swal.fire('Compra cancelada', '', 'info')
           }
         })
-        /*
-        Swal.fire({
-            icon: 'info',
-            title: 'LISTO!',
-            text: 'Compra realizada con exito',
-        })*/
-        //compra.EnviarLocalStorageCompra();
     }
 }

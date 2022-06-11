@@ -234,42 +234,59 @@ class Carrito {
     }
 
     //Enviar los productos a la base de datos en php
-   
-    async EnviarLocalStorageCompra(){
-        
-        var formdatos = $('#procesar-pago').serialize();
- 
-        await $.ajax({
-              url: urlLocation + "?ruta=Pedidos/AgregarPedido",
-              type: 'POST',
-              data: formdatos,
-              success:function(r){
-                    alert("Agregado con exito Pedido: "+r);
-                    //console.log(r);
-              }
-          });
-        
-        let productosLS2;
-        productosLS2 = this.obtenerProductosLocalStorage();
-        productosLS2.forEach(function (producto){    
-        
-          var id = producto.id
-          var precio = producto.precio
-          var cantidad = producto.cantidad
-          var importe = (precio * cantidad)
-          
- 
-          var datos = {"idproducto":id,"precio":precio,"importe":importe,"cantidad":cantidad};
 
-          $.ajax({
-              url: urlLocation + "?ruta=Pedidos/AgregarDetallePedido",
-              type: 'POST',
-              data: datos,
-              success:function(r){
-                    alert("Agregado con exito Detalle: "+r);
+    async EnviarLocalStorageCompra() {
+
+        var formdatos = $('#procesar-pago').serialize();
+
+        await $.ajax({
+            url: urlLocation + "?ruta=Pedidos/AgregarPedido",
+            type: 'POST',
+            data: formdatos,
+            success: function (r) {
+                //alert("Agregado con exito Pedido: " + r);
+                //console.log(r);
             }
         });
+
+        let productosLS2;
+        productosLS2 = this.obtenerProductosLocalStorage();
+        await productosLS2.forEach(function (producto) {
+
+            var id = producto.id
+            var precio = producto.precio
+            var cantidad = producto.cantidad
+            var importe = (precio * cantidad)
+
+
+            var datos = { "idproducto": id, "precio": precio, "importe": importe, "cantidad": cantidad };
+
+            $.ajax({
+                url: urlLocation + "?ruta=Pedidos/AgregarDetallePedido",
+                type: 'POST',
+                data: datos,
+                success: function (r) {
+                    //alert("Agregado con exito Detalle: " + r);
+                }
+            });
         });
+        // MANDAR BOLETA ELECTRONICA AL CORREO
+        
+        
+        await $.ajax({
+            url: urlLocation + "/enviarBoleta",
+            type: 'POST',
+            data: { "pedido" : "nuevo"},
+            success: function (r) {
+                
+                Swal.fire(
+                    'Pedido Realizado!',
+                    'Se te enviara tu boleta electronica a tu correo',
+                    'success'
+                  )
+            }
+        });
+        
     }
 
     //Eliminar producto por ID del LS

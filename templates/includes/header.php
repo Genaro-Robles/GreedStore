@@ -73,13 +73,12 @@ $perfil = CtrUsuarios::ObtenerSession();
                         </li>
                         <?php
                         if (CtrUsuarios::VerificarSession()) :
-
                         ?>
                             <li class="d-flex justify-content-evenly align-items-center">
 
                                 <div class="dropdown">
                                     <a class="btn dropdown-toggle btn btn-header" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="<?= URL_MAIN . UPLOADS . $perfil["perfil"] ?>" alt="mdo" width="32" height="32" class="rounded-circle" id="img-circle">
+                                        <img src="<?= URL_MAIN . UPLOADS . $perfil["perfil"] ?>" alt="" width="32" height="32" class="rounded-circle" id="img-circle">
                                         <?php echo $perfil["nombre"] ?>
                                     </a>
 
