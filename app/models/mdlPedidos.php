@@ -22,7 +22,8 @@ class MdlPedidos
         $stmt = null;
     }
 
-    public static function mdlGetDetallesBoleta($idp){
+    public static function mdlGetDetallesBoleta($idp)
+    {
         $stmt = Conexion::conectar()->prepare("SELECT * FROM detallep where idpedido = :idpedido");
         $stmt->bindParam(":idpedido", $idp, PDO::PARAM_STR);
         $stmt->execute();
@@ -30,8 +31,9 @@ class MdlPedidos
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function mdlGetPedidoBoleta($idp){
-        
+    public static function mdlGetPedidoBoleta($idp)
+    {
+
         $stmt = Conexion::conectar()->prepare("SELECT * FROM pedidos where idpedido = :idpedido");
         $stmt->bindParam(":idpedido", $idp, PDO::PARAM_STR);
         $stmt->execute();
@@ -40,7 +42,7 @@ class MdlPedidos
 
         $stmt = null;
     }
-    
+
     public static function mdlListarPedidosTabla()
     {
         require_once "conexion.php";
@@ -97,7 +99,7 @@ class MdlPedidos
 
         $stmt = null;
     }
-    
+
     public static function mdlListarPedidoDetallesTabla($id)
     {
         $stmt = Conexion::conectar()->prepare("SELECT d.*, pro.nombre, c.nombre_categoria, p.estado FROM detallep d inner join pedidos p on d.idpedido=p.idpedido INNER JOIN productos pro ON pro.idproducto= d.idproducto INNER JOIN categorias c ON c.idcategoria= pro.categoria where p.idpedido=:idpedido");
@@ -145,5 +147,62 @@ class MdlPedidos
     public static function mdlActualizarPedido($key = [], $array = [])
     {
         return update_record('pedidos', $key, $array);
+    }
+
+    public static function mdlContadorPedidos($condicion)
+    {
+        if ($condicion == "anual") {
+            $stmt = Conexion::conectar()->prepare("SELECT COUNT(*) FROM pedidos where YEAR(fechaPedido)=YEAR(NOW())");
+        } else if ($condicion == "mensual") {
+            $stmt = Conexion::conectar()->prepare("SELECT COUNT(*) FROM pedidos where MONTH(fechaPedido)=MONTH(NOW()) AND YEAR(fechaPedido)=YEAR(NOW())");
+        } else if ($condicion == "totales") {
+            $stmt = Conexion::conectar()->prepare("SELECT COUNT(*) FROM pedidos");
+        }
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = null;
+    }
+
+    public static function mdlIngresosPedidos($condicion)
+    {
+        if ($condicion == "anual") {
+            $stmt = Conexion::conectar()->prepare("SELECT SUM(total) FROM pedidos where YEAR(fechaPedido)=YEAR(NOW())");
+        } else if ($condicion == "mensual") {
+            $stmt = Conexion::conectar()->prepare("SELECT SUM(total)  FROM pedidos where MONTH(fechaPedido)=MONTH(NOW()) AND YEAR(fechaPedido)=YEAR(NOW())");
+        } else if ($condicion == "totales") {
+            $stmt = Conexion::conectar()->prepare("SELECT SUM(total) FROM pedidos");
+        }
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = null;
+    }
+
+    public static function mdlPedidosDashboard($limit)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM pedidos order by idpedido desc LIMIT :limite");
+        $stmt->bindParam(":limite", $limit, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt = null;
+    }
+
+    public static function mdlUltimoProdCat($tabla)
+    {
+        if ($tabla == "productos") {
+        $stmt = Conexion::conectar()->prepare("SELECT *  FROM productos order by idproducto desc LIMIT 1");
+        } else if ($tabla == "categorias") {
+            $stmt = Conexion::conectar()->prepare("SELECT *  FROM categorias order by idcategoria desc LIMIT 1");
+        }
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = null;
     }
 }

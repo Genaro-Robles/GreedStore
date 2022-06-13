@@ -106,4 +106,26 @@ class CtrPedidos
         }
         json_output(201,  $action_msg . ' correctamente', ['action' => $action_msg . '!']);
     }
+
+    public static function ctrContadorPedidos($condicion)
+    {
+        $cant = MdlPedidos::mdlContadorPedidos($condicion);
+        return $cant['COUNT(*)'];
+    }
+
+    public static function ctrIngresosPedidos($condicion)
+    {
+        $sum = MdlPedidos::mdlIngresosPedidos($condicion);
+        return $sum['SUM(total)'];
+    }
+
+    public static function ctrPedidosDashboard($limit)
+    {
+        return MdlPedidos::mdlPedidosDashboard($limit);
+    }
+
+    public static function ctrUltimoProdCat($tabla)
+    {
+        return MdlPedidos::mdlUltimoProdCat($tabla);
+    }
 }
