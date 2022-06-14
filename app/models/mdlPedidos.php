@@ -184,7 +184,7 @@ class MdlPedidos
     public static function mdlPedidosDashboard($limit)
     {
         $stmt = Conexion::conectar()->prepare("SELECT * FROM pedidos order by idpedido desc LIMIT :limite");
-        $stmt->bindParam(":limite", $limit, PDO::PARAM_STR);
+        $stmt->bindParam(":limite", $limit, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

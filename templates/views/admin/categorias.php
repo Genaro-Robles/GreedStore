@@ -1,3 +1,11 @@
+<?php 
+
+    $contadorPedidos = CtrPedidos::ctrContadorPedidos("mensual");
+    var_dump($contadorPedidos);
+
+?>
+
+
 <div class="br-mainpanel pd-30">
     <div id="modaldemo3" class="modal fade">
         <div class="modal-dialog modal-lg custom" role="document">

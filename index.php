@@ -17,6 +17,7 @@ require 'assets/libs/PHPMailer/PHPMailer.php';
 require "assets/libs/FPDF/fpdf.php";
 
 $ListCat = CtrCategorias::ctrListar('');
+$error404 = 'templates/includes/404.php';
 configuracion::configuracion_inicial();
 
 if (isset($_GET['view'])) {
@@ -48,7 +49,7 @@ if (isset($_GET['view'])) {
 
             include $file;
         } else {
-            echo 'error no existe 1';
+            include $error404;
         }
     } else if (sizeof($url2) == 2) {
         if (is_numeric($url2[1])) {
@@ -60,24 +61,24 @@ if (isset($_GET['view'])) {
         if (file_exists($file)) {
             include $file;
         } else {
-            echo 'no existe 2';
+            include $error404;
         }
     } else if (sizeof($url2) == 3) {
         $file = "templates/views/" . $url2[0] . "/" . $url2[1] . "/" . $url2[2] . ".php";
         if (file_exists($file)) {
             include $file;
         } else {
-            echo 'error';
+            include $error404;
         }
     } else if (sizeof($url2) == 4) {
         $file = "templates/views/" . $url2[0] . "/" . $url2[1] . "/" . $url2[2] . "/" . $url2[3] . ".php";
         if (file_exists($file)) {
             include $file;
         } else {
-            echo 'error';
+            include $error404;
         }
     } else {
-        echo 'error';
+        include $error404;
     }
     if (!in_array($url2[0], $excluidos)) {
         include 'templates/includes/footer.php';

@@ -115,12 +115,12 @@
                 <div class="column-footer-content">
                     <ul class="list-unstyled">
                         <li>
-                            <a rel="nofollow" title="App Mobile Android" class="d-flex align-items-center" href="http://app.app4less.es/app/pccomponentes?campaign=footer" target="_blank">
+                            <a rel="nofollow" title="App Mobile Android" class="d-flex align-items-center" href="" target="_blank">
                                 <div class="footer-app-img-container"><img class="img-fluid" src="//cdn.pccomponentes.com/img/repositorio/otros/android_opt.svg" alt="" style="max-height: 58px; margin-right: 5px; display: inline-block; height: 21px;"></div><span class="mkt-footer-link" style="text-align: left" title="Descarga app Google Play">Descarga app Google Play </span>
                             </a>
                         </li>
                         <li>
-                            <a rel="nofollow" title="App Mobile IOS" class="d-flex align-items-center" href="http://app.app4less.es/app/pccomponentes?campaign=footer" target="_blank">
+                            <a rel="nofollow" title="App Mobile IOS" class="d-flex align-items-center" href="" target="_blank">
                                 <div class="footer-app-img-container"><img class="img-fluid" src="//cdn.pccomponentes.com/img/repositorio/otros/apple_opt.svg" alt="" style="max-width:21px;max-height:28px;margin-right:4px;display:inline-block;width:20px;"></div><span class="mkt-footer-link" style="text-align: left" title="Descarga app en App Store">Descarga app en App Store</span>
                             </a>
                         </li>

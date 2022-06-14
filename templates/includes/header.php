@@ -14,7 +14,15 @@ $perfil = CtrUsuarios::ObtenerSession();
     <meta name="user" content="<?php echo (isset($perfil['id'])) ? $perfil["id"] : "null" ?>">
     <title>GreedStore Homepage</title>
     <!-- Favicon-->
-    <link rel="shortcut icon" href="<?=URL_MAIN?>assets/img/logo-bg-min.png">
+    <link href="<?= URL_MAIN ?>assets/admin/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="<?= URL_MAIN ?>assets/admin/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+
+
+    <link href="<?= URL_MAIN ?>assets/admin/lib/select2/css/select2.min.css" rel="stylesheet">
+
+    <link href="<?= URL_MAIN ?>assets/admin/css/bracket.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= URL_MAIN ?>assets/css/waitme.css">
+    <link rel="shortcut icon" href="<?= URL_MAIN ?>assets/img/logo-bg-min.png">
     <!-- iconscout-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <!-- Bootstrap icons-->
