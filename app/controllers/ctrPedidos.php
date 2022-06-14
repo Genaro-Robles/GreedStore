@@ -121,7 +121,8 @@ class CtrPedidos
 
     public static function ctrPedidosDashboard($limit)
     {
-        return MdlPedidos::mdlPedidosDashboard($limit);
+        $respuesta = MdlPedidos::mdlPedidosDashboard($limit);
+        return $respuesta;
     }
 
     public static function ctrUltimoProdCat($tabla)

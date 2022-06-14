@@ -4,6 +4,9 @@ if (isset($cat)) {
 } else {
   $productos = CtrProductos::ctrListar('');
 }
+
+$asd = CtrPedidos::ctrPedidosDashboard(5);
+var_dump($asd);
 ?>
 <!-- MAIN-->
 <main class="py-1">
