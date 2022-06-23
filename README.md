@@ -10,6 +10,7 @@ en caso incumplan normas. En el apartado de pedidos podemos podremos revisar ade
 
 # Recomendaciones
 - Verificar la correcta implementacion de la base de datos "greedstore_db"
+- Modificar las credenciales de acceso en el archivo "enviar_boleta.php" para el envio correcto de la boleta.
 
 # Vistas
 
